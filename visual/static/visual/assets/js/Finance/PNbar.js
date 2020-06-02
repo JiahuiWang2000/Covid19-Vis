@@ -5,7 +5,7 @@ function PNbar(id,datasets,choose){
 
     var data = { //标准参数
         id: 'multipleThree',
-        barWidth: 15,
+        barWidth: 8,
         yAxis: ["202003","202002","201912","201911","201910","201909","201908","201907","201906","201905","201904","201903","201902","201901"],
         xAxis: datasets,
         color: ['#5e94dd', '#f54545'],

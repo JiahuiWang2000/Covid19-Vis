@@ -35,16 +35,29 @@ function AreaStack(id,datasets){
                 }
             ],
         color:["#24caf1","#189a65","#fc4a1a","#f7b733"],
-        legend: {
-            y:"top",
+        legend: [{
+            y:5,
             itemWidth: 7,
             itemHeight: 7,
             textStyle:{
                 color:'#89A7AF',
             },
             show: true,
-            data: ['2019年国家财政收入累计值', '2019年国家财政支出累计值', '2020年国家财政收入累计值', '2020年国家财政支出累计值']
+            data: ['2019年国家财政收入累计值', '2019年国家财政支出累计值']
         },
+            {
+                y:20,
+                itemWidth: 7,
+                itemHeight: 7,
+                textStyle:{
+                    color:'#89A7AF',
+                },
+                show: true,
+                data: [ '2020年国家财政收入累计值', '2020年国家财政支出累计值']
+            },
+
+        ],
+
         toolbox: {
             feature: {
                 saveAsImage: {}

@@ -6,7 +6,6 @@ function PieDoughnut(id,choosemonth){
     var rawdata2=[10.1,8.8,8.4,8.7,8.2,8.4,8.4,8.2,8.1,8.5,8.5,8.5,8.6];
 
     var datasets=[rawdata0[choosemonth],rawdata1[choosemonth],rawdata2[choosemonth]];
-    console.log(datasets);
 
     var dom = document.getElementById(id);
     var myChart = echarts.init(dom);
@@ -17,12 +16,13 @@ function PieDoughnut(id,choosemonth){
             trigger: 'item',
             formatter: '{a} <br/>{b}: {c}% '
         },
-        color:['#003366', '#006699', '#4cabce'],
+        color: [ '#006699','#227bbb', '#4cabce'],
         legend: {
-            y:"bottom",
-            x:120,
-            itemWidth: 20,
-            itemHeight: 16,
+            x:"right",
+            y:"center",
+            itemWidth: 8,
+            itemHeight: 8,
+            orient: 'vertical',
             textStyle:{
                 color:'#89A7AF',
             },

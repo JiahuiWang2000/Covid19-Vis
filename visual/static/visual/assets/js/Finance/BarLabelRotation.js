@@ -13,7 +13,7 @@ function BarLabelRotation(id,datasets){
 
 
     option = {
-        color: ['#003366', '#006699', '#4cabce'],
+        color: [ '#006699','#227bbb', '#4cabce'],
         tooltip: {
             trigger: 'axis',
             axisPointer: {
@@ -21,8 +21,7 @@ function BarLabelRotation(id,datasets){
             }
         },
         legend: {
-            y:"top",
-            left:320,
+            y:20,
             itemWidth: 20,
             itemHeight: 16,
             textStyle:{
@@ -40,8 +39,6 @@ function BarLabelRotation(id,datasets){
                 mark: {show: true},
                 dataView: {show: true, readOnly: false},
                 magicType: {show: true, type: ['line', 'bar', 'stack', 'tiled']},
-                restore: {show: true},
-                saveAsImage: {show: true}
             }
         },
         xAxis: [

@@ -60,7 +60,7 @@ var option = {
         },
         grid: [{
             show: false,
-            left: '5%',
+            left: '2%',
             top: '10%',
             bottom: '8%',
             containLabel: true,
@@ -68,12 +68,12 @@ var option = {
         }, {
             show: false,
             left: '52%',
-            top: '16%',
+            top: '10%',
             bottom: '7%',
             width: '2%'
         }, {
             show: false,
-            right: '5%',
+            right: '2%',
             top: '10%',
             bottom: '8%',
             containLabel: true,
@@ -91,7 +91,7 @@ var option = {
             },
             position: 'top',
             axisLabel: {
-                show: true,
+                show: false,
                 color: textColor,
 
                     formatter: function (value) {
@@ -153,7 +153,7 @@ var option = {
 
                     return res[0]+"."+res[1]+"E"+num1.toString();
                 },
-                show: true,
+                show: false,
                 color: textColor
             },
             splitLine:{
@@ -248,7 +248,7 @@ option.options.push({
     series: [{
         name: "进口",
         type: "bar",
-        barWidth: 15,
+        barWidth: 10,
         stack: "1",
         itemStyle: {
             normal: {
@@ -275,7 +275,7 @@ option.options.push({
             name: "出口",
             type: "bar",
             stack: "2",
-            barWidth: 15,
+            barWidth: 10,
             xAxisIndex: 2,
             yAxisIndex: 2,
             itemStyle: {

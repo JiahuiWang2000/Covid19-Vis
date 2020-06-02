@@ -107,9 +107,6 @@ function Finance() {
         }
 
 
-      /* initChart */
-        let chartA_item = document.querySelectorAll('[data-chart="animated"]');
-        initChart(chartA_item);
 
     }
 
