@@ -6,12 +6,11 @@
     <title>疫情可视化分析系统</title>
 
     {% load static %}
+    {% load static %}
     <!-- CSS -->
     <link href={% static "visual/assets/css/fonts/fontawesome/all.min.css" %} rel="stylesheet">
     <link href={% static "visual/assets/css/fonts/beid.css" %} rel="stylesheet">
     <link href={% static "visual/assets/css/styles.css" %} rel="stylesheet">
-
-
 
     <!-- JQVMAP -->
     <link href={% static "visual/assets/plugins/jqvmap/jqvmap.min.css" %} rel="stylesheet">
@@ -19,23 +18,19 @@
     <!-- dateRangePicker -->
     <link href={% static "visual/assets/plugins/daterangepicker/daterangepicker.css" %} rel="stylesheet">
 
-
-
     <!-- Fonts -->
     <link href={% static "visual/assets/fonts/inter/inter.css" %} rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i,800,800i" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
 
-    <!--[if lt IE 9]>
-    <script src="http://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
-    <script src="http://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
-
-
-        <!-- jQuery -->
+    <!-- jQuery -->
     <script src={% static "visual/assets/js/jquery.min.js" %}></script>
-    <!--echarts-->
-    <script type="text/javascript" src={% static "visual/assets/js/echarts.js" %}></script>
 
+    <!--echarts-->
+    <script type="text/javascript" src={% static "visual/assets/plugins/echarts/echarts2.js" %}></script>
+
+    <!--d3-->
+    <script type="text/javascript" src={% static "visual/assets/plugins/d3/d3.v5.js" %}></script>
 
     <!-- Bootstrap -->
     <script src={% static "visual/assets/js/bootstrap.min.js" %}></script>
@@ -55,8 +50,6 @@
     <!-- User JS -->
     <script src={% static "visual/assets/js/scripts.js" %}></script>
 
-
-
     <!-- Modules -->
     <!--    <script src="assets/js/modules.js"></script>-->
 
@@ -69,9 +62,9 @@
     <script src={% static "visual/assets/js/Estate/AreaStack.js" %}></script>
     <script src={% static "visual/assets/js/Estate/AreaStack.js" %}></script>
     <script src={% static "visual/assets/js/Estate/BarLabelRotation.js" %}></script>
+    <script src={% static "visual/assets/js/Estate/china.js" %}></script>
+    <script src={% static "visual/assets/js/Estate/map.js" %}></script>
 
-    <script src={% static "visual/assets/js/map/china.js" %}></script>
-    <script src={% static "visual/assets/js/map/chinaMap.js" %}></script>
 
 
     <style>
@@ -84,12 +77,6 @@
 
     </style>
 
-    <script>
-        //var array={{test|safe}};
-        //console.log(array)
-
-        Estate("全国");
-    </script>
 </head>
 
 <body>
@@ -256,25 +243,31 @@
                     </div>
 
 
-                    <div style="position:absolute; z-index: 99999;">
-                        <select id="ProvinceSelect" class="form-control" >
-                            <option value="全国">全国</option>
-                            <option value="浙江">浙江</option>
-                            <option value="上海">上海</option>
-                        </select>
+                    <div id="button1" style="position:absolute;left:20px;top:20px;width:80px;height:30px;z-index: 100000;">
+                        <input type="button" class="ant-btn ant-btn-blue" value="全国概况"  />
                     </div>
 
-                    <div id="ChinaMap" style="z-index:99999;position:absolute;top:20px;left:0px;width:370px;height:270px; border:1px solid #ddd;"></div>
+                    <div  style="position:absolute;left:110px;top:20px;width:80px;height:30px;z-index: 100000;">
+                        <input id="button2" type="button" class="ant-btn ant-btn-blue" value="分省详情"  />
+                    </div>
 
                     <script>
-                        var select=document.getElementById("ProvinceSelect");
-
-                        select.onchange=function(){
-                            var sel=document.getElementById("ProvinceSelect");
-                            var province=sel.options[sel.options.selectedIndex].value;
-                            Estate(province);
+                        var select=document.getElementById("button1");
+                        select.onclick=function(){
+                            Estate("全国");
                         };
+                    </script>
 
+
+                    <div style="position:absolute; top: 5px; left: -15px; z-index: 99999;">
+                        <div id="drawMap"  width="400" height="315"></div>
+                    </div>
+
+
+                    <script>
+                        drawChinamap();
+                        setTimeout(function () {
+                        Estate("全国"); }, 1);
                     </script>
 
                     <!--内发光-->

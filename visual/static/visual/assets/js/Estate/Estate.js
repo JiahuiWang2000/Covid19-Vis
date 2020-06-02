@@ -13,6 +13,23 @@ const	glowLineLightColor = "#ffffff",
 
 /* [ charts ] */
 function Estate(province) {
+    var sel=document.getElementById("monthSelect");
+    sel.options[0].selected = true;
+
+    var rad0=document.getElementById("radio0");
+    var rad1=document.getElementById("radio1");
+    var rad2=document.getElementById("radio2");
+    rad0.checked=true;
+    rad1.checked=false;
+    rad2.checked=false;
+
+    var rad0=document.getElementById("radio00");
+    var rad1=document.getElementById("radio11");
+    var rad2=document.getElementById("radio22");
+    rad0.checked=true;
+    rad1.checked=false;
+    rad2.checked=false;
+
 
     $.ajax({
         url:"getdata",
