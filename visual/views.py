@@ -13,6 +13,41 @@ def index(request):
         data.append(int(data_list[i][1]))
     return render(request, 'visual/index.html', {'covid':data})
 
+
+def newindexGDP(request):
+    csv_path='data\cost.csv'
+    with open(csv_path,'r',encoding='gbk')as fp:
+        data_list = [i for i in csv.reader(fp)]
+    data=[]
+    sub=[]
+    subsub=[]
+    for i in range(9):
+        sub=[];
+        for j in range(31):
+            subsub=[]
+            for k in range(len(data_list[0])-2):
+                subsub.append(data_list[j*9+i+1][k+2])
+            sub.append(subsub)
+        data.append(sub)
+    return render(request, 'visual/GDP.html', {'test':data})
+
+def newindexProducts(request):
+    csv_path='data\cost.csv'
+    with open(csv_path,'r',encoding='gbk')as fp:
+        data_list = [i for i in csv.reader(fp)]
+    data=[]
+    sub=[]
+    subsub=[]
+    for i in range(9):
+        sub=[];
+        for j in range(31):
+            subsub=[]
+            for k in range(len(data_list[0])-2):
+                subsub.append(data_list[j*9+i+1][k+2])
+            sub.append(subsub)
+        data.append(sub)
+    return render(request, 'visual/Products.html', {'test':data})
+
 def getCovidData(request):
     if request.method=='GET':
         month=request.GET.get("month")
@@ -37,7 +72,6 @@ def getCovidData(request):
             data.append(int(data_list[i][int(mode)+1]))
         return JsonResponse({"covid":data})
         
-
 def getproducttreemap(request):
     if request.method=='GET':
         province=request.GET.get("province")
