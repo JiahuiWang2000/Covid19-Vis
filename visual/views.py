@@ -36,3 +36,77 @@ def getCovidData(request):
         for i in range(len(data_list)):
             data.append(int(data_list[i][int(mode)+1]))
         return JsonResponse({"covid":data})
+        
+
+def getproducttreemap(request):
+    if request.method=='GET':
+        province=request.GET.get("province")
+        time=int(request.GET.get("time"))
+        csv_path='data\product.csv'
+        with open(csv_path,'r',encoding='gbk')as fp:
+            data_list = [i for i in csv.reader(fp)]
+        data=[]
+        for i in range(0, len(data_list), 2):
+            if data_list[i][0]==province:
+                data.append({"name":data_list[i][1], "value":data_list[i][26-time]})
+        return JsonResponse({"data":data})
+
+def getproductrank1(request):
+    if request.method=='GET':
+        product=request.GET.get("product")
+        time=int(request.GET.get("time"))
+        csv_path='data\product.csv'
+        with open(csv_path,'r',encoding='gbk')as fp:
+            data_list = [i for i in csv.reader(fp)]
+        data=[]
+        for i in range(0, len(data_list), 2):
+            if data_list[i][1]==product:
+                data.append({"key":data_list[i][0], "value":float(data_list[i][26-time])})
+        data = sorted(data, key=lambda i: i['value'])
+        return JsonResponse({"data":data})
+
+def getproductrank2(request):
+    if request.method=='GET':
+        product=request.GET.get("product")
+        time=int(request.GET.get("time"))
+        csv_path='data\product.csv'
+        with open(csv_path,'r',encoding='gbk')as fp:
+            data_list = [i for i in csv.reader(fp)]
+        data=[]
+        for i in range(1, len(data_list), 2):
+            if data_list[i][1]==product:
+                data.append({"key":data_list[i][0], "value":float(data_list[i][26-time])})
+        data = sorted(data, key=lambda i: i['value'])
+        return JsonResponse({"data":data})
+
+def getproductbar(request):
+    if request.method=='GET':
+        province=request.GET.get("province")
+        product=request.GET.get("product")
+        csv_path='data\product.csv'
+        with open(csv_path,'r',encoding='gbk')as fp:
+            data_list = [i for i in csv.reader(fp)]
+        data=[]
+        for i in range(0, len(data_list), 2):
+            if data_list[i][0]==province and data_list[i][1]==product:
+                for j in range(1, 25):
+                    data.append(float(data_list[i][26-j]))
+        return JsonResponse({"data":data})
+
+def getgdpbar(request):
+    if request.method=='GET':
+        province=request.GET.get("province")
+        csv_path='data\gdp.csv'
+        with open(csv_path,'r',encoding='gbk')as fp:
+            data_list = [i for i in csv.reader(fp)]
+        data1=[]
+        data2=[]
+        for i in range(0, len(data_list), 2):
+            if data_list[i][0]==province:
+                for j in range(1, 13):
+                    data1.append(float(data_list[i][14-j]))
+        for i in range(1, len(data_list), 2):
+            if data_list[i][0]==province:
+                for j in range(1, 13):
+                    data2.append(float(data_list[i][14-j]))
+        return JsonResponse({"data1":data1, "data2":data2})
