@@ -1,0 +1,184 @@
+/*frame*/
+.l_t_line{
+  width: 5px;
+  height: 24px;
+  left: -3px;
+  top: -3px;
+}
+.t_l_line{
+  height: 5px;
+  width: 26px;
+  left: -3px;
+  top: -3px;
+}
+.t_line_box {
+  position: absolute;
+  z-index: 1;
+  width: 100%;
+  height: 100%;
+}
+.t_line_box i{
+  background-color: #4788fb;
+  box-shadow: 0px 0px 10px #4788fb;
+  position: absolute;
+}
+.t_r_line{
+  height: 5px;
+  width: 26px;
+  right: -3px;
+  top: -3px;
+}
+.t_title {
+  width: 100%;
+  height: 100%;
+  text-align: center;
+  font-size: 2.5em;
+  line-height: 80px;
+  color: #fff;
+}
+.r_t_line{
+  width: 5px;
+  height: 24px;
+  right: -3px;
+  top: -3px;
+}
+.l_b_line{
+  width: 5px;
+  height: 24px;
+  left: -3px;
+  bottom: -3px;
+}
+.b_l_line{
+  height: 5px;
+  width: 26px;
+  left: -3px;
+  bottom: -3px;
+}
+.r_b_line{
+  width: 5px;
+  height: 24px;
+  right: -3px;
+  bottom: -3px;
+}
+.b_r_line{
+  height: 5px;
+  width: 26px;
+  right: -3px;
+  bottom: -3px;
+}
+
+
+/*dropdown*/
+#nav,#nav ul {
+  list-style: none outside none;
+  margin: 0;
+  padding: 0;
+}
+#nav {
+  background: #010016;
+  clear: both;
+  font-size: 12px;
+  height: 50px;
+  padding: 0 0 0 0px;
+  position: relative;
+  width: 120px;
+  border-radius:4px;
+}
+#nav ul {
+  background-color: #222;
+  border:1px solid #222;
+  border-radius: 0 5px 5px 5px;
+  border-width: 0 1px 1px;
+
+  left: -9999px;
+  overflow: hidden;
+  position: absolute;
+  top: -9999px;
+  z-index: 2;
+
+  -moz-transform: scaleY(0);
+  -ms-transform: scaleY(0);
+  -o-transform: scaleY(0);
+  -webkit-transform: scaleY(0);
+  transform: scaleY(0);
+
+  -moz-transform-origin: 0 0;
+  -ms-transform-origin: 0 0;
+  -o-transform-origin: 0 0;
+  -webkit-transform-origin: 0 0;
+  transform-origin: 0 0;
+
+  -moz-transition: -moz-transform 0.1s linear;
+  -ms-transition: -ms-transform 0.1s linear;
+  -o-transition: -o-transform 0.1s linear;
+  -webkit-transition: -webkit-transform 0.1s linear;
+  transition: transform 0.1s linear;
+}
+#nav li {
+  z-index: 100000;
+  float: left;
+  position: relative;
+}
+#nav li a {
+  color: #FFFFFF;
+  display: block;
+  float: left;
+  font-weight: normal;
+  height: 30px;
+  font-size: 15px;
+  padding: 23px 30px 0;
+  position: relative;
+  text-decoration: none;
+  text-shadow: 1px 1px 1px #000000;
+}
+#nav li:hover > a {
+  color: #00B4FF;
+}
+
+#nav li:hover ul.subs {
+  left: 0;
+  top: 53px;
+  width: 120px;
+
+  -moz-transform: scaleY(1);
+  -ms-transform: scaleY(1);
+  -o-transform: scaleY(1);
+  -webkit-transform: scaleY(1);
+  transform: scaleY(1);
+}
+#nav ul li {
+  background: none;
+  width: 100%;
+}
+#nav ul li a {
+  float: none;
+  font-size: 13px;
+}
+#nav ul li:hover > a {
+  background-color: #121212;
+  color: #00B4FF;
+}
+#lavalamp {
+  background: url('lavalamp.png') no-repeat scroll 0 0 transparent;
+  height: 16px;
+  left: 13px;
+  position: absolute;
+  top: 0px;
+  width: 64px;
+
+  -moz-transition: all 300ms ease;
+  -ms-transition: all 300ms ease;
+  -o-transition: all 300ms ease;
+  -webkit-transition: all 300ms ease;
+  transition: all 300ms ease;
+}
+#lavalamp:hover {
+  -moz-transition-duration: 3000s;
+  -ms-transition-duration: 3000s;
+  -o-transition-duration: 3000s;
+  -webkit-transition-duration: 3000s;
+  transition-duration: 3000s;
+}
+#nav li:nth-child(1):hover ~ #lavalamp {
+  left: 30px;
+}

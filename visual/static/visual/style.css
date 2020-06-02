@@ -1,0 +1,83 @@
+.rank{
+	position: absolute;
+	align-items: center;
+	width: 300px;
+	height: 400px;
+	left: 0px;
+	top: 0px;
+	border: 2px solid gray;
+}
+.map{
+	position: absolute;
+	align-items: center;
+	width: 660px;
+	height: 400px;
+	left: 300px;
+	top: 0px;
+	border: 2px solid gray;
+}
+.bubble{
+	position: absolute;
+	align-items: center;
+	width: 300px;
+	height: 200px;
+	left: 960px;
+	top: 0px;
+	border: 2px solid gray;
+}
+.radar{
+	position: absolute;
+	align-items: center;
+	width: 300px;
+	height: 200px;
+	left: 960px;
+	top: 200px;
+	border: 2px solid gray;
+}
+.historgram{
+	position: absolute;
+	align-items: center;
+	width: 320px;
+	height: 200px;
+	left: 960px;
+	top: 400px;
+	border: 2px solid gray;
+}
+.pieChart{
+	position: absolute;
+	align-items: center;
+	width: 300px;
+	height: 200px;
+	left: 0px;
+	top: 400px;
+	border: 2px solid gray;
+}
+.heatmap{
+	position: absolute;
+	align-items: center;
+	width: 330px;
+	height: 200px;
+	left: 300px;
+	top: 400px;
+	border: 2px solid gray;
+}
+.sankey{
+	position: absolute;
+	align-items: center;
+	width: 330px;
+	height: 200px;
+	left: 630px;
+	top: 400px;
+	border: 2px solid gray;
+}
+.title{
+	position: absolute;
+	align-items: center;
+	text-align: center;
+	font-size:25px;
+	width: 300px;
+	height: 40px;
+	left: 480px;
+	top: 0px;
+	border: 2px solid gray;
+}
