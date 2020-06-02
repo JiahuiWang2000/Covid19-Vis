@@ -1,5 +1,5 @@
 function drawGDPriver() {
-	var domain = ["2020A", "2019D", "2019C", "2019B", "2019A", "2018D", "2018C", "2018B", "2018A", "2017D", "2017C", "2017B"];
+	var domain = ["2017B", "2017C", "2017D", "2018A", "2018B", "2018C", "2018D", "2019A", "2019B", "2019C", "2019D", "2020A"];
 	var labels = ["农林牧渔业", "工业", "制造业", "建筑业", "批发和零售业", "交通运输、仓储和邮政业", "住宿和餐饮业", "金融业", "房地产业", "信息传输、软件和信息技术服务业", "租赁和商务服务业", "其他行业"];
 	var rawData = [
 		[10708.4,28579.9,20629,15108.7,9249.4,25929,18961.8,13662.2,9005.8,23915.8,18944.2,13204.2],
@@ -16,17 +16,17 @@ function drawGDPriver() {
 		[39659.6,41158.2,40734.5,39067.3,39306,37474.6,36930.6,35673.1,35864.9,33433.7,32708,31998.1]
 		];
 
-	var data = [];
+	var data6 = [];
 	for (var i = 0; i < rawData.length; i++) {
 		for (var j = 0; j < rawData[i].length; j++) {
 			var label = labels[i];
-			data.push([
-				j, rawData[i][j], label
+			data6.push([
+				j, rawData[i][11 - j], label
 			]);
 		}
 	}
 
-	option3 = {
+	option5 = {
 		tooltip: {
 			trigger: 'axis',
 			axisPointer: {
@@ -36,14 +36,8 @@ function drawGDPriver() {
 					width: 1,
 					type: 'solid'
 				}
-			}
-		},
-		legend: {
-			data: labels,
-			textStyle:{
-				color: '#c4ccd3'
 			},
-
+			position: 'right'
 		},
 		singleAxis: {
 			top: 50,
@@ -81,14 +75,14 @@ function drawGDPriver() {
                 }
             },
 			color: ['#61a0a8', '#d48265', '#91c7ae', '#749f83', '#ca8622', '#bda29a', '#6e7074', '#546570', '#c4ccd3', '#a8861b', '#c23531', '#2f4554'],
-			data: data,
+			data: data6,
 			label: {
 				show: false
 			}
 		}]
 	};
-	document.getElementById("drawRiver").style.width = "1100px";
-	document.getElementById("drawRiver").style.height = "500px";
-    var myChart3 = echarts.init(document.getElementById("drawRiver"));
-    myChart3.setOption(option3, true);
+	document.getElementById("drawRiver").style.width = "370px";
+	document.getElementById("drawRiver").style.height = "315px";
+    var myChart5 = echarts.init(document.getElementById("drawRiver"));
+    myChart5.setOption(option5, true);
 }
