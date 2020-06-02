@@ -1,4 +1,4 @@
-function ratioBar(id,data){
+function ratioBar(id,data,name){
     var myratioBar = echarts.init(document.getElementById(id));
     var color=["#038cf5",'#27e97b'];
 
@@ -20,12 +20,18 @@ function ratioBar(id,data){
 
         },
         color:color,
+        grid: {
+            left: '6%',
+            right: '1%',
+            top:"80%",
+            containLabel: true
+        },
         legend: {
-            x:"middle",
-            y:"bottom",
+            show:true,
+            selectedMode:true,
+            y:"58%",
+            left:"30%",
             icon: "circle",
-            bottom: '43%',
-            left:'10%',
             itemWidth: 7,
             itemHeight: 7,
             itemGap: 40,
@@ -33,13 +39,14 @@ function ratioBar(id,data){
                 color:'#89A7AF',
             },
             data:[{
-                name :'商品住宅'
+                name :'现房'
             },
                 {
-                    name :'其他'
+                    name :'非现房'
                 }
             ]
         },
+
         xAxis: [{
             type :'value',
             axisTick: {
@@ -49,7 +56,7 @@ function ratioBar(id,data){
                 show: false,
             },
             axisLabel: {
-                show: false
+                show: false,
             },
             splitLine: {
                 show: false,
@@ -57,30 +64,31 @@ function ratioBar(id,data){
         }],
         yAxis: [{
             //type: 'category',
-            data: [''],
+            data: [name],
             axisTick: {
-                show: false,
+                show: true,
             },
             axisLine: {
                 show: false,
             },
             axisLabel: {
                 textStyle: {
-                    color: '#fff',
+                    color: 'white',
                 }
             }
 
         }],
         series: [
             {
-                name:'商品住宅',
+                name:'现房',
                 type:'bar',
-                barWidth:16,
+                barWidth:10,
                 stack: '危货种类占比',
                 label: {
                     normal: {
                         borderWidth: 10,
-                        distance: 20,
+                        height:5,
+                        distance: 15,
                         align: 'center',
                         verticalAlign: 'middle',
                         borderRadius: 1,
@@ -116,7 +124,7 @@ function ratioBar(id,data){
                 }]
             },
             {
-                name:'其他',
+                name:'非现房',
                 type:'bar',
                 barWidth:16,
                 stack: '危货种类占比',
@@ -126,7 +134,7 @@ function ratioBar(id,data){
                 label: {
                     normal: {
                         borderWidth: 10,
-                        distance: 20,
+                        distance: 15,
                         align: 'center',
                         verticalAlign: 'middle',
                         borderRadius: 1,

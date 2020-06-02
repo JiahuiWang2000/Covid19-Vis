@@ -1,0 +1,518 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <title>疫情可视化分析系统</title>
+
+    {% load static %}
+    <!-- CSS -->
+    <link href={% static "visual/assets/css/fonts/fontawesome/all.min.css" %} rel="stylesheet">
+    <link href={% static "visual/assets/css/fonts/beid.css" %} rel="stylesheet">
+    <link href={% static "visual/assets/css/styles.css" %} rel="stylesheet">
+
+
+
+    <!-- JQVMAP -->
+    <link href={% static "visual/assets/plugins/jqvmap/jqvmap.min.css" %} rel="stylesheet">
+
+    <!-- dateRangePicker -->
+    <link href={% static "visual/assets/plugins/daterangepicker/daterangepicker.css" %} rel="stylesheet">
+
+
+
+    <!-- Fonts -->
+    <link href={% static "visual/assets/fonts/inter/inter.css" %} rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i,800,800i" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
+
+    <!--[if lt IE 9]>
+    <script src="http://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+    <script src="http://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+
+
+        <!-- jQuery -->
+    <script src={% static "visual/assets/js/jquery.min.js" %}></script>
+    <!--echarts-->
+    <script type="text/javascript" src={% static "visual/assets/js/echarts.js" %}></script>
+
+
+    <!-- Bootstrap -->
+    <script src={% static "visual/assets/js/bootstrap.min.js" %}></script>
+
+    <!-- Chart.js -->
+    <script src={% static "visual/assets/plugins/chart/Chart.min.js" %} id="_chartJS_min"></script>
+    <script src={% static "visual/assets/plugins/chart/Chart.bundle.min.js" %}></script>
+    <script src={% static "visual/assets/plugins/chart/chartjs-plugin-annotation.js" %}></script>
+    <script src={% static "visual/assets/plugins/chart/chartjs-plugin-labels.js" %}></script>
+
+    <!-- apexcharts -->
+    <script src={% static "visual/assets/plugins/apexcharts/apexcharts.min.js" %}></script>
+
+    <!-- Moment -->
+    <script src={% static "visual/assets/plugins/lib/moment/moment.min.js" %}></script>
+
+    <!-- User JS -->
+    <script src={% static "visual/assets/js/scripts.js" %}></script>
+
+
+
+    <!-- Modules -->
+    <!--    <script src="assets/js/modules.js"></script>-->
+
+    <!-- Modules -->
+    <script src={% static "visual/assets/js/Estate/Estate.js" %}></script>
+    <script src={% static "visual/assets/js/Estate/radar.js" %}></script>
+    <script src={% static "visual/assets/js/Estate/radialBar.js" %}></script>
+    <script src={% static "visual/assets/js/Estate/LineBar.js" %}></script>
+    <script src={% static "visual/assets/js/Estate/ratioBar.js" %}></script>
+    <script src={% static "visual/assets/js/Estate/AreaStack.js" %}></script>
+    <script src={% static "visual/assets/js/Estate/AreaStack.js" %}></script>
+    <script src={% static "visual/assets/js/Estate/BarLabelRotation.js" %}></script>
+
+
+    <style>
+        body {
+            background-color: #010016;
+        }
+
+
+
+
+    </style>
+
+    <script>
+        //var array={{test|safe}};
+        //console.log(array)
+
+        Estate("全国");
+    </script>
+</head>
+
+<body>
+
+
+
+
+<link href="http://fonts.googleapis.com/css?family=Maven+Pro:400" rel="stylesheet" type="text/css" />
+<link href="http://fonts.googleapis.com/css?family=News+Cycle" rel="stylesheet" type="text/css" />
+<link href="http://fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css" />
+
+
+<script src="https://d3js.org/d3.v4.js"></script>
+
+<!-- Google fonts -->
+<link href="https://fonts.googleapis.com/css?family=Open+Sans:400,300" rel='stylesheet' type='text/css'>
+<link href='https://fonts.googleapis.com/css?family=Raleway' rel='stylesheet' type='text/css'>
+
+<div class="main-container">
+    <div class="overflow-hidden">
+        <!-- charts -->
+        <div id="charts" class="page-content-fl" style="position:absolute;height:900px">
+            <div class="d-flex align-items-center px-6 py-5">
+                <div class="text-light mr-auto" style="position:absolute;left:415px;top:12px;width:670px;height:200px">
+                    <h1 style="font-size: 23px;color:white"><center>房地产可视化分析</center></h1>
+                </div>
+            </div>
+
+            <div class="container-fluid p-0" >
+
+            <div style="position:absolute;left:400px;top:0px;width:1000px;height:200px">
+                <svg width="700">
+
+                    <defs>
+                    <linearGradient id="c1" x1="0%" y1="0%" x2="0%" y2="100%">
+                        <stop offset="0%" stop-color="#7db9de" />
+                        <stop offset="100%" stop-color="#0b346e" />
+                    </linearGradient>
+                    </defs>
+
+                    <line x1="0" y1="0" x2="35" y2="40" transform="translate(175,25)" stroke="url(#c1)" stroke-width="3" />
+                    <line x1="0" y1="0" x2="280" y2="0" transform="translate(210,65)" stroke="#0b346e" stroke-width="3" />
+                    <line x1="0" y1="0" x2="250" y2="0" transform="translate(225,75)" stroke="#0b346e" stroke-width="3" />
+                    <line x1="0" y1="0" x2="220" y2="0" transform="translate(240,85)" stroke="#0b346e" stroke-width="3" />
+                    <line x1="0" y1="40" x2="35" y2="0" transform="translate(490,25)" stroke="url(#c1)" stroke-width="3" />
+
+
+                    <line x1="0" y1="0" x2="160" y2="0" transform="translate(16,25)" stroke="#7db9de" stroke-width="3" />
+                    <line x1="0" y1="0" x2="160" y2="0" transform="translate(525,25)" stroke="#7db9de" stroke-width="3" />
+                </svg>
+
+            </div>
+
+
+
+
+                <div style="position:absolute;left:430px;top:40px;width:120px;height:200px">
+
+                    <ul id="nav">
+                        <li><a class="hsubs" href="#">全国情况</a>
+                            <ul class="subs">
+                                <li><a href="Covid.html">疫情分析</a></li>
+                                <li><a href="GDP.html">生产总值</a></li>
+                                <li><a href="Finance.html" >财政金融</a></li>
+                                <li><a href="Trading.html">国内贸易</a></li>
+                            </ul>
+                        </li>
+
+                        <div id="lavalamp" style="left:30px;top:5px"></div>
+                    </ul>
+
+                </div>
+
+                <div style="position:absolute;left:950px;top:40px;width:120px;height:200px">
+
+                    <ul id="nav">
+                        <li><a class="hsubs" href="#">各省详情</a>
+                            <ul class="subs">
+                                <li><a href="Products.html">工业产品</a></li>
+                                <li><a href="Living.html" >人民生活</a></li>
+                                <li><a href="Estate.html">房地产</a></li>
+                                <li><a href="Leaderboard.html" >排行</a></li>
+                            </ul>
+                        </li>
+
+                        <div id="lavalamp" style="left:30px;top:5px"></div>
+                    </ul>
+
+                </div>
+
+
+
+
+
+
+                <div id="AreaStack" style="position:absolute;width:670px;height:340px;left:415px;top:100px;z-index: 99999;">
+                </div>
+
+
+
+
+                <div style="position:absolute;left:415px;top:485px;width:670px;height:200px">
+                    <!--边框-->
+                    <div class="t_line_box" >
+                        <i class="t_l_line"></i>
+                        <i class="l_t_line"></i>
+                        <i class="t_r_line"></i>
+                        <i class="r_t_line"></i>
+                        <i class="l_b_line"></i>
+                        <i class="b_l_line"></i>
+                        <i class="r_b_line"></i>
+                        <i class="b_r_line"></i>
+                    </div>
+
+                    <div class="title" style="position:absolute;top:-20px;left:-90px;width:100%">
+                        <svg height="35" width="100%">
+                            <rect x=50% rx="20" ry="20" width="180" height="35" style="fill:rgb(44,88,166);" />
+                            <text x="50%" y="24" dx="90" style="stroke: white;font-size: 15px;text-anchor: middle">房地产施工情况</text>
+                        </svg>
+                    </div>
+
+
+                    <div id="BarLabelRotation" style="position:absolute;top:-10px;left:12px;width:650px;height:240px;z-index: 99999;"></div>
+
+                    <!--内发光-->
+                    <svg width=100% height="100%">
+                        <filter id="inset-shadow" x="-50%" y="-50%" width="200%" height="200%">
+                            <feComponentTransfer in=SourceAlpha>
+                                <feFuncA type="table" tableValues="1 0" />
+                            </feComponentTransfer>
+                            <feGaussianBlur stdDeviation="4"/>
+                            <feOffset dx="0" dy="1" result="offsetblur"/>
+                            <feFlood flood-color="#0d619d" result="color"/>
+                            <feComposite in2="offsetblur" operator="in"/>
+                            <feComposite in2="SourceAlpha" operator="in" />
+                            <feMerge>
+                                <feMergeNode in="SourceGraphic" />
+                                <feMergeNode />
+                            </feMerge>
+                        </filter>
+                        <rect  width=100% height=100%  filter="url(#inset-shadow)" />
+                    </svg>
+
+                </div>
+
+                <div style="position:absolute;left:20px;top:25px;width:370px;height:315px">
+                    <!--边框-->
+                    <div class="t_line_box" >
+                        <i class="t_l_line"></i>
+                        <i class="l_t_line"></i>
+                        <i class="t_r_line"></i>
+                        <i class="r_t_line"></i>
+                        <i class="l_b_line"></i>
+                        <i class="b_l_line"></i>
+                        <i class="r_b_line"></i>
+                        <i class="b_r_line"></i>
+                    </div>
+
+                    <div class="title" style="position:absolute;top:-20px;left:-90px;width:100%">
+                        <svg height="35" width="100%">
+                            <rect x=50% rx="20" ry="20" width="180" height="35" style="fill:rgb(44,88,166);" />
+                            <text x="50%" y="24" dx="90" style="stroke: white;fill:white;font-size: 15px;text-anchor: middle">省份选择</text>
+                        </svg>
+                    </div>
+
+
+                    <div style="position:absolute; z-index: 99999;">
+                        <select id="ProvinceSelect" class="form-control" >
+                            <option value="全国">全国</option>
+                            <option value="浙江">浙江</option>
+                            <option value="上海">上海</option>
+                        </select>
+                    </div>
+
+                    <script>
+                        var select=document.getElementById("ProvinceSelect");
+
+                        select.onchange=function(){
+                            var sel=document.getElementById("ProvinceSelect");
+                            var province=sel.options[sel.options.selectedIndex].value;
+                            Estate(province);
+                        };
+
+                    </script>
+
+                    <!--内发光-->
+                    <svg width=100% height="100%">
+                        <filter id="inset-shadow" x="-50%" y="-50%" width="200%" height="200%">
+                            <feComponentTransfer in=SourceAlpha>
+                                <feFuncA type="table" tableValues="1 0" />
+                            </feComponentTransfer>
+                            <feGaussianBlur stdDeviation="4"/>
+                            <feOffset dx="0" dy="1" result="offsetblur"/>
+                            <feFlood flood-color="#0d619d" result="color"/>
+                            <feComposite in2="offsetblur" operator="in"/>
+                            <feComposite in2="SourceAlpha" operator="in" />
+                            <feMerge>
+                                <feMergeNode in="SourceGraphic" />
+                                <feMergeNode />
+                            </feMerge>
+                        </filter>
+                        <rect  width=100% height=100%  filter="url(#inset-shadow)" />
+                    </svg>
+
+                </div>
+
+
+
+
+
+                <div style="position:absolute;left:20px;top:370px;width:370px;height:315px">
+                    <!--边框-->
+                    <div class="t_line_box" >
+                        <i class="t_l_line"></i>
+                        <i class="l_t_line"></i>
+                        <i class="t_r_line"></i>
+                        <i class="r_t_line"></i>
+                        <i class="l_b_line"></i>
+                        <i class="b_l_line"></i>
+                        <i class="r_b_line"></i>
+                        <i class="b_r_line"></i>
+                    </div>
+
+                    <div class="title" style="position:absolute;top:-20px;left:-90px;width:100%">
+                        <svg height="35" width="100%">
+                            <rect x=50% rx="20" ry="20" width="180" height="35" style="fill:rgb(44,88,166);" />
+                            <text x="50%" y="24" dx="90" style="stroke: white;font-size: 15px;text-anchor: middle">各类房地产建设情况</text>
+                        </svg>
+                    </div>
+
+                    <div class="form-group" style="position:absolute;top:20px;left:280px;width:100px;height:20px;z-index: 99999;">
+                        <select id="monthSelect" class="form-control" >
+                            <option value="202003">Select</option>
+                        </select>
+                    </div>
+
+                    <script>
+                        var month=["202004","202003","202002","201912","201911","201910","201909","201908","201907","201906","201905","201904","201903","201902"];
+                        var select = document.getElementById('monthSelect');
+                        for(var i=0;i<14;++i){
+                            var opt=document.createElement("option");
+                            opt.setAttribute("value",i);
+                            opt.innerText=month[i];
+                            select.appendChild(opt);
+                        }
+
+                    </script>
+
+
+                    <div id="chart-radar" style="position:absolute;left:10px;top:15px;width:350px;height:290px;z-index: 99998;">
+
+                    </div>
+
+                    <!--内发光-->
+                    <svg width=100% height="100%">
+                        <filter id="inset-shadow" x="-50%" y="-50%" width="200%" height="200%">
+                            <feComponentTransfer in=SourceAlpha>
+                                <feFuncA type="table" tableValues="1 0" />
+                            </feComponentTransfer>
+                            <feGaussianBlur stdDeviation="4"/>
+                            <feOffset dx="0" dy="1" result="offsetblur"/>
+                            <feFlood flood-color="#0d619d" result="color"/>
+                            <feComposite in2="offsetblur" operator="in"/>
+                            <feComposite in2="SourceAlpha" operator="in" />
+                            <feMerge>
+                                <feMergeNode in="SourceGraphic" />
+                                <feMergeNode />
+                            </feMerge>
+                        </filter>
+                        <rect  width=100% height=100%  filter="url(#inset-shadow)" />
+                    </svg>
+
+                </div>
+
+                <div style="position:absolute;left:1115px;top:25px;width:370px;height:250px">
+                    <!--边框-->
+                    <div class="t_line_box" >
+                        <i class="t_l_line"></i>
+                        <i class="l_t_line"></i>
+                        <i class="t_r_line"></i>
+                        <i class="r_t_line"></i>
+                        <i class="l_b_line"></i>
+                        <i class="b_l_line"></i>
+                        <i class="r_b_line"></i>
+                        <i class="b_r_line"></i>
+                    </div>
+
+                    <div class="title" style="position:absolute;top:-20px;left:-90px;width:100%">
+                        <svg height="35" width="100%">
+                            <rect x=50% rx="20" ry="20" width="180" height="35" style="fill:rgb(44,88,166);" />
+                            <text x="50%" y="24" dx="90" style="stroke: white;font-size: 15px;text-anchor: middle">房地产销售情况</text>
+                        </svg>
+                    </div>
+
+
+
+                    <div style="position:absolute;left:50px;top:35px;width:320px;height:40px;z-index: 100000;">
+                        <form>
+                            <label>
+                                <input type="radio" id="radio00" name="radio" checked/>
+                                <span style="color: white">202004</span>
+                            </label>
+                            <label>
+                                <input type="radio" id="radio11" name="radio"/>
+                                <span style="color: white">202003</span>
+                            </label>
+                            <label>
+                                <input type="radio" id="radio22" name="radio"/>
+                                <span style="color: white">202002</span>
+                            </label>
+                        </form>
+                    </div>
+
+                    <div id="ratioBar" style="position:absolute;left:5px;top:70px;width:345px;height:80px;z-index: 99999;">
+                    </div>
+
+                    <div id="ratioBar_2" style="position:absolute;left:5px;top:150px;width:345px;height:80px;z-index: 99998;">
+                    </div>
+
+
+
+
+                    <!--内发光-->
+                    <svg width=100% height="100%">
+                        <filter id="inset-shadow" x="-50%" y="-50%" width="200%" height="200%">
+                            <feComponentTransfer in=SourceAlpha>
+                                <feFuncA type="table" tableValues="1 0" />
+                            </feComponentTransfer>
+                            <feGaussianBlur stdDeviation="4"/>
+                            <feOffset dx="0" dy="1" result="offsetblur"/>
+                            <feFlood flood-color="#0d619d" result="color"/>
+                            <feComposite in2="offsetblur" operator="in"/>
+                            <feComposite in2="SourceAlpha" operator="in" />
+                            <feMerge>
+                                <feMergeNode in="SourceGraphic" />
+                                <feMergeNode />
+                            </feMerge>
+                        </filter>
+                        <rect  width=100% height=100%  filter="url(#inset-shadow)" />
+                    </svg>
+
+                </div>
+
+
+
+
+
+                <div style="position:absolute;left:1115px;top:305px;width:370px;height:380px">
+                    <!--边框-->
+                    <div class="t_line_box" >
+                        <i class="t_l_line"></i>
+                        <i class="l_t_line"></i>
+                        <i class="t_r_line"></i>
+                        <i class="r_t_line"></i>
+                        <i class="l_b_line"></i>
+                        <i class="b_l_line"></i>
+                        <i class="r_b_line"></i>
+                        <i class="b_r_line"></i>
+                    </div>
+
+                    <div class="title" style="position:absolute;top:-20px;left:-90px;width:100%">
+                        <svg height="35" width="100%">
+                            <rect x=50% rx="20" ry="20" width="180" height="35" style="fill:rgb(44,88,166);" />
+                            <text x="50%" y="24" dx="90" style="stroke: white;font-size: 15px;text-anchor: middle">房地产销售下降率</text>
+                        </svg>
+                    </div>
+
+
+                    <div style="position:absolute;left:50px;top:35px;width:320px;height:40px;z-index: 99999;">
+                        <form>
+                            <label>
+                                <input type="radio" id="radio0" name="radio" checked/>
+                                <span style="color: white">202004</span>
+                            </label>
+                            <label>
+                                <input type="radio" id="radio1" name="radio"/>
+                                <span style="color: white">202003</span>
+                            </label>
+                            <label>
+                                <input type="radio" id="radio2" name="radio"/>
+                                <span style="color: white">202002</span>
+                            </label>
+                        </form>
+                    </div>
+
+
+
+                    <div id="chart-radialBar_B" style="position:absolute;left:10px;top:60px;width:320px;height:310px;z-index: 99998;">
+                    </div>
+
+
+
+                    <!--内发光-->
+                    <svg width=100% height="100%">
+                        <filter id="inset-shadow" x="-50%" y="-50%" width="200%" height="200%">
+                            <feComponentTransfer in=SourceAlpha>
+                                <feFuncA type="table" tableValues="1 0" />
+                            </feComponentTransfer>
+                            <feGaussianBlur stdDeviation="4"/>
+                            <feOffset dx="0" dy="1" result="offsetblur"/>
+                            <feFlood flood-color="#0d619d" result="color"/>
+                            <feComposite in2="offsetblur" operator="in"/>
+                            <feComposite in2="SourceAlpha" operator="in" />
+                            <feMerge>
+                                <feMergeNode in="SourceGraphic" />
+                                <feMergeNode />
+                            </feMerge>
+                        </filter>
+                        <rect  width=100% height=100%  filter="url(#inset-shadow)" />
+                    </svg>
+
+                </div>
+
+
+
+
+
+            </div>
+
+        </div>
+        <!-- /.charts -->
+
+</div>
+
+</div>
+
+</body>
+
+</html>

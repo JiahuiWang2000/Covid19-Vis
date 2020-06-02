@@ -19,6 +19,7 @@ from visual import views
 
 urlpatterns = [
     path('visual/getCovidData', views.getCovidData),
+    path('visual/getdata', views.getEstatedata),
     path('visual/', include('visual.urls')),
     path('admin/', admin.site.urls),
 ]
