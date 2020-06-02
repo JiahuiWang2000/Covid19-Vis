@@ -1,4 +1,5 @@
 function BarPolarStackRadial(id,datasets){
+    console.log(datasets);
     var dom = document.getElementById(id);
     var myChart = echarts.init(dom);
     var app = {};

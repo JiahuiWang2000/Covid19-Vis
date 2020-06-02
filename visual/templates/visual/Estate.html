@@ -70,6 +70,9 @@
     <script src={% static "visual/assets/js/Estate/AreaStack.js" %}></script>
     <script src={% static "visual/assets/js/Estate/BarLabelRotation.js" %}></script>
 
+    <script src={% static "visual/assets/js/map/china.js" %}></script>
+    <script src={% static "visual/assets/js/map/chinaMap.js" %}></script>
+
 
     <style>
         body {
@@ -260,6 +263,8 @@
                             <option value="上海">上海</option>
                         </select>
                     </div>
+
+                    <div id="ChinaMap" style="z-index:99999;position:absolute;top:20px;left:0px;width:370px;height:270px; border:1px solid #ddd;"></div>
 
                     <script>
                         var select=document.getElementById("ProvinceSelect");

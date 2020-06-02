@@ -21,6 +21,7 @@ urlpatterns = [
     path('visual/getCovidData', views.getCovidData),
     path('visual/getdata', views.getEstatedata),
     path('visual/', include('visual.urls')),
+    path('visual/Finance.html', views.Finance),
     path('admin/', admin.site.urls),
     path('visual/GDP.html', views.newindexGDP),
     path('visual/Products.html', views.newindexProducts),

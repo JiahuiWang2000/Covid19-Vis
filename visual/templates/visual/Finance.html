@@ -6,24 +6,24 @@
     <title>疫情可视化分析系统</title>
 
 
+    {% load static %}
     <!-- CSS -->
-    <link href="assets/css/fonts/fontawesome/all.min.css" rel="stylesheet">
-    <link href="assets/css/fonts/beid.css" rel="stylesheet">
-    <link href="assets/css/styles.css" rel="stylesheet">
-
+    <link href={% static "visual/assets/css/fonts/fontawesome/all.min.css" %} rel="stylesheet">
+    <link href={% static "visual/assets/css/fonts/beid.css" %} rel="stylesheet">
+    <link href={% static "visual/assets/css/styles.css" %} rel="stylesheet">
 
 
 
     <!-- JQVMAP -->
-    <link href="assets/plugins/jqvmap/jqvmap.min.css" rel="stylesheet">
+    <link href={% static "visual/assets/plugins/jqvmap/jqvmap.min.css" %} rel="stylesheet">
 
     <!-- dateRangePicker -->
-    <link href="assets/plugins/daterangepicker/daterangepicker.css" rel="stylesheet">
+    <link href={% static "visual/assets/plugins/daterangepicker/daterangepicker.css" %} rel="stylesheet">
 
 
 
     <!-- Fonts -->
-    <link href="assets/fonts/inter/inter.css" rel="stylesheet">
+    <link href={% static "visual/assets/fonts/inter/inter.css" %} rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i,800,800i" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
 
@@ -33,42 +33,36 @@
 
 
         <!-- jQuery -->
-    <script src="assets/js/jquery.min.js"></script>
+    <script src={% static "visual/assets/js/jquery.min.js" %}></script>
     <!--echarts-->
-    <script type="text/javascript" src="assets/js/echarts.js"></script>
+    <script type="text/javascript" src={% static "visual/assets/js/echarts.js" %}></script>
 
 
     <!-- Bootstrap -->
-    <script src="assets/js/bootstrap.min.js"></script>
+    <script src={% static "visual/assets/js/bootstrap.min.js" %}></script>
 
     <!-- Chart.js -->
-    <script src="assets/plugins/chart/Chart.min.js" id="_chartJS_min"></script>
-    <script src="assets/plugins/chart/Chart.bundle.min.js"></script>
-    <script src="assets/plugins/chart/chartjs-plugin-annotation.js"></script>
-    <script src="assets/plugins/chart/chartjs-plugin-labels.js"></script>
-
-    <!-- apexcharts -->
-    <script src="assets/plugins/apexcharts/apexcharts.min.js"></script>
+    <script src={% static "visual/assets/plugins/chart/Chart.min.js" %} id="_chartJS_min"></script>
+    <script src={% static "visual/assets/plugins/chart/Chart.bundle.min.js" %}></script>
+    <script src={% static "visual/assets/plugins/chart/chartjs-plugin-annotation.js" %}></script>
+    <script src={% static "visual/assets/plugins/chart/chartjs-plugin-labels.js" %}></script>
 
     <!-- Moment -->
-    <script src="assets/plugins/lib/moment/moment.min.js"></script>
+    <script src={% static "visual/assets/plugins/lib/moment/moment.min.js" %}></script>
 
     <!-- User JS -->
-    <script src="assets/js/scripts.js"></script>
+    <script src={% static "visual/assets/js/scripts.js" %}></script>
 
-
-
-    <!--echarts-->
-    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/echarts/dist/echarts.js"></script>
 
     <!-- Modules -->
-    <script src="assets/js/Finance/Finance.js"></script>
-    <script src="assets/js/Finance/BarPolarStackRadial.js"></script>
-    <script src="assets/js/Finance/AreaStack.js"></script>
-    <script src="assets/js/Finance/BarLabelRotation.js"></script>
-    <script src="assets/js/Finance/PieDoughnut.js"></script>
-    <script src="assets/js/Finance/BidirectionalBar.js"></script>
-    <script src="assets/js/Finance/PNbar.js"></script>
+    <script src={% static "visual/assets/js/Finance/Finance.js" %}></script>
+    <script src={% static "visual/assets/js/Finance/BarPolarStackRadial.js" %}></script>
+    <script src={% static "visual/assets/js/Finance/AreaStack.js" %}></script>
+    <script src={% static "visual/assets/js/Finance/BarLabelRotation.js" %}></script>
+    <script src={% static "visual/assets/js/Finance/PieDoughnut.js" %}></script>
+    <script src={% static "visual/assets/js/Finance/BidirectionalBar.js" %}></script>
+    <script src={% static "visual/assets/js/Finance/PNbar.js" %}></script>
+
 
 
     <style>

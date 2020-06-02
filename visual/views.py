@@ -144,3 +144,83 @@ def getgdpbar(request):
                 for j in range(1, 13):
                     data2.append(float(data_list[i][14-j]))
         return JsonResponse({"data1":data1, "data2":data2})
+
+
+
+def getEstatedata(request):
+    if request.method=='GET':
+        province=request.GET.get("province")
+        csv_path = "data\\Estate_province\\"+province+".csv"
+        with open(csv_path, 'r', encoding='gbk')as fp:
+            datalist = [i for i in csv.reader(fp)]
+        datasets = []
+        data = []
+        tmp = []
+        tmp2 = []
+        for i in range(11):
+            tmp.append(datalist[1][14 - i])
+            tmp2.append(datalist[2][14 - i])
+        data.append(tmp)
+        data.append(tmp2)
+        tmp = []
+        tmp2 = []
+        for i in range(3):
+            tmp.append(datalist[1][3 - i])
+            tmp2.append(datalist[2][3 - i])
+        data.append(tmp)
+        data.append(tmp2)
+        datasets.append(data)
+
+        data = []
+
+        for j in range(3, 6):
+            tmp = []
+            for i in range(1, 15):
+                tmp.append(datalist[j][i])
+            data.append(tmp)
+        datasets.append(data)
+
+        data = []
+        for i in range(1, 15):
+            tmp = []
+            tmpp = []
+            tmpp2 = []
+            tmpp3 = []
+            index = [2, 5, 1, 3, 4, 0]
+            for j in index:
+                tmpp.append(datalist[j + 6][i])
+                tmpp2.append(datalist[j + 12][i])
+                tmpp3.append(datalist[j + 18][i])
+            tmp.append(tmpp)
+            tmp.append(tmpp2)
+            tmp.append(tmpp3)
+            data.append(tmp)
+        datasets.append(data)
+
+        data = [[], [], []]
+        for i in range(1, 4):
+            data[i - 1].append(datalist[24][i])
+            data[i - 1].append(datalist[25][i])
+        datasets.append(data)
+
+        data = [[], [], []]
+        for i in range(1, 4):
+            for j in range(26, 32):
+                #data[i - 1].append(datalist[j][i])
+                if(datalist[j][i][0]=='-'):
+                    data[i - 1].append("0")
+                else:
+                    data[i - 1].append(datalist[j][i])
+                    #data[i-1].append("0")
+        datasets.append(data)
+
+        return JsonResponse({"data":datasets})
+
+def Estate(request):
+    datasets=[]
+    return render(request, 'visual/Estate.html', {'test':datasets})
+
+def Finance(request):
+    datasets=[]
+    return render(request, 'visual/Finance.html', {'test':datasets})
+
