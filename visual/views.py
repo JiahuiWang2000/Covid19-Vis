@@ -15,37 +15,11 @@ def index(request):
 
 
 def newindexGDP(request):
-    csv_path='data\cost.csv'
-    with open(csv_path,'r',encoding='gbk')as fp:
-        data_list = [i for i in csv.reader(fp)]
     data=[]
-    sub=[]
-    subsub=[]
-    for i in range(9):
-        sub=[];
-        for j in range(31):
-            subsub=[]
-            for k in range(len(data_list[0])-2):
-                subsub.append(data_list[j*9+i+1][k+2])
-            sub.append(subsub)
-        data.append(sub)
     return render(request, 'visual/GDP.html', {'test':data})
 
 def newindexProducts(request):
-    csv_path='data\cost.csv'
-    with open(csv_path,'r',encoding='gbk')as fp:
-        data_list = [i for i in csv.reader(fp)]
     data=[]
-    sub=[]
-    subsub=[]
-    for i in range(9):
-        sub=[];
-        for j in range(31):
-            subsub=[]
-            for k in range(len(data_list[0])-2):
-                subsub.append(data_list[j*9+i+1][k+2])
-            sub.append(subsub)
-        data.append(sub)
     return render(request, 'visual/Products.html', {'test':data})
 
 def getCovidData(request):
@@ -76,7 +50,7 @@ def getproducttreemap(request):
     if request.method=='GET':
         province=request.GET.get("province")
         time=int(request.GET.get("time"))
-        csv_path='data\product.csv'
+        csv_path='data\Product_data\product.csv'
         with open(csv_path,'r',encoding='gbk')as fp:
             data_list = [i for i in csv.reader(fp)]
         data=[]
@@ -89,7 +63,7 @@ def getproductrank1(request):
     if request.method=='GET':
         product=request.GET.get("product")
         time=int(request.GET.get("time"))
-        csv_path='data\product.csv'
+        csv_path='data\Product_data\product.csv'
         with open(csv_path,'r',encoding='gbk')as fp:
             data_list = [i for i in csv.reader(fp)]
         data=[]
@@ -103,7 +77,7 @@ def getproductrank2(request):
     if request.method=='GET':
         product=request.GET.get("product")
         time=int(request.GET.get("time"))
-        csv_path='data\product.csv'
+        csv_path='data\Product_data\product.csv'
         with open(csv_path,'r',encoding='gbk')as fp:
             data_list = [i for i in csv.reader(fp)]
         data=[]
@@ -117,7 +91,7 @@ def getproductbar(request):
     if request.method=='GET':
         province=request.GET.get("province")
         product=request.GET.get("product")
-        csv_path='data\product.csv'
+        csv_path='data\Product_data\product.csv'
         with open(csv_path,'r',encoding='gbk')as fp:
             data_list = [i for i in csv.reader(fp)]
         data=[]
@@ -130,7 +104,7 @@ def getproductbar(request):
 def getgdpbar(request):
     if request.method=='GET':
         province=request.GET.get("province")
-        csv_path='data\gdp.csv'
+        csv_path='data\GDP_data\gdp.csv'
         with open(csv_path,'r',encoding='gbk')as fp:
             data_list = [i for i in csv.reader(fp)]
         data1=[]
