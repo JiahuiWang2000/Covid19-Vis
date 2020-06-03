@@ -30,128 +30,75 @@ function timeChange() {
 }
 
 function updateLineBar(name) {
-    let titlename;
-    if (name.indexOf("商品零售类值") != -1) {
-        titlename = name.substr(0, name.length - 8);
-
-    } else if (name.length == 8) {
-        titlename = name.substr(0, 4);
-    } else if (name.indexOf("城镇") != -1 || name.indexOf("乡村") != -1) {
-        titlename = name;
-    } else {
-        titlename = name;
-    }
+    console.log(name);
+    let titlename = name.substr(0, name.length - 4);
+    $.ajax({
+        url: "getTradingdata",
+        type: 'GET',
+        data: { "graph": 1, "name": titlename },
+        success: function(msg) {
+            console.log(msg);
+            subGraph(msg.left_up, msg.left_down, msg.right_up, msg.right_down);
+        }
+    })
     document.querySelector("#Fig1Title").innerHTML = titlename + "当期值"
     document.querySelector("#Fig2Title").innerHTML = titlename + "同比增长"
     document.querySelector("#Fig3Title").innerHTML = titlename + "累计值"
     document.querySelector("#Fig4Title").innerHTML = titlename + "累计增长"
-    subGraph(); //需要加参数表示画哪一个
+        //需要加参数表示画哪一个
 }
 
 function bigGraph(month) { //画饼图和漏斗图，要有参数表示是哪一个月
     if ($("#nestpie").length) {
-        drawNestPie(document.querySelector("#nestpie"))
+        drawNestPie(document.querySelector("#nestpie"), currentValue.pie, month)
     }
 
     if ($("#funnel").length) {
         let data = {};
-        data.name = ["体育、娱乐用品类商品零售类值_当期值", "书报杂志类商品零售类值_当期值", "饮料类商品零售类值_当期值",
-            "家具类商品零售类值_当期值",
-            "建筑及装潢材料类商品零售类值_当期值",
-            "金银珠宝类商品零售类值_当期值",
-            "化妆品类商品零售类值_当期值",
-            "文化办公用品类商品零售类值_当期值",
-        ]
-        data.data = [{
-                "value": 55.7,
-                "name": "体育、 娱乐用品类商品零售类值_当期值"
-            },
-
-            {
-                "value": 89.2,
-                "name": "书报杂志类商品零售类值_当期值"
-            },
-            {
-                "value": 166.3,
-                "name": "饮料类商品零售类值_当期值"
-            },
-            {
-                "value": 115.3,
-                "name": "家具类商品零售类值_当期值"
-            },
-            {
-                "value": 223.6,
-                "name": "建筑及装潢材料类商品零售类值_当期值"
-            },
-            {
-                "value": 261.5,
-                "name": "金银珠宝类商品零售类值_当期值"
-            },
-            {
-                "value": 300,
-                "name": "化妆品类商品零售类值_当期值"
-            },
-            {
-                "value": 386.3,
-                "name": "文化办公用品类商品零售类值_当期值"
-            }
-        ]
-
+        data.name = ["粮油、食品、饮料、烟酒类商品零售类值_当期值", "粮油、食品类商品零售类值_当期值", "饮料类商品零售类值_当期值", "烟酒类商品 零售类值_当期值", "服装鞋帽、针、纺织品类商品零售类值_当期值", "服装类商品零售类值_当期值", "化妆品类商品零售类值_当期值", "金银珠宝类商品零售类值_当期值", "日用品类商品零售类值_当期值", "体育、娱乐用品类商品零售类值_当期值", "书报杂志类商品零售类值_当期值", "家用电器和音像器材类商品零售类值_当期值", "中西药品类商品零售类值_当期值", "文化办公用品类商品零售类值_当期值", "家具类商品零售类值_当期值", "通讯器材类商品零售类值_当期值", "石油及制品类商品零售类值_当期值", "建筑及装潢材料类商品零售类值_当期值", "汽车类商品零售类值_当期值", "其他商品零售类值_当期值", "粮油、食品、饮料、烟酒类商品零售类值_当期值", "粮油、食品类商品零售类值_当期值", "饮料类商品零售类值_当期值", "烟酒类商品零售类值_当期值", "服装鞋帽、针、纺织品类商品零售类值_ 当期值", "服装类商品零售类值_当期值", "化妆品类商品零售类值_当期值", "金银珠宝类商品零售类值_当期值", "日用品类商品零售类值_当期值", "体育、娱乐用品类商品零售类值_当期值", "书报杂志类商品零售类值_当期值", "家用电器和音像器材类商品零售类值_当期值", "中西药品类商品零售类值_当期值", "文化办公用品类商品零售类值_当期值", "家具类商品零售类值_当期值", "通讯器材类商品零售类值_当期值", "石油及制品类商品零售类值_当期值", "建筑及装潢材料类商品零售类值_当期值", "汽车类商品零售类值_当期值", "其他商品零 售类值_当期值", "粮油、食品、饮料、烟酒类商品零售类值_当期值", "粮油、食品类商品零售类值_当期值", "饮料类商品零售类值_当期 值", "烟酒类商品零售类值_当期值", "服装鞋帽、针、纺织品类商品零售类值_当期值", "服装类商品零售类值_当期值", "化妆品类商品零 售类值_当期值", "金银珠宝类商品零售类值_当期值", "日用品类商品零售类值_当期值", "体育、娱乐用品类商品零售类值_当期值", "书报杂志类商品零售类值_当期值", "家用电器和音像器材类商品零售类值_当期值", "中西药品类商品零售类值_当期值", "文化办公用品类商品零售类值_当期值", "家具类商品零售类值_当期值", "通讯器材类商品零售类值_当期值", "石油及制品类商品零售类值_当期值", "建筑及装潢材料类商品零售类值_当期值", "汽车类商品零售类值_当期值", "其他商品零售类值_当期值"]
+        data.data = currentValue.funnel.map(d => d[month]);
 
         drawFunnel(document.querySelector("#funnel"), data)
     }
 }
 
-function subGraph() { //画下面四个框，与月份没有关系
-    /* chart-apex */
-    var data_act = [];
-    for (var i = 0; i < 36; i++) {
-        data_act.push([i, Math.floor(Math.random() * 100)]);
-    }
-    console.log(data_act);
+function subGraph(left_up, left_down, right_up, right_down) { //画下面四个框，与月份没有关系
+
     //画当期值（含line与bar)
     if ($("#achart-bar").length) {
-        drawLineBar(data_act, document.querySelector("#achart-bar"))
+        drawLineBar(left_up, document.querySelector("#achart-bar"))
     }
 
     if ($("#negative-bar").length) {
-        let data = [];
-        data = [-7.5, -15.8, NaN, NaN, 8, 8, 7.2, 7.8, 7.5, 7.6, 9.8, 8.6, 7.2, 8.7, NaN, NaN, 8.160813607, 8.1, 8.6, 9.2, 9, 8.8, 9, 8.5, 9.4, 10.1, NaN, NaN, 9.4, 10.2, 10, 10.3, 10.1, 10.4, 11, 10.7]
-            // for (var i = 0; i < 36; i++) {
-            //     data.push(Math.random() * 100 - 50);
-            // }
-        drawNegative(document.querySelector("#negative-bar"), data)
+        drawNegative(document.querySelector("#negative-bar"), left_down)
     }
 
-
-    let data = [];
-    data[0] = [34734.1, 34108.2, 34240.9, 30870.3, 30329.7, 29609.8, 29807.6, 29459.2, NaN, NaN, NaN, NaN];
-    data[0] = data[0].reverse();
-    data[1] = [35893.49834, 35259.7, 35534.4, 32005.4, 31542.3, 30733.7, 30841.6, 30359.1, 28541.9, 29193.6, NaN, NaN]
-    data[1] = data[1].reverse();
-    data[2] = [38776.7, 38093.8, 38104.3, 34494.9, 33896.3, 33073.3, 33878.1, 32955.7, 30586.1, 31725.7, NaN, NaN]
-    data[2] = data[2].reverse();
-    data[3] = [NaN, NaN, NaN, NaN, NaN, NaN, NaN, NaN, 28177.8, 26449.9, NaN, NaN];
-    data[3] = data[3].reverse();
-    data = d3.transpose(data)
     if ($("#stack-line").length) {
-        drawStackLine(document.querySelector("#stack-line"), data);
+        drawStackLine(document.querySelector("#stack-line"), right_up);
     }
 
     if ($("#negative-bar-2").length) {
-        let data = [];
-        data = [-16.2, -19, -20.5, NaN, 8, 8, 8.1, 8.2, 8.2, 8.3, 8.4, 8.1, 8, 8.3, 8.2, NaN, 8.981749407, 9.1, 9.2, 9.3, 9.3, 9.3, 9.4, 9.5, 9.7, 9.8, 9.7, NaN, 10.2, 10.3, 10.3, 10.4, 10.4, 10.4, 10.4, 10.3]
-        drawNegative(document.querySelector("#negative-bar-2"), data)
+        drawNegative(document.querySelector("#negative-bar-2"), right_down)
     }
 
-
-
 }
-/* [ charts ] */
-function Trading() {
 
-    bigGraph();
-    subGraph();
+var currentValue = {}
+    /* [ charts ] */
+function Trading() {
+    $.ajax({
+        url: "getTradingdata",
+        type: 'GET',
+        data: { "graph": 0 },
+        success: function(msg) {
+            currentValue = msg;
+            console.log(1111);
+            console.log(msg);
+            bigGraph(0);
+            updateLineBar("社会消费品零售总额_当期值");
+        }
+    })
+
 
     /* Preloader */
     let preloader = document.getElementsByClassName('preloaderWrapper');

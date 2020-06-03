@@ -198,3 +198,70 @@ def Finance(request):
     datasets=[]
     return render(request, 'visual/Finance.html', {'test':datasets})
 
+trade = {}  
+def trading(request):
+    if trade=={}:
+        with open('data\Trading\社会消费品零售总额（全国36个月）.csv','r',encoding='gbk')as fp:
+            data_list = [i for i in csv.reader(fp)]
+            for ele in data_list[1:]:
+                tlist = []
+                for val in ele[1:]:
+                    if val!='0':
+                        tlist.append(float(val))
+                    else:
+                        tlist.append("NaN")
+                trade[ele[0]] = tlist
+        
+        with open('data\Trading\限上单位商品零售类值（全国36个月）.csv','r',encoding='gbk')as fp:
+            data_list = [i for i in csv.reader(fp)]
+            for ele in data_list[1:]:
+                tlist = []
+                for val in ele[1:]:
+                    tlist.append(float(val))
+                trade[ele[0]] = tlist
+    return render(request,'visual/Trading.html',{"test":[1,2,3]})
+
+def getTradingData(request):
+    if request.method=='GET':
+        graph = request.GET.get("graph")
+        if graph=='0':
+            ret = []
+            fun=[]
+            for key,value in trade.items():
+                if "当期值" in key and '商品零售类值' not in key:
+                    json = []
+                    for i in value:
+                        json.append({"value":i,"name":key})
+                    ret.append(json)
+                elif '商品零售类值_当期值' in key:
+                    json = []
+                    for i in value:
+                        json.append({"value":i,"name":key})
+                    fun.append(json)
+            return JsonResponse({"pie":ret,"funnel":fun})
+        else:
+            name = request.GET.get("name")
+            json = {}
+            json["left_up"] = trade[name+"_当期值"]
+            json["left_down"] = trade[name+"_同比增长"]
+
+            cumulate = trade[name+"_累计值"]
+            up17 = ["NaN"]*12
+            up18 = ['']*12
+            up19 = ['']*12
+            up20 = ["NaN"]*12
+            for i,val in enumerate(cumulate):
+                if i<=3:
+                    up20[3-i] = val
+                elif i<=15:
+                    up19[15-i] = val
+                elif i<=27:
+                    up18[27-i] = val
+                else:
+                    up17[39-i] = val
+            json["right_up"] = [up17,up18,up19,up20]
+            json["right_down"]= trade[name+"_累计增长"]
+
+            b = request.GET.get("graph")
+
+        return JsonResponse(json)

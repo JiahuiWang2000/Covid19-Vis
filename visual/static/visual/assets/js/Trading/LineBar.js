@@ -34,20 +34,20 @@ function drawLineBar(data_act, dombar) {
         dataZoom: [{
                 type: 'slider',
                 xAxisIndex: 0,
-                start: 10,
-                end: 60
+                start: 0,
+                end: 100
             },
             {
                 type: 'inside',
                 xAxisIndex: 0,
-                start: 10,
-                end: 60
+                start: 0,
+                end: 100
             }
         ],
         series: [{
             name: '当期值',
             type: 'bar',
-            barWidth: 10,
+            //barWidth: 10,
             itemStyle: {
                 normal: {
                     barBorderRadius: 5,
@@ -68,7 +68,6 @@ function drawLineBar(data_act, dombar) {
 }
 
 function drawNegative(dom, dataset) {
-
     var myChart = echarts.init(dom);
     option = null;
     option = {
@@ -84,10 +83,24 @@ function drawNegative(dom, dataset) {
         label: {
             textStyle: { color: '#d27d39', fontSize: "18" }
         },
+        dataZoom: [{
+                type: 'slider',
+                yAxisIndex: 0,
+                start: 0,
+                end: 90
+            },
+            {
+                type: 'inside',
+                yAxisIndex: 0,
+                start: 0,
+                end: 90
+            }
+        ],
         grid: {
             left: '3%',
             right: '4%',
             bottom: '3%',
+            y: "20px",
             containLabel: true
         },
         xAxis: [{
@@ -120,7 +133,7 @@ function drawNegative(dom, dataset) {
                 stack: '总量',
                 label: {
                     show: true,
-                    position: 'left'
+                    position: 'right'
                 },
                 data: dataset
             }
@@ -155,14 +168,10 @@ function drawStackLine(dom, dataset) { //dataset[0~4]表示12个月份的累计�
                 color: '#89A7AF',
             },
             show: true,
-            data: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
+            data: ['2017', '2018', '2019', '2020']
 
         },
-        toolbox: {
-            feature: {
-                saveAsImage: {}
-            }
-        },
+
         grid: {
             left: '3%',
             right: '4%',
@@ -175,7 +184,7 @@ function drawStackLine(dom, dataset) { //dataset[0~4]表示12个月份的累计�
             axisLabel: {
                 textStyle: {  color: '#acacac' }
             },
-            data: ['2017', '2018', '2019', '2020']
+            data: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
         }],
         yAxis: [{
             type: 'value',
@@ -184,89 +193,29 @@ function drawStackLine(dom, dataset) { //dataset[0~4]表示12个月份的累计�
             },
         }],
         series: [{
-                name: 'Jan',
+                name: '2017',
                 type: 'line',
-                stack: '总量',
                 areaStyle: {},
                 data: dataset[0]
             },
             {
-                name: 'Feb',
+                name: '2018',
                 type: 'line',
-                stack: '总量',
                 areaStyle: {},
                 data: dataset[1]
             },
             {
-                name: 'Mar',
+                name: '2019',
                 type: 'line',
-                stack: '总量',
                 areaStyle: {},
                 data: dataset[2]
             },
             {
-                name: 'Apr',
+                name: '2020',
                 type: 'line',
-                stack: '总量',
                 areaStyle: {},
                 data: dataset[3]
-            },
-            {
-                name: 'May',
-                type: 'line',
-                stack: '总量',
-                areaStyle: {},
-                data: dataset[4]
-            },
-            {
-                name: 'Jun',
-                type: 'line',
-                stack: '总量',
-                areaStyle: {},
-                data: dataset[5]
-            },
-            {
-                name: 'Jul',
-                type: 'line',
-                stack: '总量',
-                areaStyle: {},
-                data: dataset[6]
-            },
-            {
-                name: 'Aug',
-                type: 'line',
-                stack: '总量',
-                areaStyle: {},
-                data: dataset[7]
-            },
-            {
-                name: 'Sep',
-                type: 'line',
-                stack: '总量',
-                areaStyle: {},
-                data: dataset[8]
-            },
-            {
-                name: 'Oct',
-                type: 'line',
-                stack: '总量',
-                areaStyle: {},
-                data: dataset[9]
-            },
-            {
-                name: 'Nov',
-                type: 'line',
-                stack: '总量',
-                areaStyle: {},
-                data: dataset[10]
-            },
-            {
-                name: 'Dec',
-                type: 'line',
-                stack: '总量',
-                areaStyle: {},
-                data: dataset[11]
-            },
+            }
 
         ]
     };
