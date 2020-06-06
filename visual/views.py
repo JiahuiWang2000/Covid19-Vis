@@ -265,3 +265,42 @@ def getTradingData(request):
             b = request.GET.get("graph")
 
         return JsonResponse(json)
+
+live = {}
+def living(request):
+    if live=={}:
+        with open('data\Living\居民收支基本情况（分省12个季度）.csv','r',encoding='gbk')as fp:
+            json = {}
+            data_list = [i for i in csv.reader(fp)]
+            for index in range(1,len(data_list),6):
+                province = []
+                for i in range(index,index+6):
+                    ele = data_list[i]
+                    tlist = []
+                    for val in ele[2:]:
+                        if val!='0':
+                            tlist.append(float(val))
+                        else:
+                            tlist.append("NaN")
+                    province.append(tlist)
+                json[data_list[index][0]] = province
+            live["Province"] = json
+        # with open('data\Trading\限上单位商品零售类值（全国36个月）.csv','r',encoding='gbk')as fp:
+        #     data_list = [i for i in csv.reader(fp)]
+        #     for ele in data_list[1:]:
+        #         tlist = []
+        #         for val in ele[1:]:
+        #             tlist.append(float(val))
+        #         trade[ele[0]] = tlist
+    return render(request,'visual/Living.html')
+
+def getLivingData(request):
+     if request.method=='GET':
+        graph = request.GET.get("graph")
+        if graph=='0':
+            name = request.GET.get("name")
+            print(live)
+            for key,value in live["Province"].items():
+                if name in key:
+                    return JsonResponse({"data":value})
+       

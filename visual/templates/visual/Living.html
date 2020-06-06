@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <title>疫情可视化分析系统</title>
+
+    {% load static %}
+    <!-- CSS -->
+    <link href={% static "visual/assets/css/fonts/fontawesome/all.min.css" %} rel="stylesheet">
+    <link href={% static "visual/assets/css/fonts/beid.css" %} rel="stylesheet">
+    <link href={% static "visual/assets/css/styles.css" %} rel="stylesheet">
+
+
+
+    <!-- JQVMAP -->
+    <link href={% static "visual/assets/plugins/jqvmap/jqvmap.min.css" %} rel="stylesheet">
+
+    <!-- dateRangePicker -->
+    <link href={% static "visual/assets/plugins/daterangepicker/daterangepicker.css" %} rel="stylesheet">
+
+
+
+    <!-- Fonts -->
+    <link href={% static "visual/assets/fonts/inter/inter.css" %} rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i,800,800i" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
+
+    <!--[if lt IE 9]>
+    <script src="http://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+    <script src="http://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+
+
+        <!-- jQuery -->
+    <script src={% static "visual/assets/js/jquery.min.js" %}></script>
+    <!--echarts-->
+    <script type="text/javascript" src={% static "visual/assets/plugins/echarts/echarts2.js" %}></script>
+
+
+    <script src={% static "visual/assets/plugins/d3/d3.v5.js" %}></script>
+    <!-- Bootstrap -->
+    <script src={% static "visual/assets/js/bootstrap.min.js" %}></script>
+
+    <!-- Chart.js -->
+    <script src={% static "visual/assets/plugins/chart/Chart.min.js" %} id="_chartJS_min"></script>
+    <script src={% static "visual/assets/plugins/chart/Chart.bundle.min.js" %}></script>
+    <script src={% static "visual/assets/plugins/chart/chartjs-plugin-annotation.js" %}></script>
+    <script src={% static "visual/assets/plugins/chart/chartjs-plugin-labels.js" %}></script>
+
+    <!-- apexcharts -->
+    <script src={% static "visual/assets/plugins/apexcharts/apexcharts.min.js" %}></script>
+
+    <!-- Moment -->
+    <script src={% static "visual/assets/plugins/lib/moment/moment.min.js" %}></script>
+
+    <!-- User JS -->
+    <script src={% static "visual/assets/js/scripts.js" %}></script>
+
+
+
+    <!-- Modules -->
+    <!--    <script src="assets/js/modules.js"></script>-->
+
+    <script src={% static "visual/assets/js/Estate/china.js" %}></script>
+    <script src={% static "visual/assets/js/Living/Living.js" %}></script>
+    <script src={% static "visual/assets/js/Living/drawLiving.js" %}></script>
+
+
+    <style>
+        body {
+            background-color: #010016;
+        }
+    </style>
+
+
+</head>
+
+<body>
+
+
+
+
+    <!-- <link href="http://fonts.googleapis.com/css?family=Maven+Pro:400" rel="stylesheet" type="text/css" />
+    <link href="http://fonts.googleapis.com/css?family=News+Cycle" rel="stylesheet" type="text/css" />
+    <link href="http://fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css" />
+
+
+    <script src="https://d3js.org/d3.v4.js"></script>
+
+   
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,300" rel='stylesheet' type='text/css'>
+    <link href='https://fonts.googleapis.com/css?family=Raleway' rel='stylesheet' type='text/css'> -->
+
+    <div class="main-container">
+        <div class="overflow-hidden">
+            <!-- charts -->
+            <div id="charts" class="page-content-fl" style="position:absolute;height:900px">
+                <div class="d-flex align-items-center px-6 py-5">
+                    <div class="text-light mr-auto" style="position:absolute;left:415px;top:12px;width:670px;height:200px">
+                        <h1 style="font-size: 23px;color:white">
+                            <center>人民生活可视化</center>
+                        </h1>
+                    </div>
+                </div>
+
+                <div class="container-fluid p-0">
+                    <!-- 背景图 -->
+                    <div style="position:absolute;left:400px;top:0px;width:1000px;height:200px">
+                        <svg width="700">
+
+                    <defs>
+                    <linearGradient id="c1" x1="0%" y1="0%" x2="0%" y2="100%">
+                        <stop offset="0%" stop-color="#7db9de" />
+                        <stop offset="100%" stop-color="#0b346e" />
+                    </linearGradient>
+                    </defs>
+
+                    <line x1="0" y1="0" x2="35" y2="40" transform="translate(175,25)" stroke="url(#c1)" stroke-width="3" />
+                    <line x1="0" y1="0" x2="280" y2="0" transform="translate(210,65)" stroke="#0b346e" stroke-width="3" />
+                    <line x1="0" y1="0" x2="250" y2="0" transform="translate(225,75)" stroke="#0b346e" stroke-width="3" />
+                    <line x1="0" y1="0" x2="220" y2="0" transform="translate(240,85)" stroke="#0b346e" stroke-width="3" />
+                    <line x1="0" y1="40" x2="35" y2="0" transform="translate(490,25)" stroke="url(#c1)" stroke-width="3" />
+
+
+                    <line x1="0" y1="0" x2="160" y2="0" transform="translate(16,25)" stroke="#7db9de" stroke-width="3" />
+                    <line x1="0" y1="0" x2="160" y2="0" transform="translate(525,25)" stroke="#7db9de" stroke-width="3" />
+                </svg>
+
+                    </div>
+
+
+
+                    <!-- 两个下拉框 -->
+                    <div style="position:absolute;left:430px;top:40px;width:120px;height:200px;z-index:100000">
+
+                        <ul id="nav">
+                            <li><a class="hsubs" href="#">全国情况</a>
+                                <ul class="subs">
+                                    <li><a href="Covid.html">疫情分析</a></li>
+                                    <li><a href="GDP.html">生产总值</a></li>
+                                    <li><a href="Finance.html">财政金融</a></li>
+                                    <li><a href="Trading.html">国内贸易</a></li>
+                                </ul>
+                            </li>
+
+                            <div id="lavalamp" style="left:30px;top:5px"></div>
+                        </ul>
+
+                    </div>
+                    <div style="position:absolute;left:950px;top:40px;width:120px;height:200px;z-index:100000">
+
+                        <ul id="nav">
+                            <li><a class="hsubs" href="#">各省详情</a>
+                                <ul class="subs">
+                                    <li><a href="Products.html">工业产品</a></li>
+                                    <li><a href="Living.html">人民生活</a></li>
+                                    <li><a href="Estate.html">房地产</a></li>
+                                    <li><a href="Leaderboard.html">排行</a></li>
+                                </ul>
+                            </li>
+
+                            <div id="lavalamp" style="left:30px;top:5px"></div>
+                        </ul>
+
+                    </div>
+                    <!-- 下拉框结束 -->
+
+                    <div style="position:absolute;left:415px;top:100px;height:600px;width:670px;z-index:9999">
+
+                        <!--边框-->
+                        <div class="t_line_box">
+                            <i class="t_l_line"></i>
+                            <i class="l_t_line"></i>
+                            <i class="t_r_line"></i>
+                            <i class="r_t_line"></i>
+                            <i class="l_b_line"></i>
+                            <i class="b_l_line"></i>
+                            <i class="r_b_line"></i>
+                            <i class="b_r_line"></i>
+                        </div>
+
+                        <div class="title" style="position:absolute;top:-20px;left:-90px;width:100%">
+                            <svg height="35" width="100%">
+                            <rect x=50% rx="20" ry="20" width="210" height="35" style="fill:rgb(44,88,166);" />
+                            <text id = "FigTitle" x="51%" y="20" dx="90" style="stroke: white;text-anchor: middle">xx省居民收支情况</text>
+                          </svg>
+                        </div>
+
+                        <div style="position:absolute;z-index:99999;">
+                            <div style="position:absolute;z-index:99999;">
+                                <div id="ProvinceLiving" style="position:absolute;height:600px;width:670px;"></div>
+                            </div>
+                        </div>
+
+
+                        <!--内发光-->
+                        <svg width=100% height="100%">
+                          <filter id="inset-shadow" x="-50%" y="-50%" width="200%" height="200%">
+                            <feComponentTransfer in=SourceAlpha>
+                              <feFuncA type="table" tableValues="1 0" />
+                            </feComponentTransfer>
+                            <feGaussianBlur stdDeviation="4"/>
+                            <feOffset dx="0" dy="1" result="offsetblur"/>
+                            <feFlood flood-color="#0d619d" result="color"/>
+                            <feComposite in2="offsetblur" operator="in"/>
+                            <feComposite in2="SourceAlpha" operator="in" />
+                            <feMerge>
+                              <feMergeNode in="SourceGraphic" />
+                              <feMergeNode />
+                            </feMerge>
+                          </filter>
+                          <rect  width=100% height=100%  filter="url(#inset-shadow)" />
+                        </svg>
+                    </div>
+
+                    <div style="position:absolute;left:20px;top:50px;height:300px;width:370px">
+
+                        <!--边框-->
+                        <div class="t_line_box">
+                            <i class="t_l_line"></i>
+                            <i class="l_t_line"></i>
+                            <i class="t_r_line"></i>
+                            <i class="r_t_line"></i>
+                            <i class="l_b_line"></i>
+                            <i class="b_l_line"></i>
+                            <i class="r_b_line"></i>
+                            <i class="b_r_line"></i>
+                        </div>
+
+                        <div class="title" style="position:absolute;top:-20px;left:-90px;width:100%">
+                            <svg height="35" width="100%">
+                            <rect x=50% rx="20" ry="20" width="180" height="35" style="fill:rgb(44,88,166);" />
+                            <text id="Fig1Title" x="50%" y="20" dx="90" style="stroke: white;text-anchor: middle">选择省份</text>
+                          </svg>
+                        </div>
+                        <div style="position:absolute;z-index:99999;">
+                            <!-- <div style="color:white;margin:10pt">点击大图会联动左下角和右图，显示总的/城镇的/农村的（还没做联动）。大图颜色太丑还要改。<br/> 漏斗图下方要加一个时间轴，因为漏斗图数据每个季度不一样。<br/> 漏斗图点击某一项数据，底下的折线图会变。
+                                <br/> 下方的折线图还要改，改成柱状图+折线图，柱状图表示累计值，折线图表示累计增长
+                            </div> -->
+
+                            <div id="ProvinceChoose" style="position:absolute;height:300px;width:350px;"></div>
+                        </div>
+
+
+                        <!--内发光-->
+                        <svg width=100% height="100%">
+                          <filter id="inset-shadow" x="-50%" y="-50%" width="200%" height="200%">
+                            <feComponentTransfer in=SourceAlpha>
+                              <feFuncA type="table" tableValues="1 0" />
+                            </feComponentTransfer>
+                            <feGaussianBlur stdDeviation="4"/>
+                            <feOffset dx="0" dy="1" result="offsetblur"/>
+                            <feFlood flood-color="#0d619d" result="color"/>
+                            <feComposite in2="offsetblur" operator="in"/>
+                            <feComposite in2="SourceAlpha" operator="in" />
+                            <feMerge>
+                              <feMergeNode in="SourceGraphic" />
+                              <feMergeNode />
+                            </feMerge>
+                          </filter>
+                          <rect  width=100% height=100%  filter="url(#inset-shadow)" />
+                        </svg>
+                    </div>
+
+                    <div style="position:absolute;left:20px;top:400px;height:300px;width:370px">
+
+                        <!--边框-->
+                        <div class="t_line_box">
+                            <i class="t_l_line"></i>
+                            <i class="l_t_line"></i>
+                            <i class="t_r_line"></i>
+                            <i class="r_t_line"></i>
+                            <i class="l_b_line"></i>
+                            <i class="b_l_line"></i>
+                            <i class="r_b_line"></i>
+                            <i class="b_r_line"></i>
+                        </div>
+
+                        <div class="title" style="position:absolute;top:-20px;left:-90px;width:100%">
+                            <svg height="35" width="100%">
+                            <rect x=50% rx="20" ry="20" width="180" height="35" style="fill:rgb(44,88,166);" />
+                            <text id="Fig2Title" x="50%" y="20" dx="90" style="stroke: white;text-anchor: middle">细看农村/城镇/总变化</text>
+                          </svg>
+                        </div>
+
+                        <div style="position:absolute;z-index:99999;">
+                            <div id="ProvinceStack" style="position:absolute;height:300px;width:370px;"></div>
+                        </div>
+
+
+                        <!--内发光-->
+                        <svg width=100% height="100%">
+                          <filter id="inset-shadow" x="-50%" y="-50%" width="200%" height="200%">
+                            <feComponentTransfer in=SourceAlpha>
+                              <feFuncA type="table" tableValues="1 0" />
+                            </feComponentTransfer>
+                            <feGaussianBlur stdDeviation="4"/>
+                            <feOffset dx="0" dy="1" result="offsetblur"/>
+                            <feFlood flood-color="#0d619d" result="color"/>
+                            <feComposite in2="offsetblur" operator="in"/>
+                            <feComposite in2="SourceAlpha" operator="in" />
+                            <feMerge>
+                              <feMergeNode in="SourceGraphic" />
+                              <feMergeNode />
+                            </feMerge>
+                          </filter>
+                          <rect  width=100% height=100%  filter="url(#inset-shadow)" />
+                        </svg>
+                    </div>
+                    <div style="position:absolute;left:1115px;top:50px;height:650px;width:370px">
+
+                        <!--边框-->
+                        <div class="t_line_box">
+                            <i class="t_l_line"></i>
+                            <i class="l_t_line"></i>
+                            <i class="t_r_line"></i>
+                            <i class="r_t_line"></i>
+                            <i class="l_b_line"></i>
+                            <i class="b_l_line"></i>
+                            <i class="r_b_line"></i>
+                            <i class="b_r_line"></i>
+                        </div>
+
+                        <div class="title" style="position:absolute;top:-20px;left:-90px;width:100%">
+                            <svg height="35" width="100%">
+                            <rect x=50% rx="20" ry="20" width="180" height="35" style="fill:rgb(44,88,166);" />
+                            <text id="Fig3Title" x="50%" y="20" dx="90" style="stroke: white;text-anchor: middle">全国情况</text>
+                          </svg>
+                        </div>
+                        <div style="position:absolute;z-index:99999;">
+                            <div id="funnel" style="position:absolute;top:20px;height:350px;width:370px;"></div>
+                            <div id="LivingChange" style="position:absolute;top:350px;height:300px;width:370px;"></div>
+                        </div>
+
+
+
+                        <!--内发光-->
+                        <svg width=100% height="100%">
+                          <filter id="inset-shadow" x="-50%" y="-50%" width="200%" height="200%">
+                            <feComponentTransfer in=SourceAlpha>
+                              <feFuncA type="table" tableValues="1 0" />
+                            </feComponentTransfer>
+                            <feGaussianBlur stdDeviation="4"/>
+                            <feOffset dx="0" dy="1" result="offsetblur"/>
+                            <feFlood flood-color="#0d619d" result="color"/>
+                            <feComposite in2="offsetblur" operator="in"/>
+                            <feComposite in2="SourceAlpha" operator="in" />
+                            <feMerge>
+                              <feMergeNode in="SourceGraphic" />
+                              <feMergeNode />
+                            </feMerge>
+                          </filter>
+                          <rect  width=100% height=100%  filter="url(#inset-shadow)" />
+                        </svg>
+                    </div>
+
+                </div>
+
+            </div>
+            <!-- /.charts -->
+
+        </div>
+
+    </div>
+
+</body>
+
+</html>
