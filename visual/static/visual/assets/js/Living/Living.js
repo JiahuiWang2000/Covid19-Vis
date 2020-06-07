@@ -8,7 +8,10 @@ function updateProvince(province) {
         success: function(msg) {
             console.log(msg);
             bigGraph(msg.data)
-            updateSubGraph("居民", province, msg.data)
+                //updateSubGraph("居民", province, msg.data)
+            if ($("#funnel").length) {
+                drawFunnel(document.querySelector("#funnel"), msg.country)
+            }
         }
     })
 
@@ -62,8 +65,8 @@ function static() {
 function Living() {
     static();
     updateProvince("北京")
-    subGraph();
-    /* Preloader */
+        //subGraph();
+        /* Preloader */
     let preloader = document.getElementsByClassName('preloaderWrapper');
     if (preloader.length > 0) {
         document.querySelector('.preloaderWrapper').classList.add('preloaderOut');

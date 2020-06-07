@@ -2,22 +2,27 @@ function drawFunnel(dom, dataset) { //dataset[2]，每一维的每个元素都�
     var myChart = echarts.init(dom);
     //let valuearr = Object.keys(dataset.data).map(key => dataset.data[key]["value"]);
     option = null;
-    let downwidth = 0.8 * d3.max(dataset[1]) / d3.max(dataset[0]) * 100;
+    let downwidth = 0.8 * d3.max(dataset[1].map(d => d['value'])) / d3.max(dataset[0].map(d => d['value'])) * 100;
     option = {
 
         tooltip: {
             trigger: 'item',
             formatter: '{a} <br/>{b} : {c}'
         },
-        toolbox: {
-            orient: 'vertical',
-            top: 'center'
+        title: { // 图表标题
+            text: '收支明细', // 标题文本内容
+            left: '5%', // 标题距容器左侧5%
+            top: '5%', // 标题距容器顶部5%
+            textStyle: { // 标题文本样式
+                color: '#acacac', // 字体颜色
+                fontSize: 20, // 字体大小
+            }
         },
-        legend: {
-            orient: 'vertical',
-            left: 'left',
-            data: ['居民人均可支配工资性收入_累计值', '居民人均可支配经营净收入_累计值', '居民人均可支配财产净收入_累计值', '居民人均可支配转移净收入_累计值', 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H']
-        },
+        // legend: {
+        //     orient: 'vertical',
+        //     left: 'left',
+        //     data: dataset[0].map(d => d['name']).concat(dataset[1].map(d => d['name']))
+        // },
 
         series: [{
                 name: '收入',
@@ -27,6 +32,10 @@ function drawFunnel(dom, dataset) { //dataset[2]，每一维的每个元素都�
                 left: '10%',
                 top: '5%',
                 sort: 'ascending',
+                label: {
+                    show: false,
+                    position: 'inside'
+                },
                 data: dataset[0]
             },
             {
@@ -36,6 +45,10 @@ function drawFunnel(dom, dataset) { //dataset[2]，每一维的每个元素都�
                 height: '60%',
                 left: (80 - downwidth) / 2 + 10 + '%',
                 top: '35%',
+                label: {
+                    show: false,
+                    position: 'inside'
+                },
                 data: dataset[1]
             },
         ]
