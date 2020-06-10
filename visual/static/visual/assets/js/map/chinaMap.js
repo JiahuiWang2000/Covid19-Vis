@@ -16,7 +16,7 @@ for(var i=22;i<32;i++){
     months.push(1);
     days.push(i);
 }
-for(var i=1;i<29;i++){
+for(var i=1;i<30;i++){
     var t='Feb.'+i;
     times.push(t);
     months.push(2);
