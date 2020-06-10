@@ -104,7 +104,9 @@
             </div>
 
             <div class="container-fluid p-0" >
-
+			<input type="button" value="hhhhhhhh" onclick="gotoCovid()" style="position:absolute;top:101px;left:707px;width:85px;height:25px;opacity:0;z-index:999999;" ></input>
+			<p id="covid" style="position:absolute;top:80px;left:710px;width:100px;height:25px;color:white;font-size:20px;font-weight:bold;text-anchor: middle;">疫情分析</p>
+			
             <button style="position:absolute;top:420px;left:810px;width:75px;height:25px;" onclick="selectmode(0)">确诊人数</button>
             <button style="position:absolute;top:420px;left:910px;width:75px;height:25px;" onclick="selectmode(1)">死亡人数</button>
             <button style="position:absolute;top:420px;left:1010px;width:75px;height:25px;" onclick="selectmode(2)">治愈人数</button>
@@ -200,9 +202,10 @@
 
                     
                     <div class="title" style="position:absolute;top:-20px;left:-90px;width:100%">
+						<input type="button" value="hhhhhhhh" onclick="gotoLiving()" style="position:absolute;top:0px;left:335px;width:180px;height:35px;opacity:0;z-index:999999;" ></input>
                         <svg height="35" width="100%">
                             <rect x=50% rx="20" ry="20" width="180" height="35" style="fill:rgb(44,88,166);" />
-                            <text x="50%" y="24" dx="90" style="stroke: white;font-size: 15px;text-anchor: middle">人民生活</text>
+                            <text id="livingtitle" x="50%" y="24" dx="90" style="stroke: white;font-size: 15px;text-anchor: middle;fill:white;">湖北-人民生活</text>
                         </svg>
                     </div>
 
@@ -244,9 +247,10 @@
                     </div>
 
                     <div class="title" style="position:absolute;top:-20px;left:-90px;width:100%">
+						<input type="button" value="hhhhhhhh" onclick="gotoFinance()" style="position:absolute;top:0px;left:185px;width:180px;height:35px;opacity:0;z-index:999999;" ></input>
                         <svg height="35" width="100%">
                             <rect x=50% rx="20" ry="20" width="180" height="35" style="fill:rgb(44,88,166);" />
-                            <text x="50%" y="24" dx="90" style="stroke: white;font-size: 15px;text-anchor: middle">财政金融</text>
+                            <text x="50%" y="24" dx="90" style="stroke: white;font-size: 15px;text-anchor: middle;fill:white;">全国-财政金融</text>
                         </svg>
                     </div>
 
@@ -291,9 +295,10 @@
                     </div>
 
 					<div class="title" style="position:absolute;top:-20px;left:-90px;width:100%">
+						<input type="button" value="hhhhhhhh" onclick="gotoGDP()" style="position:absolute;top:0px;left:185px;width:180px;height:35px;opacity:0;z-index:999999;" ></input>
                         <svg height="35" width="100%">
                             <rect x=50% rx="20" ry="20" width="180" height="35" style="fill:rgb(44,88,166);" />
-                            <text x="50%" y="24" dx="90" style="stroke: white;font-size: 15px;text-anchor: middle">生产总值</text>
+                            <text x="50%" y="24" dx="90" style="stroke: white;font-size: 15px;text-anchor: middle;fill:white;">全国-生产总值</text>
                         </svg>
                     </div>
 
@@ -338,9 +343,10 @@
                     </div>
 
                      <div class="title" style="position:absolute;top:-20px;left:-90px;width:100%">
+						<input type="button" value="hhhhhhhh" onclick="gotoProduct()" style="position:absolute;top:0px;left:185px;width:180px;height:35px;opacity:0;z-index:999999;" ></input>
                         <svg height="35" width="100%">
                             <rect x=50% rx="20" ry="20" width="180" height="35" style="fill:rgb(44,88,166);" />
-                            <text x="50%" y="24" dx="90" style="stroke: white;font-size: 15px;text-anchor: middle">工业产品</text>
+                            <text id="producttitle" x="50%" y="24" dx="90" style="stroke: white;font-size: 15px;text-anchor: middle;fill:white;">湖北-工业产品(202003)</text>
                         </svg>
                     </div>
 
@@ -386,9 +392,10 @@
                     </div>
 	
 					<div class="title" style="position:absolute;top:-20px;left:-90px;width:100%">
+						<input type="button" value="hhhhhhhh" onclick="gotoTrade()" style="position:absolute;top:0px;left:185px;width:180px;height:35px;opacity:0;z-index:999999;" ></input>
                         <svg height="35" width="100%">
                             <rect x=50% rx="20" ry="20" width="180" height="35" style="fill:rgb(44,88,166);" />
-                            <text x="50%" y="24" dx="90" style="stroke: white;font-size: 15px;text-anchor: middle">国内贸易</text>
+                            <text id="tradingtitle" x="50%" y="24" dx="90" style="stroke: white;font-size: 15px;text-anchor: middle;fill:white;">全国-国内贸易(202003)</text>
                         </svg>
                     </div>
 
@@ -433,9 +440,10 @@
                     </div>
 					
                     <div class="title" style="position:absolute;top:-20px;left:-90px;width:100%">
+						<input type="button" value="hhhhhhhh" onclick="gotoPrice()" style="position:absolute;top:0px;left:185px;width:180px;height:35px;opacity:0;z-index:999999;" ></input>
                         <svg height="35" width="100%">
                             <rect x=50% rx="20" ry="20" width="180" height="35" style="fill:rgb(44,88,166);" />
-                            <text x="50%" y="24" dx="90" style="stroke: white;font-size: 15px;text-anchor: middle">价格指数</text>
+                            <text id="pricetitle" x="50%" y="24" dx="90" style="stroke: white;font-size: 15px;text-anchor: middle;fill:white;">全国-价格指数(202003)</text>
                         </svg>
                     </div>
 
@@ -478,9 +486,10 @@
                     </div>
 
 					<div class="title" style="position:absolute;top:-20px;left:-90px;width:100%">
+						<input type="button" value="hhhhhhhh" onclick="gotoEstate()" style="position:absolute;top:0px;left:185px;width:180px;height:35px;opacity:0;z-index:999999;" ></input>
                         <svg height="35" width="100%">
                             <rect x=50% rx="20" ry="20" width="180" height="35" style="fill:rgb(44,88,166);" />
-                            <text x="50%" y="24" dx="90" style="stroke: white;font-size: 15px;text-anchor: middle">房地产</text>
+                            <text id="estatetitle" x="50%" y="24" dx="90" style="stroke: white;font-size: 15px;text-anchor: middle;fill:white;">湖北-房地产(202003)</text>
                         </svg>
                     </div>
 
@@ -522,14 +531,38 @@
 </div>
 
 <script type="text/javascript">
+	function gotoGDP(){
+		window.location.href="GDP.html";
+	}
+	function gotoFinance(){
+		window.location.href="Finance.html";
+	}
+	function gotoProduct(){
+		window.location.href="Products.html";
+	}
+	function gotoPrice(){
+		window.location.href="Leaderboard.html";
+	}
+	function gotoTrade(){
+		window.location.href="Trading.html";
+	}
+	function gotoEstate(){
+		window.location.href="Estate.html";
+	}
+	function gotoLiving(){
+		window.location.href="Living.html";
+	}
+	function gotoCovid(){
+		window.location.href="Covid.html";
+	}
 	$("#time").ionRangeSlider({
 		skin: "big",
 		min: 0,
 		max: 12,
-		from: 69,
-		values:[20200122,20200123,20200124,20200125,20200126,20200127,20200128,20200129,20200130,20200131,20200201,20200202,20200203,20200204,20200205,20200206,20200207,20200208,20200209,20200210,20200211,20200212,20200213,20200214,20200215,20200216,20200217,20200218,20200219,20200220,20200221,20200222,20200223,20200224,20200225,20200226,20200227,20200228,20200229,20200301,20200302,20200303,20200304,20200305,20200306,20200307,20200308,20200309,20200310,20200311,20200312,20200313,20200314,20200315,20200316,20200317,20200318,20200319,20200320,20200321,20200322,20200323,20200324,20200325,20200326,20200327,20200328,20200329,20200330,20200331,20200401,20200402,20200403,20200404,20200405,20200406,20200407,20200408,20200409,20200410,20200411,20200412,20200413,20200414,20200415,20200416,20200417,20200418,20200419,20200420,20200421,20200422,20200423,20200424,20200425,20200426,20200427,20200428,20200429,20200430,20200501,20200502,20200503,20200504,20200505,20200506,20200507,20200508,20200509,20200510,20200511,20200512,20200513,20200514,20200515,20200516,20200517,20200518,20200519,20200520,20200521,20200522,20200523,20200524,20200525,20200526,20200527,20200528,20200529],
+		from: 39,
+		values: times,
 		onChange:function(data){
-			updateTime(data.from_value)
+			updateTime(data.from)
 		}
 	});
 	covid_data={{covid|safe}};
@@ -543,6 +576,7 @@
 	getTreemap();
 	getRadar();
 	getBar();
+	selectmode(0);
 </script>
 
 </body>
