@@ -11,8 +11,92 @@ def index(request):
     data=[]
     for i in range(len(data_list)):
         data.append(int(data_list[i][1]))
+    if trade == {}:
+        with open('data\Trading\社会消费品零售总额（全国36个月）.csv', 'r', encoding='gbk')as fp:
+            data_list = [i for i in csv.reader(fp)]
+            for ele in data_list[1:]:
+                tlist = []
+                for val in ele[1:]:
+                    if val != '0':
+                        tlist.append(float(val))
+                    else:
+                        tlist.append("NaN")
+                trade[ele[0]] = tlist
+        with open('data\Trading\限上单位商品零售类值（全国36个月）.csv', 'r', encoding='gbk')as fp:
+            data_list = [i for i in csv.reader(fp)]
+            for ele in data_list[1:]:
+                tlist = []
+                for val in ele[1:]:
+                    tlist.append(float(val))
+                trade[ele[0]] = tlist
+
+    if live=={}:
+        with open('data\Living\居民收支基本情况（分省12个季度）.csv','r',encoding='gbk')as fp:
+            json = {}
+            data_list = [i for i in csv.reader(fp)]
+            for index in range(1,len(data_list),6):
+                province = []
+                for i in range(index,index+6):
+                    ele = data_list[i]
+                    tlist = []
+                    for val in ele[2:]:
+                        if val!='0':
+                            tlist.append(float(val))
+                        else:
+                            tlist.append("NaN")
+                    province.append(tlist)
+                json[data_list[index][0]] = province
+            live["Province"] = json
+        with open('data\Living\居民收支基本情况（全国12个季度）.csv','r',encoding='gbk')as fp:
+            json = {}
+            json["城镇"] = {}
+            json["农村"] = {}
+            json["居民"] = {}
+            data_list = [i for i in csv.reader(fp)]
+            head = data_list[0][1:]
+            for ele in data_list[1:]:
+                if "增长" in ele[0] or '居民人均可支配收入_累计值' in ele[0] or '居民人均消费支出_累计值' in ele[0]:
+                    if '城镇' in ele[0]:
+                        json["城镇"][ele[0]] = list(map(float, ele[1:]))
+                    elif '农村' in ele[0]:
+                        json["农村"][ele[0]] = list(map(float, ele[1:]))
+                    else:
+                        json["居民"][ele[0]] = list(map(float, ele[1:]))
+                    continue
+                category = ele[0][0:2]
+                for i in range(len(head)):
+                    if head[i] not in json[category]:
+                        json[category][head[i]] = [[],[]]
+                    if "收入" in ele[0]:
+                        json[category][head[i]][0].append({"value":float(ele[i + 1]),"name":ele[0]})
+                    else:
+                        json[category][head[i]][1].append({"value":float(ele[i + 1]),"name":ele[0]})
+            #print(json["居民"]["居民人均可支配收入_累计增长"])
+            live["Country"] = json
+
     return render(request, 'visual/index.html', {'covid':data})
 
+def index_data(request):
+    province = request.GET.get("province")
+    csv_path = "data\\Estate_province\\" + province + ".csv"
+    with open(csv_path, 'r', encoding='gbk')as fp:
+        datalist = [i for i in csv.reader(fp)]
+    datasets = []
+    for i in range(1, 15):
+        tmp = []
+        tmpp = []
+        tmpp2 = []
+        tmpp3 = []
+        index = [2, 5, 1, 3, 4, 0]
+        for j in index:
+            tmpp.append(datalist[j + 6][i])
+            tmpp2.append(datalist[j + 12][i])
+            tmpp3.append(datalist[j + 18][i])
+        tmp.append(tmpp)
+        tmp.append(tmpp2)
+        tmp.append(tmpp3)
+        datasets.append(tmp)
+    return JsonResponse({"estate": datasets})
 
 def newindexGDP(request):
     data=[]
@@ -37,7 +121,6 @@ def getCovidData(request):
             csv_path=csv_path+'0'+day+'-'
         else:
             csv_path=csv_path+day+'-'
-
         csv_path=csv_path+'2020.csv'
         with open(csv_path,'r',encoding='gbk')as fp:
             data_list = [i for i in csv.reader(fp)]
@@ -328,11 +411,16 @@ def Covid(request):
     with open(csv_path,'r',encoding='gbk')as fp:
         data_list = [i for i in csv.reader(fp)]
     dailyData=[]
+    addPatient=[]
     for i in range(len(data_list)):
         dailyData.append(int(data_list[i][1]))
+        addPatient.append({"key":i, "value":int(data_list[i][4])})
+    addPatient=sorted(addPatient, key=lambda i: i['value'])
     patientData=[]
     for i in range(len(data_list[0])-1):
         patientData.append(int(data_list[0][i+1]))
+    
+
     csv_path='data/covid_province_data/北京.csv'
     with open(csv_path,'r',encoding='gbk')as fp:
         data_list = [i for i in csv.reader(fp)]
@@ -343,7 +431,7 @@ def Covid(request):
         confirmData.append(data_list[0][i+1])
         deathData.append(data_list[1][i+1])
         recoverData.append(data_list[2][i+1])
-    return render(request, 'visual/Covid.html', {'covid':dailyData,'patient':patientData,'confirm':confirmData,'death':deathData,'recover':recoverData})
+    return render(request, 'visual/Covid.html', {'covid':dailyData,'patient':patientData,'confirm':confirmData,'death':deathData,'recover':recoverData,'add':addPatient})
 
 def getPatientData(request):
     if request.method=='GET':

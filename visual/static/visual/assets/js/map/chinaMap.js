@@ -1,10 +1,11 @@
 var modeflag=0;
-var covid_data,patient_data,increase_data;
-var myChinaMap,CovidPie,CovidIncrease;
+var covid_data,patient_data,increase_data,add_data;
+var myChinaMap,CovidPie,CovidIncrease,addPatient;
 var month=2;
 var day=1;
 var province='北京';
 var confirm,death,recover;
+var names=[ '北京', '天津', '上海','重庆','河北','河南','云南','辽宁','黑龙江','湖南','安徽','山东','新疆','江苏','浙江','江西','湖北', '广西','甘肃','山西', '内蒙古','陕西','吉林','福建','贵州','广东','青海','西藏', '四川','宁夏','海南','台湾', '香港', '澳门']
 
 
 function initMap(){
@@ -17,6 +18,10 @@ function initPie(){
 
 function initIncrease(){  
     CovidIncrease = echarts.init(document.getElementById('CovidIncrease'));
+}
+
+function initAdd(){  
+    addPatient = echarts.init(document.getElementById('addPatient'));
 }
 
 function chinaMap(data,flag){
@@ -373,6 +378,77 @@ function drawIncrease(data1,data2,data3){
         ]
     };
     CovidIncrease.setOption(option,true);
+}
+
+function drawAdd(data){
+    var keys = [], values = [];
+    for(var i = data.length-1; i >=0; i--){
+		keys.push(names[data[i].key]);
+		values.push(parseFloat(data[i].value));
+	}
+	option = {
+		title: {
+			text: month+'.'+day,
+            left: "center",
+            top: 25,
+			textStyle:{
+				color: '#c4ccd3'
+			}
+		},
+		tooltip: {
+			trigger: 'axis',
+			axisPointer: {
+				type: 'shadow'
+			}
+		},
+		grid:{
+			x: 50
+		},
+		xAxis: {
+			type: 'category',
+			data: keys,
+			axisLine:{
+				lineStyle:{
+					color:'#c4ccd3'
+				}
+			}
+		},
+		yAxis: {
+			type: 'log',
+			axisLine:{
+				lineStyle:{
+					color:'#c4ccd3'
+				}
+			}
+		},
+		series: [
+			{
+				name: month+'.'+day+' 新增确诊人数',
+				type: 'bar',
+				label: {
+					show: true,
+					position: 'insideRight'
+				},
+				data: values
+			}
+		],
+        dataZoom: [
+            {
+                show: true,
+                xAxisIndex: 0,
+                filterMode: 'empty',
+                width: '80%',
+                height: 20,
+                showDataShadow: false,
+                left: '10%',
+                bottom:'5%',
+				textStyle:{
+					color: '#c4ccd3'
+				}
+            }
+        ]
+    };
+    addPatient.setOption(option);
 }
 
 function selectmode(flag){
