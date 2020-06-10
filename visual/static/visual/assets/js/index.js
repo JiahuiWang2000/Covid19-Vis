@@ -358,8 +358,21 @@ function drawTreemap(data1){
 }
 
 //房地产
-function BarLabelRotation(id,datasets){
-    var dom = document.getElementById(id);
+function getBar() {
+	$.ajax({
+        url: "index_data",
+        type: 'GET',
+		data:{"province":province},
+        success: function(msg) {
+            data = msg.estate;
+            BarLabelRotation(data[0]);
+        }
+    })
+}
+
+function BarLabelRotation(datasets){
+	console.log(datasets)
+    var dom = document.getElementById("BarLabelRotation");
     var myChart = echarts.init(dom);
     var app = {};
     var label=["202004","202003","202002","201912","201911","201910","201909","201908","201907","201906","201905","201904","201903","201902"]
@@ -479,9 +492,9 @@ function getTradePie() {
         type: 'GET',
         data: { "graph": 0 },
         success: function(msg) {
-            currentValue = msg;
-			month=0;
-            drawNestPie(document.querySelector("#nestpie"), currentValue.pie, month);
+            currentValue = msg.pie;
+			month = 0;
+            drawNestPie(document.querySelector("#nestpie"), currentValue, month);
         }
     })
 }

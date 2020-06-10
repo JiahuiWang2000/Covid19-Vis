@@ -11,8 +11,41 @@ def index(request):
     data=[]
     for i in range(len(data_list)):
         data.append(int(data_list[i][1]))
+    if trade == {}:
+        with open('data\Trading\社会消费品零售总额（全国36个月）.csv', 'r', encoding='gbk')as fp:
+            data_list = [i for i in csv.reader(fp)]
+            for ele in data_list[1:]:
+                tlist = []
+                for val in ele[1:]:
+                    if val != '0':
+                        tlist.append(float(val))
+                    else:
+                        tlist.append("NaN")
+                trade[ele[0]] = tlist
+
+        with open('data\Trading\限上单位商品零售类值（全国36个月）.csv', 'r', encoding='gbk')as fp:
+            data_list = [i for i in csv.reader(fp)]
+            for ele in data_list[1:]:
+                tlist = []
+                for val in ele[1:]:
+                    tlist.append(float(val))
+                trade[ele[0]] = tlist
     return render(request, 'visual/index.html', {'covid':data})
 
+def index_data(request):
+    province = request.GET.get("province")
+    csv_path = "data\\Estate_province\\" + province + ".csv"
+    with open(csv_path, 'r', encoding='gbk')as fp:
+        datalist = [i for i in csv.reader(fp)]
+    datasets = []
+    data = []
+    for j in range(3, 6):
+        tmp = []
+        for i in range(1, 15):
+            tmp.append(datalist[j][i])
+        data.append(tmp)
+    datasets.append(data)
+    return JsonResponse({"estate": datasets})
 
 def newindexGDP(request):
     data=[]
