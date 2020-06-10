@@ -38,4 +38,5 @@ urlpatterns = [
     path('visual/getproductbar', views.getproductbar),
     path('visual/getgdpbar', views.getgdpbar),
     path('visual/getTradingdata', views.getTradingData),
+    path('visual/getLivingdata', views.getLivingData),
 ]

@@ -6,4 +6,5 @@ urlpatterns = [
     path('index.html', views.index, name='index'),
     path('Estate.html', views.Estate, name='Estate'),
     path('Trading.html', views.trading),
+    path('Living.html',views.living)
 ]
