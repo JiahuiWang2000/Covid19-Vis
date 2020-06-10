@@ -134,7 +134,11 @@ function PNbar(id,datasets,choose){
                         color: "#4f4f48"
                     },
                     normal: {
-                        color: "#212032",
+                        color:function(param) {
+
+                            if(param.dataIndex!=0&&param.dataIndex!=1) return "#212032";
+                            else return "#4a4e69";},
+
                     }
                 },
             },
@@ -163,7 +167,13 @@ function PNbar(id,datasets,choose){
                         color: 'eee'
                     },
                     normal: {
-                        color: "#212032",
+                        color:function(param) {
+
+                            if(param.dataIndex!=0&&param.dataIndex!=1) return "#212032";
+                            else return "#4a4e69"
+                                ;},
+
+
                     }
                 },
             }

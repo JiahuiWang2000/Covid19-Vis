@@ -1,6 +1,6 @@
 function ratioBar(id,data,name){
     var myratioBar = echarts.init(document.getElementById(id));
-    var color=["#038cf5",'#27e97b'];
+    var color=["#038cf5",'#00b8c4'];
 
     option = {
         backgroundColor:'black',

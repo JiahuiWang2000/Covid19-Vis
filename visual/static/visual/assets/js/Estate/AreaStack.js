@@ -63,7 +63,7 @@ function AreaStack(id,datasets){
                     type: 'inside',
                 }
             ],
-        color:["#24caf1","#189a65","#fc4a1a","#f7b733"],
+        color:["#0097c1","#004e71","#e76f51","#f4a261"],
         legend: [{
             y:25,
             itemWidth: 7,

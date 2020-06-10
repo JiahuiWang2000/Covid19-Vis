@@ -13,14 +13,30 @@ var background = "black"; //背景
 let textColor = "#fff";
 let lineColor="rgba(255,255,255,0.2)";
 let colors = [{
-    borderColor: "rgba(227,161,96,1)",
-    start: "rgba(227,161,96,0.8)",
-    end: "rgba(227,161,96,0.3)"
+    borderColor: "rgb(31,166,184)",
+    start: "rgba(81,204,209,0.8)",
+    end: "rgba(139,232,215,0.3)"
 },
     {
         borderColor: "rgba(0,222,255,1)",
         start: "rgba(0,222,255,0.3)",
         end: "rgba(0,222,255,0.8)"
+    },
+];
+let highlight = [{
+    borderColor: "rgb(161,29,51)"
+    ,
+    start: "rgba(199,31,55,0.8)"
+    ,
+    end: "rgba(227,161,96,0.3)"
+
+},
+    {
+        borderColor: "rgba(227,161,96,1)"
+        ,
+        start: "rgba(227,161,96,0.8)"
+        ,
+        end: "rgba(227,161,96,0.3)"
     },
 ];
 let borderData = [];
@@ -47,10 +63,10 @@ var option = {
         },
         legend: {
             top: '2%',
-            right: '5%',
-            itemWidth: 20,
-            itemHeight: 5,
-            // itemGap: 343,
+            right: '30%',
+            itemWidth: 0,
+            itemHeight: 0,
+             itemGap: 70,
             icon: 'horizontal',
             textStyle: {
                 color: '#ffffff',
@@ -269,6 +285,32 @@ option.options.push({
             }
         },
         data: lastYearData,
+        itemStyle: {
+            //通常情况下：
+            normal:{
+                //每个柱子的颜色即为colorList数组里的每一项，如果柱子数目多于colorList的长度，则柱子颜色循环使用该数组
+                color: function (params){
+                    if(params.dataIndex!=0)
+                        return new echarts.graphic.LinearGradient(0, 0, 1, 0, [{
+                            offset: 0,
+                            color: colors[0].start
+                        },
+                            {
+                                offset: 1,
+                                color: colors[0].end
+                            }
+                        ]);
+                    else return new echarts.graphic.LinearGradient(0, 0, 1, 0, [{
+                        offset: 0,
+                        color: highlight[0].start
+                    },
+                        {
+                            offset: 1,
+                            color: highlight[0].end
+                        }
+                    ]);
+                }
+            }},
         animationEasing: "elasticOut"
     },
         {
@@ -297,6 +339,32 @@ option.options.push({
                 }
             },
             data: thisYearData,
+            itemStyle: {
+                //通常情况下：
+                normal:{
+                    //每个柱子的颜色即为colorList数组里的每一项，如果柱子数目多于colorList的长度，则柱子颜色循环使用该数组
+                    color: function (params){
+                        if(params.dataIndex!=0)
+                            return new echarts.graphic.LinearGradient(0, 0, 1, 0, [{
+                                offset: 0,
+                                color: colors[1].start
+                            },
+                                {
+                                    offset: 1,
+                                    color: colors[1].end
+                                }
+                            ]);
+                        else return new echarts.graphic.LinearGradient(0, 0, 1, 0, [{
+                            offset: 0,
+                            color: highlight[0].end
+                        },
+                            {
+                                offset: 1,
+                                color: highlight[0].start
+                            }
+                        ]);
+                    }
+                }},
             animationEasing: "elasticOut"
         },
 

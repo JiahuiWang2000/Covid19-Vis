@@ -11,6 +11,7 @@ function radar(id,label,datasets){
             opacity: 1
         }
     };
+    var color=[ '#006699','#227bbb', '#4cabce'];
 
     option = {
         backgroundColor: 'black',
@@ -61,7 +62,7 @@ function radar(id,label,datasets){
             splitNumber: 5,
             name: {
                 textStyle: {
-                    color: 'rgb(238, 197, 102)'
+                    color: '#89A7AF'
                 }
             },
             splitLine: {
@@ -90,7 +91,7 @@ function radar(id,label,datasets){
                 data: [datasets[0]],
                 symbol: 'none',
                 itemStyle: {
-                    color: '#F9713C'
+                    color: color[0]
                 },
                 areaStyle: {
                     opacity: 0.5
@@ -103,7 +104,7 @@ function radar(id,label,datasets){
                 data: [datasets[1]],
                 symbol: 'none',
                 itemStyle: {
-                    color: '#B3E4A1'
+                    color: color[1]
                 },
                 areaStyle: {
                     opacity: 0.5
@@ -116,7 +117,7 @@ function radar(id,label,datasets){
                 data: [datasets[2]],
                 symbol: 'none',
                 itemStyle: {
-                    color: 'rgb(238, 197, 102)'
+                    color: color[2]
                 },
                 areaStyle: {
                     opacity: 0.05
