@@ -1,9 +1,20 @@
 function drawNestPie(dom, data, month) {
     var myChart = echarts.init(dom);
     option = null;
-    var color= [ '#16415b',
-            '#3a7ba5' ,'#2f6690',
-            '#ade8f4', '#48cae4'],
+    var color = [
+            ['#16415b', '#397EA8'],
+            ['#3A7B5A', "#71C79C"],
+            ['#2F6690', '#5EA5DB'],
+            ['#ADE8F4', '#CFF7FF'],
+            ['#48CAEF', '#66DEFF'],
+
+
+        ]
+        // var color = ['#16415b',
+        //     '#3a7ba5', '#2f6690',
+        //     '#ade8f4', '#48cae4'
+        // ]
+    console.log(color)
     option = {
         tooltip: {
             trigger: 'item',
@@ -17,7 +28,12 @@ function drawNestPie(dom, data, month) {
             textStyle: {  color: '#acacac' }
         },
         series: [{
-            color:color[0],
+                color: new echarts.graphic.LinearGradient(
+                    1, 1, 0, 0, [
+                        { offset: 0, color: color[0][0] },
+                        { offset: 1, color: color[0][1] }
+                    ]
+                ),
                 name: '总额',
                 type: 'pie',
                 // selectedMode: 'single',
@@ -35,7 +51,17 @@ function drawNestPie(dom, data, month) {
             },
             {
                 name: '城乡',
-                color:[color[1],color[2]],
+                color: [new echarts.graphic.LinearGradient(
+                    1, 1, 0, 0, [
+                        { offset: 0, color: color[1][0] },
+                        { offset: 1, color: color[1][1] }
+                    ]
+                ), new echarts.graphic.LinearGradient(
+                    1, 1, 0, 0, [
+                        { offset: 0, color: color[2][0] },
+                        { offset: 1, color: color[2][1] }
+                    ]
+                )],
                 type: 'pie',
                 // selectedMode: 'single',
                 radius: ['30%', '50%'],
@@ -53,7 +79,17 @@ function drawNestPie(dom, data, month) {
 
             {
                 name: '餐饮商品',
-                color:[color[3],color[4]],
+                color: [new echarts.graphic.LinearGradient(
+                    1, 1, 0, 0, [
+                        { offset: 0, color: color[3][0] },
+                        { offset: 1, color: color[3][1] }
+                    ]
+                ), new echarts.graphic.LinearGradient(
+                    1, 1, 0, 0, [
+                        { offset: 0, color: color[4][0] },
+                        { offset: 1, color: color[4][1] }
+                    ]
+                )],
                 type: 'pie',
                 radius: ['60%', '85%'],
                 label: {
@@ -99,7 +135,7 @@ function drawFunnel(dom, dataset) {
             bottom: '30px'
 
         },
-        color: ['#bde9e8', '#62b6cb', '#1b4965', '#cae9ff', '#5fa8d3','#133c55', '#386fa4', '#59a5d8', '#84d2f6', '#91e5f6', '#68d8d6', '#3dccc7'],
+        color: ['#bde9e8', '#62b6cb', '#1b4965', '#cae9ff', '#5fa8d3', '#133c55', '#386fa4', '#59a5d8', '#84d2f6', '#91e5f6', '#68d8d6', '#3dccc7'],
         // legend: {
         //     data: dataset.name
         // },

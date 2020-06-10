@@ -5,8 +5,8 @@ function drawLineBar(data_act, dombar) {
 
     // option
     option = {
-        grid:{
-            left:"13%",
+        grid: {
+            left: "13%",
         },
         tooltip: {
             trigger: 'axis',
@@ -19,7 +19,7 @@ function drawLineBar(data_act, dombar) {
             }
         },
         xAxis: {
-            data: [202004,202003,202002,202001,201912,201911,201910,201909,201908,201907,201906,201905,201904,201903,201902,201901,201812,201811,201810,201809,201808,201807,201806,201805,201804,201803,201802,201801,201712,201711,201710,201709,201708,201707,201706,201705],
+            data: [202004, 202003, 202002, 202001, 201912, 201911, 201910, 201909, 201908, 201907, 201906, 201905, 201904, 201903, 201902, 201901, 201812, 201811, 201810, 201809, 201808, 201807, 201806, 201805, 201804, 201803, 201802, 201801, 201712, 201711, 201710, 201709, 201708, 201707, 201706, 201705],
             axisLine: {
                 lineStyle: {
                     color: '#ccc'
@@ -138,17 +138,39 @@ function drawNegative(dom, dataset) {
                 label: {
                     show: false,
                 },
-                data: dataset,
+
                 itemStyle: {
-                    //通常情况下：
-                    normal:{
-                        //每个柱子的颜色即为colorList数组里的每一项，如果柱子数目多于colorList的长度，则柱子颜色循环使用该数组
-                        color: function (params){
-                            if(params.dataIndex!=0&&params.dataIndex!=1&&params.dataIndex!=2&&params.dataIndex!=3)
-                                return "#5d93dc";
-                            else return "#f54545";
+                    normal: {
+                        barBorderRadius: 5,
+                        color: function(params) {
+                            if (params.dataIndex != 0 && params.dataIndex != 1 && params.dataIndex != 2 && params.dataIndex != 3)
+                                return new echarts.graphic.LinearGradient(
+                                    0, 0, 1, 1, [
+                                        { offset: 0, color: '#5d93dc' },
+                                        { offset: 1, color: '#A2BEE1' }
+                                    ])
+                            return new echarts.graphic.LinearGradient(
+                                1, 1, 0, 0, [
+                                    { offset: 0, color: '#f54545' },
+                                    { offset: 1, color: '#F78F8F' }
+                                ]
+                            )
                         }
-                    }},
+                    }
+                },
+
+                data: dataset,
+                // itemStyle: {
+                //     //通常情况下：
+                //     normal: {
+                //         //每个柱子的颜色即为colorList数组里的每一项，如果柱子数目多于colorList的长度，则柱子颜色循环使用该数组
+                //         color: function(params) {
+                //             if (params.dataIndex != 0 && params.dataIndex != 1 && params.dataIndex != 2 && params.dataIndex != 3)
+                //                 return "#5d93dc";
+                //             else return "#f54545";
+                //         }
+                //     }
+                // },
             }
         ]
     };;
@@ -172,7 +194,7 @@ function drawStackLine(dom, dataset) { //dataset[0~4]表示12个月份的累计�
                 }
             }
         },
-        color:["#0077b6","#00b4d8","#48cae4","#e76f51",],
+        color: ["#0077b6", "#00b4d8", "#48cae4", "#e76f51", ],
         legend: {
             y: 15,
             itemWidth: 7,

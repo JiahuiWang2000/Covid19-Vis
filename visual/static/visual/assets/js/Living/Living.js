@@ -9,10 +9,12 @@ function play(i, t) {
     timer.push(setTimeout(function() {
         $("#time").data("ionRangeSlider").update({ from: i });
         animateRightUp($("#time").data("ionRangeSlider").options.values[i]);
-    }, 500 * i));
+    }, 500 * t));
 }
 
 function playStart() {
+    if (timer.length)
+        pause();
     var i = $("#time").data("ionRangeSlider").options.from;
     if (i == 11) i = 0;
     for (var t = i; t < 12; t++) {
@@ -22,6 +24,7 @@ function playStart() {
 
 function pause() {
     timer.forEach(function(sto) { clearTimeout(sto) });
+    timer.splice(0, timer.length)
 }
 
 function animateRightUp(time) {
