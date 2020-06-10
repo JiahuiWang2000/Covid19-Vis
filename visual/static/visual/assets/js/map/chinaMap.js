@@ -6,7 +6,40 @@ var day=1;
 var province='北京';
 var confirm,death,recover;
 var names=[ '北京', '天津', '上海','重庆','河北','河南','云南','辽宁','黑龙江','湖南','安徽','山东','新疆','江苏','浙江','江西','湖北', '广西','甘肃','山西', '内蒙古','陕西','吉林','福建','贵州','广东','青海','西藏', '四川','宁夏','海南','台湾', '香港', '澳门']
-
+var times=[];
+var months=[];
+var days=[];
+var timer = [];
+for(var i=22;i<32;i++){
+    var t='Jan.'+i;
+    times.push(t);
+    months.push(1);
+    days.push(i);
+}
+for(var i=1;i<29;i++){
+    var t='Feb.'+i;
+    times.push(t);
+    months.push(2);
+    days.push(i);
+}
+for(var i=1;i<32;i++){
+    var t='Mar.'+i;
+    times.push(t);
+    months.push(3);
+    days.push(i);
+}
+for(var i=1;i<31;i++){
+    var t='Apr.'+i;
+    times.push(t);
+    months.push(4);
+    days.push(i);
+}
+for(var i=1;i<30;i++){
+    var t='May.'+i;
+    times.push(t);
+    months.push(5);
+    days.push(i);
+}
 
 function initMap(){
     myChinaMap = echarts.init(document.getElementById('ChinaMap'));
@@ -23,6 +56,45 @@ function initIncrease(){
 function initAdd(){  
     addPatient = echarts.init(document.getElementById('addPatient'));
 }
+
+function play(i,t) {
+    timer.push(setTimeout(function() {
+        $("#time").data("ionRangeSlider").update({ from: i });
+        timeIndex=i;
+        animateMap(i);
+    }, 500 * t));
+}
+
+
+function playStart() {
+    var i = $("#time").data("ionRangeSlider").options.from;
+    if (i == 128) i = 0;
+    for (var t = i; t < days.length; t++) {
+        play(t, t - i);     
+    }
+}
+
+
+function pause() {
+    timer.forEach(function(sto) { clearTimeout(sto) });
+    timer.splice(0,timer.length);
+}
+
+function animateMap(index) {
+    month=months[index];
+    day=days[index];
+    $.ajax({
+        url:"getCovidData",
+        type:'GET',
+        data:{"month":months[index],"day":days[index],"mode":modeflag},
+        success:function(msg){
+            covid_data=msg.covid;
+            chinaMap(covid_data,modeflag);
+        }
+    });
+    
+}
+
 
 function chinaMap(data,flag){
       var dataList=[
@@ -72,51 +144,8 @@ function chinaMap(data,flag){
       else if(flag==2){
           tag='治愈人数';    
       }
-      var times=[];
-      var months=[];
-      var days=[];
-        for(var i=22;i<32;i++){
-            var t='Jan.'+i;
-            times.push(t);
-            months.push(1);
-            days.push(i);
-        }
-        for(var i=1;i<29;i++){
-            var t='Feb.'+i;
-            times.push(t);
-            months.push(2);
-            days.push(i);
-        }
-        for(var i=1;i<32;i++){
-            var t='Mar.'+i;
-            times.push(t);
-            months.push(3);
-            days.push(i);
-        }
-        for(var i=1;i<31;i++){
-            var t='Apr.'+i;
-            times.push(t);
-            months.push(4);
-            days.push(i);
-        }
-        for(var i=1;i<30;i++){
-            var t='May.'+i;
-            times.push(t);
-            months.push(5);
-            days.push(i);
-        }
-      mapOption = {
-        timeline:{
-            axisType: 'category',
-            autoPlay: true,
-            playInterval: 1000,
-            data:times,
-            symbol: 'none',
-            itemStyle:{
-                color:'#fff',
-            },
-        },
-        options:[{          
+      
+      mapOption = {         
             tooltip: {
                 formatter:function(params,ticket, callback){
                     return params.seriesName+'<br />'+params.name+'：'+params.value
@@ -142,7 +171,7 @@ function chinaMap(data,flag){
             geo: {
                 map: 'china',
                 roam: false,//不开启缩放和平移
-                zoom:1.05,//视角缩放比例
+                zoom:1.23,//视角缩放比例
                 label: {
                     normal: {
                         show: true,
@@ -171,9 +200,7 @@ function chinaMap(data,flag){
                     geoIndex: 0,
                     data:dataList
                 }
-            ]
-          }]
-          
+            ] 
       };
       myChinaMap.setOption(mapOption,true);
       myChinaMap.on('click', function (param) {
@@ -452,6 +479,21 @@ function drawAdd(data){
 }
 
 function selectmode(flag){
+    if(flag==0){
+        $("#confirmBtn").css("background-color","#88FFCF");
+        $("#deathBtn").css("background-color","white");
+        $("#recoverBtn").css("background-color","white");
+    }
+    else if(flag==1){
+        $("#confirmBtn").css("background-color","white");
+        $("#deathBtn").css("background-color","#88FFCF");
+        $("#recoverBtn").css("background-color","white");
+    }
+    else{
+        $("#confirmBtn").css("background-color","white");
+        $("#deathBtn").css("background-color","white");
+        $("#recoverBtn").css("background-color","#88FFCF");
+    }
     modeflag=flag;
     $.ajax({
         url:"getCovidData",

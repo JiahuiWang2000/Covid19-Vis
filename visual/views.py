@@ -457,6 +457,7 @@ def getPatientData(request):
             patientData.append(int(data_list[int(province)-1][i+1]))
         return JsonResponse({'patient':patientData})
 
+
 def getIncreaseData(request):
     if request.method=='GET':
         province=request.GET.get("province")

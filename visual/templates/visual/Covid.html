@@ -11,6 +11,7 @@
     <link href={% static "visual/assets/css/fonts/fontawesome/all.min.css" %} rel="stylesheet">
     <link href={% static "visual/assets/css/fonts/beid.css" %} rel="stylesheet">
     <link href={% static "visual/assets/css/styles.css" %} rel="stylesheet">
+    <link href={% static "visual/assets/css/Range/range.css" %} rel="stylesheet">
 
 
 
@@ -55,7 +56,7 @@
 
     <!-- User JS -->
     <script src={% static "visual/assets/js/scripts.js" %}></script>
-
+    <script src={% static "visual/assets/js/range.js" %}></script>
 
 
     <!-- Modules -->
@@ -188,10 +189,40 @@
                         </svg>
                     </div>
 
-                    <button style="z-index:99999;position:absolute;top:520px;left:125px;width:100px;height:30px;" onclick="selectmode(0)">确诊人数</button>
-                    <button style="z-index:99999;position:absolute;top:520px;left:275px;width:100px;height:30px;" onclick="selectmode(1)">死亡人数</button>
-                    <button style="z-index:99999;position:absolute;top:520px;left:425px;width:100px;height:30px;" onclick="selectmode(2)">治愈人数</button>
-                    <div id="ChinaMap" style="z-index:99999;position:absolute;top:20px;left:5px;width:640px;height:480px;"></div>
+                    <button id="confirmBtn" style="z-index:99999;position:absolute;top:470px;left:125px;width:100px;height:30px;background-color: #88FFCF;" onclick="selectmode(0)">确诊人数</button>
+                    <button id="deathBtn" style="z-index:99999;position:absolute;top:470px;left:275px;width:100px;height:30px;" onclick="selectmode(1)">死亡人数</button>
+                    <button id="recoverBtn" style="z-index:99999;position:absolute;top:470px;left:425px;width:100px;height:30px;" onclick="selectmode(2)">治愈人数</button>
+                    <div style="z-index:99999;position:absolute;top:525px;left:50px;width:100px;">
+                        <div style="width:30px;height:30px">
+                            <a href="javascript:void(0);" onclick="playStart()">
+                                <img style="width:100%;height:100%" src="../../static/visual/assets/img/播放.png" />
+                            </a>
+                        </div>
+                        <div style="position:absolute;left:50px;top:0px;width:30px;height:30px">
+                            <a href="javascript:void(0);" onclick="pause()">
+                                <img style="width:100%;height:100%" src="../../static/visual/assets/img/暂停.png" />
+                            </a>
+                        </div>
+                    </div>
+                    <div style="z-index:99999;position:absolute;top:500px;left:150px;width:450px;">
+                        <input type="text" id="time" style="display:inline;">
+                    </div>
+                    <div id="ChinaMap" style="z-index:99999;position:absolute;top:10px;left:25px;width:600px;height:450px;"></div>
+                    
+                    
+                    <script>
+                        $("#time").ionRangeSlider({
+                            skin: "big",
+                            min: 0,
+                            max: 128,
+                            from:10,
+                            values:times,
+                            onChange:function(data){
+                                timeIndex=data.form;
+                                animateMap(data.from);
+                            }
+                        });
+                    </script>
                 
                     <script type="text/javascript">
                         covid_data={{covid|safe}};
