@@ -10,7 +10,7 @@
     <link href={% static "visual/assets/css/fonts/fontawesome/all.min.css" %} rel="stylesheet">
     <link href={% static "visual/assets/css/fonts/beid.css" %} rel="stylesheet">
     <link href={% static "visual/assets/css/styles.css" %} rel="stylesheet">
-
+    <link href={% static "visual/assets/css/Range/range.css" %} rel="stylesheet">
 
 
     <!-- JQVMAP -->
@@ -55,7 +55,7 @@
 
     <!-- User JS -->
     <script src={% static "visual/assets/js/scripts.js" %}></script>
-
+    <script src={% static "visual/assets/js/range.js" %}></script>
 
 
     <!-- Modules -->
@@ -335,7 +335,11 @@
                         </div>
                         <div style="position:absolute;z-index:99999;">
                             <div id="funnel" style="position:absolute;top:10px;height:350px;width:370px;"></div>
-                            <div id="LivingChange" style="position:absolute;top:350px;height:330px;width:370px;"></div>
+                            <div id="timeBox" style="position:absolute;top:300px;left:50px;width:280px">
+                                <input type="button" id="play" value="▶" onclick="playStart()"></input>
+                                <input type="text" id="time">
+                            </div>
+                            <div id="LivingChange" style="position:absolute;top:380px;height:300px;width:370px;"></div>
                         </div>
 
 
@@ -375,5 +379,17 @@
     </div>
 
 </body>
-
+<script>
+  $("#time").ionRangeSlider({
+    skin: "big",
+    min: 0,
+    max: 12,
+    from:0,
+    values:['2017B','2017C','2017D','2018A','2018B','2018C','2018D','2019A','2019B','2019C','2019D','2020A'],
+    onChange:function(data){
+      console.log(data);
+      animateRightUp(data.from_value);
+    }
+  });
+</script>
 </html>
