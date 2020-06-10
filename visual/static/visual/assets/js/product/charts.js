@@ -1,4 +1,4 @@
-var province = "北京", time = "202004", mon = 24, product = "布";
+var province = "湖北", time = "202004", mon = 24, product = "布";
 
 function getTreemap(){
 	$.ajax({
@@ -82,6 +82,18 @@ function drawTreemap(data1){
 				color: '#c4ccd3'
 			}
 		},
+		color: [ '#62b6cb',
+			'#1b4965',
+			'#5fa8d3',
+			'#133c55',
+			'#386fa4',
+			'#59a5d8',
+			'#07bdb8',
+			'#3dccc7',
+			'#68d8d6',
+			'#00b9ae',
+			'#3dccc7',
+		],
 		tooltip: {},
 		series: [{
 			name: '产品',
@@ -113,7 +125,7 @@ function drawTreemap(data1){
 			]
 		}]
 	};
-	document.getElementById("drawTreemap").style.width = "660px";
+	document.getElementById("drawTreemap").style.width = "620px";
 	document.getElementById("drawTreemap").style.height = "480px";
 	var treemapChart = echarts.init(document.getElementById("drawTreemap"));
 	treemapChart.setOption(treemapOption, true);
@@ -177,6 +189,7 @@ function drawRank1(data2){
 			axisLine:{
 				lineStyle:{
 					color:'#c4ccd3'
+
 				}
 			}
 		},
@@ -188,7 +201,14 @@ function drawRank1(data2){
 					show: true,
 					position: 'insideRight'
 				},
-				data: values
+				data: values,
+				itemStyle: {
+					//通常情况下：
+					normal:{
+						//每个柱子的颜色即为colorList数组里的每一项，如果柱子数目多于colorList的长度，则柱子颜色循环使用该数组
+						color: "#5fa8d3"
+						}
+					},
 			}
 		],
         dataZoom: [
@@ -273,7 +293,15 @@ function drawRank2(data3){
 					show: true,
 					position: 'insideRight'
 				},
-				data: values
+				data: values,
+				itemStyle: {
+					//通常情况下：
+					normal:{
+						//每个柱子的颜色即为colorList数组里的每一项，如果柱子数目多于colorList的长度，则柱子颜色循环使用该数组
+						color: "#07bdb8"
+
+					}
+				},
 			}
 		],
         dataZoom: [
@@ -352,8 +380,8 @@ function drawMap(data4){
 			}
 		},
 		visualMap: {
-			min: 60,
-			max: 120,
+			min: 0,
+			max: 1700,
 			left: 'left',
 			top: 'bottom',
 			text: ['高','低'],
@@ -361,7 +389,7 @@ function drawMap(data4){
 				color:'#fff',
 			},
 			inRange: {
-				color: ['#ca8622', '#91c7ae']
+				color: ['#b1dee3','#ea3e00']
 			},
 			show: false
 		},
@@ -474,19 +502,16 @@ function drawBar(data5){
 				smooth: true,
 				symbol: 'none',
 				sampling: 'average',
+				data: data5,
 				itemStyle: {
-					color: 'rgb(255, 70, 131)'
+					//通常情况下：
+					normal:{
+						//每个柱子的颜色即为colorList数组里的每一项，如果柱子数目多于colorList的长度，则柱子颜色循环使用该数组
+						color: "#48cae4"
+
+					}
 				},
-				areaStyle: {
-					color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [{
-						offset: 0,
-						color: 'rgb(255, 158, 68)'
-					}, {
-						offset: 1,
-						color: 'rgb(255, 70, 131)'
-					}])
-				},
-				data: data5
+
 			}
 		]
 	};

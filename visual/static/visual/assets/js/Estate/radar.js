@@ -120,7 +120,7 @@ function radar(id,label,datasets){
                     color: color[2]
                 },
                 areaStyle: {
-                    opacity: 0.05
+                    opacity: 0.5
                 }
             }
         ]

@@ -27,7 +27,6 @@ urlpatterns = [
     path('visual/getRankData', views.getRankData),
     path('visual/getdata', views.getEstatedata),
     path('visual/', include('visual.urls')),
-    path('visual/index.html', views.index),
     path('visual/Finance.html', views.Finance),
     path('admin/', admin.site.urls),
     path('visual/GDP.html', views.newindexGDP),
@@ -39,4 +38,5 @@ urlpatterns = [
     path('visual/getgdpbar', views.getgdpbar),
     path('visual/getTradingdata', views.getTradingData),
     path('visual/getLivingdata', views.getLivingData),
+    path('visual/index_data', views.index_data),
 ]
