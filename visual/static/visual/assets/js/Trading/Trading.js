@@ -1,19 +1,33 @@
 "use strict";
+var timer = []
 
-function play(i) {
-    setTimeout(function() {
+function play(i, t) {
+    console.log(t)
+    timer.push(setTimeout(function() {
         //document.getElementById("time").value = i.toString();
         $("#time").data("ionRangeSlider").update({ from: i });
         timeChange();
-    }, 500 * i);
+    }, 500 * t));
 }
 
 function playStart() {
-    for (var i = 0; i < 36; i++) {
-        if (currentValue.pie[0][35 - i].value == "NaN")
+    if (timer.length)
+        pause();
+    var i = $("#time").data("ionRangeSlider").options.from;
+    if (i == 35) i = 0;
+
+    for (var t = i; t < 36; t++) {
+        if (currentValue.pie[0][35 - t].value == "NaN") {
+            i++;
             continue;
-        play(i);
+        }
+        play(t, t - i);
     }
+}
+
+function pause() {
+    timer.forEach(function(sto) { clearTimeout(sto) });
+    timer.splice(0, timer.length);
 }
 
 function timeChange() {
