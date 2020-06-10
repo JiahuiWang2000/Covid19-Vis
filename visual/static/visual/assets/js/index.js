@@ -1,17 +1,42 @@
-var province = "湖北", time = "202004", mon = 24, product = "布";
+var province = "湖北", time = "202003", mon = 23, currM = 23;
+var values = [20200122,20200123,20200124,20200125,20200126,20200127,20200128,20200129,20200130,20200131,20200201,20200202,20200203,20200204,20200205,20200206,20200207,20200208,20200209,20200210,20200211,20200212,20200213,20200214,20200215,20200216,20200217,20200218,20200219,20200220,20200221,20200222,20200223,20200224,20200225,20200226,20200227,20200228,20200229,20200301,20200302,20200303,20200304,20200305,20200306,20200307,20200308,20200309,20200310,20200311,20200312,20200313,20200314,20200315,20200316,20200317,20200318,20200319,20200320,20200321,20200322,20200323,20200324,20200325,20200326,20200327,20200328,20200329,20200330,20200331,20200401,20200402,20200403,20200404,20200405,20200406,20200407,20200408,20200409,20200410,20200411,20200412,20200413,20200414,20200415,20200416,20200417,20200418,20200419,20200420,20200421,20200422,20200423,20200424,20200425,20200426,20200427,20200428,20200429,20200430,20200501,20200502,20200503,20200504,20200505,20200506,20200507,20200508,20200509,20200510,20200511,20200512,20200513,20200514,20200515,20200516,20200517,20200518,20200519,20200520,20200521,20200522,20200523,20200524,20200525,20200526,20200527,20200528,20200529];
+var timer = [];
 
 //时间轴
 function updateTime(data){
 	time = parseInt(data / 100).toString();
 	mon = parseInt(time[5]) + 20;
 	day = data % 100;
-	getTreemap();
-	getTradePie();
-	getRank();
-	getTreemap();
-	getRadar();
-	getBar();
+	if(currM != mon){
+		currM = mon;
+		getTreemap();
+		getTradePie();
+		getRank();
+		getTreemap();
+		getRadar();
+		getBar();
+	}
 	selectmode(modeflag);
+}
+
+function play(i, t) {
+    timer.push(setTimeout(function() {
+        $("#time").data("ionRangeSlider").update({ from: i });
+        updateTime($("#time").data("ionRangeSlider").options.values[i]);
+    }, 300 * t));
+}
+
+function playStart() {
+    var i = $("#time").data("ionRangeSlider").options.from;
+    if (i == 128) i = 0;
+    for (var t = i; t < 129; t++) {
+        play(t, t - i);
+    }
+}
+
+function pause() {
+    timer.forEach(function(sto) { clearTimeout(sto) });
+	timer.splice(0, timer.length);
 }
 
 //财政金融
@@ -51,14 +76,15 @@ function AreaStack(){
             [
                 {
                     show: true,
-					height: 12,
-					bottom: 8,
+					height: 15,
+					left: 61,
+					bottom: 5,
                 },
                 {
                     type: 'inside',
                 }
             ],
-        color:["#24caf1","#189a65","#fc4a1a","#f7b733"],
+        color:["#0097c1","#004e71","#f4a261","#e76f51"],
         legend: [{
             y:5,
             itemWidth: 7,
@@ -238,7 +264,7 @@ function River() {
                     shadowColor: 'rgba(0, 0, 0, 0.8)'
                 }
             },
-			color: ['#61a0a8', '#d48265', '#91c7ae', '#749f83', '#ca8622', '#bda29a', '#6e7074', '#546570', '#c4ccd3', '#a8861b', '#c23531', '#2f4554'],
+			color: ['#bde9e8', '#62b6cb', '#1b4965', '#cae9ff', '#5fa8d3','#133c55', '#386fa4', '#59a5d8', '#84d2f6', '#91e5f6', '#68d8d6', '#3dccc7'],
 			data: data6,
 			label: {
 				show: false
@@ -326,6 +352,18 @@ function getTreemap(){
 
 function drawTreemap(data1){
 	treemapOption = {
+		color: [ '#62b6cb',
+			'#1b4965',
+			'#5fa8d3',
+			'#133c55',
+			'#386fa4',
+			'#59a5d8',
+			'#07bdb8',
+			'#3dccc7',
+			'#68d8d6',
+			'#00b9ae',
+			'#3dccc7',
+		],
 		tooltip: {},
 		series: [{
 			name: '产品',
@@ -386,13 +424,14 @@ function drawRadar(datasets){
     var app = {};
     var name=["商品住宅","办公楼","商业营业用房"];
     option = null;
-	
+// Schema:
     var lineStyle = {
         normal: {
             width: 1.5,
             opacity: 1
         }
     };
+    var color=['#006699','#227bbb', '#4cabce'];
 
     option = {
         title: {
@@ -408,9 +447,9 @@ function drawRadar(datasets){
             enterable: true,
         },
         legend: {
-			bottom:1,
+            bottom: 5,
             data: name,
-            itemGap: 2,
+            itemGap: 20,
             textStyle: {
                 color: '#fff',
                 fontSize: 14
@@ -431,7 +470,7 @@ function drawRadar(datasets){
             splitNumber: 5,
             name: {
                 textStyle: {
-                    color: 'rgb(238, 197, 102)'
+                    color: '#89A7AF'
                 }
             },
             splitLine: {
@@ -460,7 +499,7 @@ function drawRadar(datasets){
                 data: [datasets[0]],
                 symbol: 'none',
                 itemStyle: {
-                    color: '#F9713C'
+                    color: color[0]
                 },
                 areaStyle: {
                     opacity: 0.5
@@ -473,7 +512,7 @@ function drawRadar(datasets){
                 data: [datasets[1]],
                 symbol: 'none',
                 itemStyle: {
-                    color: '#B3E4A1'
+                    color: color[1]
                 },
                 areaStyle: {
                     opacity: 0.5
@@ -486,7 +525,7 @@ function drawRadar(datasets){
                 data: [datasets[2]],
                 symbol: 'none',
                 itemStyle: {
-                    color: 'rgb(238, 197, 102)'
+                    color: color[2]
                 },
                 areaStyle: {
                     opacity: 0.5
@@ -497,6 +536,7 @@ function drawRadar(datasets){
     if (option && typeof option === "object") {
         myChart.setOption(option, true);
     }
+
 }
 
 //国内贸易
@@ -507,20 +547,25 @@ function getTradePie() {
         data: { "graph": 0 },
         success: function(msg) {
             currentValue = msg.pie;
-            drawNestPie(document.querySelector("#nestpie"), currentValue, mon + 11);
+            drawNestPie(currentValue);
         }
     })
 }
 
-function drawNestPie(dom, data, month) {
-    var myChart = echarts.init(dom);
+function drawNestPie(data) {
+    var myChart = echarts.init(document.querySelector("#nestpie"));
+	var month = mon + 11;
     option = null;
+    var color= [ '#16415b',
+            '#3a7ba5' ,'#2f6690',
+            '#ade8f4', '#48cae4'],
     option = {
         tooltip: {
             trigger: 'item',
             formatter: '{a} <br/>{b}: {c} ({d}%)'
         },
         series: [{
+            color:color[0],
                 name: '总额',
                 type: 'pie',
                 // selectedMode: 'single',
@@ -538,6 +583,7 @@ function drawNestPie(dom, data, month) {
             },
             {
                 name: '城乡',
+                color:[color[1],color[2]],
                 type: 'pie',
                 // selectedMode: 'single',
                 radius: ['30%', '50%'],
@@ -555,6 +601,7 @@ function drawNestPie(dom, data, month) {
 
             {
                 name: '餐饮商品',
+                color:[color[3],color[4]],
                 type: 'pie',
                 radius: ['60%', '85%'],
                 label: {
