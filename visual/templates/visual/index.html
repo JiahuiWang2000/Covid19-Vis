@@ -87,9 +87,6 @@
 <link href="http://fonts.googleapis.com/css?family=News+Cycle" rel="stylesheet" type="text/css" />
 <link href="http://fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css" />
 
-
-<script src="https://d3js.org/d3.v4.js"></script>
-
 <!-- Google fonts -->
 <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,300" rel='stylesheet' type='text/css'>
 <link href='https://fonts.googleapis.com/css?family=Raleway' rel='stylesheet' type='text/css'>
@@ -108,11 +105,20 @@
 
             <div class="container-fluid p-0" >
 
-            <button style="position:absolute;top:420px;left:780px;width:70px;height:25px;" onclick="selectmode(0)">确诊人数</button>
-            <button style="position:absolute;top:420px;left:870px;width:70px;height:25px;" onclick="selectmode(1)">死亡人数</button>
-            <button style="position:absolute;top:420px;left:960px;width:70px;height:25px;" onclick="selectmode(2)">治愈人数</button>
-			<div id="timeBox" style="position:absolute;top:370px;left:465px;width:280px">
-				<input type="button" id="play" value="▶" onclick="playStart()"></input>
+            <button style="position:absolute;top:420px;left:810px;width:75px;height:25px;" onclick="selectmode(0)">确诊人数</button>
+            <button style="position:absolute;top:420px;left:910px;width:75px;height:25px;" onclick="selectmode(1)">死亡人数</button>
+            <button style="position:absolute;top:420px;left:1010px;width:75px;height:25px;" onclick="selectmode(2)">治愈人数</button>
+			<div id="timeBox" style="position:absolute;top:370px;left:435px;width:340px">
+				<div style="width:30px;height:30px">
+					<a href="javascript:void(0);" onclick="playStart()">
+						<img style="width:100%;height:100%" src="../../static/visual/assets/img/播放.png" />
+					</a>
+				</div>
+				<div style="position:absolute;left:50px;top:0px;width:30px;height:30px">
+					<a href="javascript:void(0);" onclick="pause()">
+						<img style="width:100%;height:100%" src="../../static/visual/assets/img/暂停.png" />
+					</a>
+				</div>
 				<input type="text" id="time">
 			</div>
             <div id="ChinaMap" style="z-index:99999;position:absolute;top:60px;left:515px;width:480px;height:360px;"></div>
@@ -177,15 +183,6 @@
                     </ul>
 
                 </div>
-
-
-
-
-
-
-
-
-
 
 
                 <div style="position:absolute;left:415px;top:485px;width:670px;height:200px">
@@ -529,7 +526,7 @@
 		skin: "big",
 		min: 0,
 		max: 12,
-		from:0,
+		from: 69,
 		values:[20200122,20200123,20200124,20200125,20200126,20200127,20200128,20200129,20200130,20200131,20200201,20200202,20200203,20200204,20200205,20200206,20200207,20200208,20200209,20200210,20200211,20200212,20200213,20200214,20200215,20200216,20200217,20200218,20200219,20200220,20200221,20200222,20200223,20200224,20200225,20200226,20200227,20200228,20200229,20200301,20200302,20200303,20200304,20200305,20200306,20200307,20200308,20200309,20200310,20200311,20200312,20200313,20200314,20200315,20200316,20200317,20200318,20200319,20200320,20200321,20200322,20200323,20200324,20200325,20200326,20200327,20200328,20200329,20200330,20200331,20200401,20200402,20200403,20200404,20200405,20200406,20200407,20200408,20200409,20200410,20200411,20200412,20200413,20200414,20200415,20200416,20200417,20200418,20200419,20200420,20200421,20200422,20200423,20200424,20200425,20200426,20200427,20200428,20200429,20200430,20200501,20200502,20200503,20200504,20200505,20200506,20200507,20200508,20200509,20200510,20200511,20200512,20200513,20200514,20200515,20200516,20200517,20200518,20200519,20200520,20200521,20200522,20200523,20200524,20200525,20200526,20200527,20200528,20200529],
 		onChange:function(data){
 			updateTime(data.from_value)

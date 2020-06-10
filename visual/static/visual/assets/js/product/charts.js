@@ -1,4 +1,6 @@
 var province = "湖北", time = "202004", mon = 24, product = "布";
+var months = [201805,201806,201807,201808,201809,201810,201811,201812,201901,201902,201903,201904,201905,201906,201907,201908,201909,201910,201911,201912,202001,202002,202003,202004];
+var timer = [];
 
 function getTreemap(){
 	$.ajax({
@@ -468,7 +470,7 @@ function drawBar(data5){
 		xAxis: [
 			{
 				type: 'category',
-				data: [201805,201806,201807,201808,201809,201810,201811,201812,201901,201902,201903,201904,201905,201906,201907,201908,201909,201910,201911,201912,202001,202002,202003,202004],
+				data: months,
 				axisPointer: {
 				type: 'shadow'
 				},
@@ -529,40 +531,36 @@ function drawInit(){
 	getBar();
 }
 
-function rangeChange(){
-	mon = range.value;
-	if(mon < 9){
-		time = "2018";
-		if(mon < 6)
-			time += "0";
-		tmp = parseInt(mon) + 4;
-		time += tmp.toString();
-	}
-	else if(mon < 21){
-		time = "2019";
-		if(mon < 18)
-			time += "0";
-		tmp = parseInt(mon) - 8;
-		time += tmp.toString();
-	}
-	else{
-		time = "20200";
-		tmp = parseInt(mon) - 20;
-		time += tmp.toString();
-	}
-
+function rangeChange(data){
+	time = data.toString();
+	year = parseInt(data / 100);
+	if(year == 2018)
+		mon = -4;
+	else if(year == 2019)
+		mon = 8;
+	else
+		mon = 20;
+	mon += data % 100;
+	
 	drawInit();
 }
-	
-function playStart(){
-	play(1);play(2);play(3);play(4);play(5);play(6);play(7);play(8);play(9);
-	play(10);play(11);play(12);play(13);play(14);play(15);play(16);play(17);play(18);play(19);
-	play(20);play(21);play(22);play(23);play(24);
+
+function play(i, t) {
+    timer.push(setTimeout(function() {
+        $("#time").data("ionRangeSlider").update({ from: i });
+        rangeChange($("#time").data("ionRangeSlider").options.values[i]);
+    }, 1000 * t));
 }
-	
-function play(i){
-	setTimeout(function (){
-		document.getElementById("range").value = i.toString();
-		rangeChange();
-	}, 1000 * (i));
+
+function playStart() {
+    var i = $("#time").data("ionRangeSlider").options.from;
+    if (i == 23) i = 0;
+    for (var t = i; t < 24; t++) {
+        play(t, t - i);
+    }
+}
+
+function pause() {
+    timer.forEach(function(sto) { clearTimeout(sto) });
+	timer.splice(0, timer.length);
 }
