@@ -401,7 +401,6 @@ def getLivingData(request):
         graph = request.GET.get("graph")
         if graph=='0':
             name = request.GET.get("name")
-            print(live)
             for key,value in live["Province"].items():
                 if name in key:
                     return JsonResponse({"data":value,"country":live["Country"]})

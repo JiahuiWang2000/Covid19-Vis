@@ -80,7 +80,7 @@ function updateRightDown(name) {
     if (name != "居民")
         name = name + "居民"
     if ($("#LivingChange").length) {
-        drawChangeLine(document.querySelector("#LivingChange"), cData[title][name + "人均可支配收入_累计增长"].reverse(), cData[title][name + "人均消费支出_累计增长"].reverse(), cData[title][name + "人均可支配收入_累计值"].reverse(), cData[title][name + "人均可支配收入_累计值"].reverse())
+        drawChangeLine(document.querySelector("#LivingChange"), cData[title][name + "人均可支配收入_累计增长"].reverse(), cData[title][name + "人均消费支出_累计增长"].reverse(), cData[title][name + "人均可支配收入_累计值"].reverse(), cData[title][name + "人均消费支出_累计值"].reverse())
     }
 }
 

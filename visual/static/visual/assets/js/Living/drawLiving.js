@@ -33,11 +33,14 @@ function drawFunnel(dom, dataset) { //dataset[2]，每一维的每个元素都�
                 top: '5%',
                 sort: 'ascending',
                 label: {
-                    show: false,
-                    position: 'inside'
+                    show: true,
+                    formatter: function(params) {
+                        return params.name.substr(4, params.name.length - 8);
+                    },
+                    //position: 'inside'
                 },
                 data: dataset[0],
-            color: ['#0377a8', '#118fb0', '#1fa6b8', '#2fb5c7'],
+                color: ['#0377a8', '#118fb0', '#1fa6b8', '#2fb5c7'],
             },
             {
                 name: '支出',
@@ -47,12 +50,17 @@ function drawFunnel(dom, dataset) { //dataset[2]，每一维的每个元素都�
                 left: (80 - downwidth) / 2 + 10 + '%',
                 top: '35%',
                 label: {
-                    show: false,
-                    position: 'inside'
+                    show: true,
+                    //position: 'inside'
+                    formatter: function(params) {
+                        return params.name.substr(4, params.name.length - 10);
+                    },
+
                 },
                 data: dataset[1],
-                color:['#3ec4d6','#51ccd1' , '#63d4cc' , '#84a98c' ,
-                    '#47c8e3', '#00b4d8' , '#0095c6' , '#0077b6' , ]
+                color: ['#3ec4d6', '#51ccd1', '#63d4cc', '#84a98c',
+                    '#47c8e3', '#00b4d8', '#0095c6', '#0077b6',
+                ]
             },
         ]
     };
@@ -64,29 +72,29 @@ function drawFunnel(dom, dataset) { //dataset[2]，每一维的每个元素都�
 
 
 function drawChangeLine(dom, data1, data2, data3, data4) {
-    var linecolor=["#f4d35e", "#ee964b"]
-    var barcolor1=new echarts.graphic.LinearGradient(
+    var linecolor = ["#f4d35e", "#ee964b"]
+    var barcolor1 = new echarts.graphic.LinearGradient(
         0, 0, 0, 1, [
-            { offset: 0, color: '#68d8d6'},
-            { offset: 1, color: '#037171'}
+            { offset: 0, color: '#68d8d6' },
+            { offset: 1, color: '#037171' }
         ]
     );
-    var barcolor2=new echarts.graphic.LinearGradient(
+    var barcolor2 = new echarts.graphic.LinearGradient(
         0, 0, 0, 1, [
             { offset: 0, color: '#ade8f4' },
             { offset: 1, color: '#00b4d8' }
         ]
     );
-    var highlight1=new echarts.graphic.LinearGradient(
+    var highlight1 = new echarts.graphic.LinearGradient(
         0, 0, 0, 1, [
-            { offset: 0, color: '#ffb600'},
+            { offset: 0, color: '#ffb600' },
             { offset: 1, color: '#ff4800' }
         ]
     );
-    var highlight2=new echarts.graphic.LinearGradient(
+    var highlight2 = new echarts.graphic.LinearGradient(
         0, 0, 0, 1, [
-            { offset: 0, color: '#ffe94e'},
-            { offset: 1, color: '#fdb833'}
+            { offset: 0, color: '#ffe94e' },
+            { offset: 1, color: '#fdb833' }
         ]
     );
 
@@ -103,8 +111,8 @@ function drawChangeLine(dom, data1, data2, data3, data4) {
                 fontSize: 15, // 字体大小
             }
         },
-        grid:{
-            right:"18%"
+        grid: {
+            right: "18%"
         },
         chart: {
             id: "changeline"
@@ -138,28 +146,29 @@ function drawChangeLine(dom, data1, data2, data3, data4) {
             name: "人均可支配收入_累计增长",
             data: data1,
             type: 'line',
-            color:linecolor[0],
+            color: linecolor[0],
             yAxisIndex: 0,
         }, {
             name: "人均消费支出_累计增长",
             data: data2,
             type: 'line',
-            color:linecolor[1],
+            color: linecolor[1],
             yAxisIndex: 0,
         }, {
             name: "人均可支配收入_累计值",
             data: data3,
             itemStyle: {
                 //通常情况下：
-                normal:{
+                normal: {
                     barBorderRadius: 3,
                     //每个柱子的颜色即为colorList数组里的每一项，如果柱子数目多于colorList的长度，则柱子颜色循环使用该数组
-                    color: function (params){
-                        if(params.dataIndex!=11)
+                    color: function(params) {
+                        if (params.dataIndex != 11)
                             return barcolor1;
                         else return highlight1;
                     }
-                }},
+                }
+            },
             type: 'bar',
 
             yAxisIndex: 1,
@@ -170,15 +179,16 @@ function drawChangeLine(dom, data1, data2, data3, data4) {
 
             itemStyle: {
                 //通常情况下：
-                normal:{
+                normal: {
                     barBorderRadius: 3,
                     //每个柱子的颜色即为colorList数组里的每一项，如果柱子数目多于colorList的长度，则柱子颜色循环使用该数组
-                    color: function (params){
-                        if(params.dataIndex!=11)
+                    color: function(params) {
+                        if (params.dataIndex != 11)
                             return barcolor2;
                         else return highlight2;
                     }
-                }},
+                }
+            },
             type: 'bar',
             yAxisIndex: 1,
             areaStyle: {}
@@ -192,8 +202,9 @@ function drawChangeLine(dom, data1, data2, data3, data4) {
 function drawProvinceLiving(dom, dataset) {
     var myChart = echarts.init(dom);
     option = null;
-    var color=["#0077b6","#2f4554" ,"#61a0a8" ,
-        "#d48265" ,"#91c7ae" ,"#739e83" ,]
+    var color = ["#0077b6", "#2f4554", "#61a0a8",
+        "#d48265", "#91c7ae", "#739e83",
+    ]
     option = {
         tooltip: {
             trigger: 'axis',
@@ -231,46 +242,45 @@ function drawProvinceLiving(dom, dataset) {
             },
             data: ['2020A', '2019D', '2019C', '2019B', '2019A', '2018D', '2018C', '2018B', '2018A', '2017D', '2017C', '2017B']
         }],
-        series: [
-            {
+        series: [{
                 name: '居民人均可支配收入',
                 type: 'bar',
                 stack: 'all',
                 data: dataset[0],
-                color:color[0]
+                color: color[0]
             },
             {
                 name: '居民人均消费支出',
                 type: 'bar',
                 stack: 'all',
                 data: dataset[1].map(d => -d),
-                color:color[1]
+                color: color[1]
             },
             {
                 name: '城镇人均可支配收入',
                 type: 'bar',
                 stack: 'town',
                 data: dataset[2],
-                color:color[2]
+                color: color[2]
             },
             {
                 name: '城镇人均消费支出',
                 type: 'bar',
                 stack: 'town',
                 data: dataset[3].map(d => -d),
-                color:color[3]
+                color: color[3]
             }, {
                 name: '农村人均可支配收入',
                 type: 'bar',
                 stack: 'v',
                 data: dataset[4],
-                color:color[4]
+                color: color[4]
             }, {
                 name: '农村人均消费支出',
                 type: 'bar',
                 stack: 'v',
                 data: dataset[5].map(d => -d),
-                color:color[5]
+                color: color[5]
             }
         ]
     };
@@ -352,7 +362,7 @@ function drawProvinceStack(dom, income, disburse) {
                 symbol: 'emptyCircle',
                 symbolSize: 10,
                 data: income,
-            color:"#90e0ef"
+                color: "#90e0ef"
             }, {
                 name: '人均消费支出',
                 type: 'bar',
@@ -360,19 +370,22 @@ function drawProvinceStack(dom, income, disburse) {
                 itemStyle: {
                     normal: {
                         barBorderRadius: 5,
-                        color: function(params){
-                            if(params.dataIndex!=11)
+                        color: function(params) {
+                            if (params.dataIndex != 11)
                                 return new echarts.graphic.LinearGradient(
-                                0, 0, 0, 1, [
-                                    { offset: 0, color: '#ade8f4'},
-                                    { offset: 1, color: '#00b4d8'}
-                                ]
-                            );
+                                    0, 0, 0, 1, [
+                                        { offset: 0, color: '#ade8f4' },
+                                        { offset: 1, color: '#00b4d8' }
+                                    ]
+                                );
                             else return new echarts.graphic.LinearGradient(
-                                0, 0, 0, 1, [
-                                    { offset: 0, color: '#ffb600'
+                                0, 0, 0, 1, [{
+                                        offset: 0,
+                                        color: '#ffb600'
                                     },
-                                    { offset: 1, color: '#ff4800'
+                                    {
+                                        offset: 1,
+                                        color: '#ff4800'
                                     }
                                 ]
                             );
@@ -443,7 +456,7 @@ function drawChinamap(dom) {
                 color: '#fff',
             },
             inRange: {
-                color: ['#b1dee3','#ea3e00']
+                color: ['#b1dee3', '#ea3e00']
             },
             show: false
         },

@@ -158,6 +158,9 @@ function drawFunnel(dom, dataset) {
 
             label: {
                 show: false,
+                // formatter: function(params) {
+                //     return params.name.substr(0, params.name.length - 7)
+                // }
             },
             labelLine: {
                 length: 10,
