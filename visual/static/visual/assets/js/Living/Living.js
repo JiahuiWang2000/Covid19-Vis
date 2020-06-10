@@ -2,18 +2,24 @@ var curProvince;
 var pData;
 var cData;
 var townVillage, curtime; //0:all,1:town,2:village
+var timer = []
+
 function play(i) {
 
-    setTimeout(function() {
+    timer.push(setTimeout(function() {
         $("#time").data("ionRangeSlider").update({ from: i });
         animateRightUp($("#time").data("ionRangeSlider").options.values[i]);
-    }, 500 * i);
+    }, 500 * i));
 }
 
 function playStart() {
     for (var i = 0; i < 12; i++) {
         play(i);
     }
+}
+
+function pause() {
+    timer.forEach(function(sto) { clearTimeout(sto) });
 }
 
 function animateRightUp(time) {

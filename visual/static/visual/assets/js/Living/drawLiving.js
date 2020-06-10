@@ -61,7 +61,6 @@ function drawFunnel(dom, dataset) { //dataset[2]，每一维的每个元素都�
 
 
 function drawChangeLine(dom, data1, data2, data3, data4) {
-    console.log(data1, data2);
     var myChart = echarts.init(dom);
     option = null;
     option = {
@@ -130,14 +129,10 @@ function drawChangeLine(dom, data1, data2, data3, data4) {
     };
     if (option && typeof option === "object") {
         myChart.setOption(option, true);
-        myChart.on('click', function(params) {
-            console.log(params);
-        });
     }
 }
 
 function drawProvinceLiving(dom, dataset) {
-    console.log("HELLO")
     var myChart = echarts.init(dom);
     option = null;
     option = {
@@ -216,7 +211,6 @@ function drawProvinceLiving(dom, dataset) {
     if (option && typeof option === "object") {
         myChart.setOption(option, true);
         myChart.on('click', function(params) {
-            console.log(params);
             var name = params.seriesName.substr(0, 2);
             updateLeftDown(name);
             updateRightUp(name);
@@ -227,7 +221,6 @@ function drawProvinceLiving(dom, dataset) {
 }
 
 function drawProvinceStack(dom, income, disburse) {
-    console.log(income, disburse);
     var myChart = echarts.init(dom);
     option = null;
     // Generate data
@@ -408,11 +401,7 @@ function drawChinamap(dom) {
     myChart.setOption(option, true);
     myChart.on('click', function(params) {
         province = params.name;
-        console.log(province);
         updateProvince(province);
-        // Estate(province);
-        // var but = document.getElementById("button2");
-        // but.value = province;
     });
 
 }

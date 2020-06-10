@@ -1,13 +1,27 @@
 var province = "湖北", time = "202004", mon = 24, product = "布";
 
+//时间轴
+function updateTime(data){
+	time = parseInt(data / 100).toString();
+	mon = parseInt(time[5]) + 20;
+	day = data % 100;
+	getTreemap();
+	getTradePie();
+	getRank();
+	getTreemap();
+	getRadar();
+	getBar();
+	selectmode(modeflag);
+}
+
 //财政金融
-function AreaStack(id){
+function AreaStack(){
 	var datasets=[[39104.0,53656.0,72651.0,89919.0,107846.0,125623.0,137061.0,150678.0,167704.0,178967.0,190382.0],
                 [33314.0,58629.0,75667.0,93023.0,123538.0,137963.0,153069.0,178612.0,190587.0,206463.0,238874.0],
                 [35232.0,45984.0,62133.0],
                 [32350.0,55284.0,73596.0]];
 
-    var dom = document.getElementById(id);
+    var dom = document.getElementById("AreaStack");
     var myChart = echarts.init(dom);
     var app = {};
 
@@ -147,7 +161,7 @@ function AreaStack(id){
     }
 }
 
-//GDP
+//生产总值
 function River() {
 	var domain = ["2017B", "2017C", "2017D", "2018A", "2018B", "2018C", "2018D", "2019A", "2019B", "2019C", "2019D", "2020A"];
 	var labels = ["农林牧渔业", "工业", "制造业", "建筑业", "批发和零售业", "交通运输、仓储和邮政业", "住宿和餐饮业", "金融业", "房地产业", "信息传输、软件和信息技术服务业", "租赁和商务服务业", "其他行业"];
@@ -237,7 +251,7 @@ function River() {
     myChart5.setOption(option5, true);
 }
 
-//生产总值
+//工业产品
 function getTreemap(){
 	$.ajax({
 		url:"getproducttreemap",
@@ -347,14 +361,6 @@ function drawTreemap(data1){
 	document.getElementById("drawTreemap").style.height = "196px";
 	var treemapChart = echarts.init(document.getElementById("drawTreemap"));
 	treemapChart.setOption(treemapOption, true);
-	treemapChart.on('click', function(params){
-		if(params.treePathInfo.length == 3){
-			product = params.name;
-			getRank1(product, mon, time);
-			getRank2(product, mon, time);
-			getBar(province, product);
-		}
-	});
 }
 
 //房地产
@@ -366,7 +372,9 @@ function getRadar() {
         success: function(msg) {
             data = msg.estate;
 			console.data
-            drawRadar(data[0]);
+			if(24 - mon < 0)
+				drawRadar([])
+            else drawRadar(data[24 - mon]);
         }
     })
 }
@@ -481,7 +489,7 @@ function drawRadar(datasets){
                     color: 'rgb(238, 197, 102)'
                 },
                 areaStyle: {
-                    opacity: 0.05
+                    opacity: 0.5
                 }
             }
         ]
@@ -499,7 +507,7 @@ function getTradePie() {
         data: { "graph": 0 },
         success: function(msg) {
             currentValue = msg.pie;
-            drawNestPie(document.querySelector("#nestpie"), currentValue, 0);
+            drawNestPie(document.querySelector("#nestpie"), currentValue, mon + 11);
         }
     })
 }
@@ -575,7 +583,7 @@ function getRank(){
     $.ajax({
         url:"getRankData",
         type:'GET',
-        data:{"flag":0,"time":201905},
+        data:{"flag":0,"time":parseInt(time)},
         success:function(msg){
             rankdata=msg.rank;
             drawRank(rankdata);
@@ -649,7 +657,7 @@ function drawRank(data){
 }
 
 //人民生活
-function getLivingData(){
+function getBar(){
 	$.ajax({
         url: "getLivingdata",
         type: 'GET',
@@ -666,8 +674,8 @@ function drawProvinceLiving(dataset) {
     option = {
         tooltip: {
             trigger: 'axis',
-            axisPointer: { // 坐标轴指示器，坐标轴触发有效
-                type: 'shadow' // 默认为直线，可选为：'line' | 'shadow'
+            axisPointer: {
+                type: 'shadow'
             }
         },
         grid: {
@@ -709,13 +717,6 @@ function drawProvinceLiving(dataset) {
     };
     if (option && typeof option === "object") {
         myChart.setOption(option, true);
-        myChart.on('click', function(params) {
-            console.log(params);
-            var name = params.seriesName.substr(0, 2);
-            updateLeftDown(name);
-            updateRightUp(name);
-            updateRightDown(name);
-        });
     }
 }
 
@@ -723,9 +724,6 @@ function drawProvinceLiving(dataset) {
 var modeflag=0;
 var covid_data,patient_data,increase_data;
 var myChinaMap,CovidPie,CovidIncrease;
-var month=2;
-var day=1;
-var province='北京';
 var confirm,death,recover;
 
 function initMap(){
@@ -812,82 +810,69 @@ function chinaMap(data,flag){
             months.push(5);
             days.push(i);
         }
-      mapOption = {
-        timeline:{
-            axisType: 'category',
-            autoPlay: true,
-            playInterval: 1000,
-            data:times,
-            symbol: 'none',
-            itemStyle:{
-                color:'#fff',
-            },
-        },
-        options:[{          
-            tooltip: {
-                formatter:function(params,ticket, callback){
-                    return params.seriesName+'<br />'+params.name+'：'+params.value
-                }//数据格式化
-            },
-            visualMap: {
-                min: 0,
-                max: findmax(data),
-                left: 'left',
-                top: 'bottom',
-                text: ['高','低'],//取值范围的文字
-                itemWidth:20,
-                itemHeight:100,
-                left:40,
-                textStyle:{
-                    color:'#fff',
-                },
-                inRange: {
-                    color: ['#e0ffff', '#006edd']//取值范围的颜色
-                },
-                show:true//图注
-            },
-            geo: {
-                map: 'china',
-                roam: false,//不开启缩放和平移
-                zoom:1.05,//视角缩放比例
-                label: {
-                    normal: {
-                        show: true,
-                        fontSize:'10',
-                        color: 'rgba(0,0,0,0.7)'
-                    }
-                },
-                itemStyle: {
-                    normal:{
-                        borderColor: 'rgba(0, 0, 0, 0.2)'
-                    },
-                    emphasis:{
-                        areaColor: '#F3B329',//鼠标选择区域颜色
-                        shadowOffsetX: 0,
-                        shadowOffsetY: 0,
-                        shadowBlur: 20,
-                        borderWidth: 0,
-                        shadowColor: 'rgba(0, 0, 0, 0.5)'
-                    }
-                },
-            },
-            series : [
-                {
-                    name:tag,
-                    type: 'map',
-                    geoIndex: 0,
-                    data:dataList
-                }
-            ]
-          }]
-          
-      };
+      mapOption = {     
+		tooltip: {
+			formatter:function(params,ticket, callback){
+				return params.seriesName+'<br />'+params.name+'：'+params.value
+			}//数据格式化
+		},
+		visualMap: {
+			min: 0,
+			max: findmax(data),
+			left: 'left',
+			top: 'bottom',
+			text: ['高','低'],//取值范围的文字
+			itemWidth:20,
+			itemHeight:100,
+			left:40,
+			textStyle:{
+				color:'#fff',
+			},
+			inRange: {
+				color: ['#e0ffff', '#006edd']//取值范围的颜色
+			},
+			show:true//图注
+		},
+		geo: {
+			map: 'china',
+			roam: false,//不开启缩放和平移
+			zoom:1.05,//视角缩放比例
+			label: {
+				normal: {
+					show: true,
+					fontSize:'10',
+					color: 'rgba(0,0,0,0.7)'
+				}
+			},
+			itemStyle: {
+				normal:{
+					borderColor: 'rgba(0, 0, 0, 0.2)'
+				},
+				emphasis:{
+					areaColor: '#F3B329',//鼠标选择区域颜色
+					shadowOffsetX: 0,
+					shadowOffsetY: 0,
+					shadowBlur: 20,
+					borderWidth: 0,
+					shadowColor: 'rgba(0, 0, 0, 0.5)'
+				}
+			},
+		},
+		series : [
+			{
+				name:tag,
+				type: 'map',
+				geoIndex: 0,
+				data:dataList
+			}
+		]
+	  };
       myChinaMap.setOption(mapOption,true);
       myChinaMap.on('click', function (param) {
         province=param.name;
 		getTreemap();
 		getRadar();
-		getLivingData();        
+		getBar();        
       });
 }
 
@@ -905,14 +890,13 @@ function findmax(array){
 }
 
 function selectmode(flag){
-    modeflag=flag;console.log(month)
+    modeflag=flag;
     $.ajax({
         url:"getCovidData",
         type:'GET',
-        data:{"month":month,"day":day,"mode":modeflag},
+        data:{"month":mon - 20,"day":day,"mode":modeflag},
         success:function(msg){
             covid_data=msg.covid;
-			console.log(covid_data)
             chinaMap(covid_data,modeflag);
         }
     })
