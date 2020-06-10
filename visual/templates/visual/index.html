@@ -35,7 +35,7 @@
     <!-- jQuery -->
     <script src={% static "visual/assets/js/jquery.min.js" %}></script>
     <!--echarts-->
-    <script type="text/javascript" src={% static "visual/assets/js/echarts.js" %}></script>
+    <script type="text/javascript" src={% static "visual/assets/plugins/echarts/echarts2.js" %}></script>
 
 
     <!-- Bootstrap -->
@@ -70,6 +70,7 @@
 
     <script src={% static "visual/assets/js/map/china.js" %}></script>
     <script src={% static "visual/assets/js/map/chinaMap.js" %}></script>
+    <script src={% static "visual/assets/js/index.js" %}></script>
 
 
     <style>
@@ -170,7 +171,7 @@
                                 <li><a href="Products.html">工业产品</a></li>
                                 <li><a href="Living.html" >人民生活</a></li>
                                 <li><a href="Estate.html">房地产</a></li>
-                                <li><a href="Leaderboard.html" >排行</a></li>
+                                <li><a href="Leaderboard.html">价格指数</a></li>
                             </ul>
                         </li>
 
@@ -205,14 +206,13 @@
                     <div class="title" style="position:absolute;top:-20px;left:-90px;width:100%">
                         <svg height="35" width="100%">
                             <rect x=50% rx="20" ry="20" width="180" height="35" style="fill:rgb(44,88,166);" />
-                            <text x="50%" y="24" dx="90" style="stroke: white;font-size: 15px;text-anchor: middle">中间</text>
+                            <text x="50%" y="24" dx="90" style="stroke: white;font-size: 15px;text-anchor: middle">房地产</text>
                         </svg>
                     </div>
 
+					<div id="BarLabelRotation" style="position:absolute;top:-10px;left:12px;width:650px;height:240px;z-index: 99999;">
+					</div>
 
-                    <div style="position:absolute; z-index: 99999;">
-
-                    </div>
 
                     <!--内发光-->
                     <svg width=100% height="100%">
@@ -251,15 +251,14 @@
                     <div class="title" style="position:absolute;top:-20px;left:-90px;width:100%">
                         <svg height="35" width="100%">
                             <rect x=50% rx="20" ry="20" width="180" height="35" style="fill:rgb(44,88,166);" />
-                            <text x="50%" y="24" dx="90" style="stroke: white;font-size: 15px;text-anchor: middle">左上</text>
+                            <text x="50%" y="24" dx="90" style="stroke: white;font-size: 15px;text-anchor: middle">财政金融</text>
                         </svg>
                     </div>
 
 
-                    <div style="position:absolute; z-index: 99999;">
-
-                    </div>
-
+                    <div id="AreaStack" style="position:absolute;top:10px;width:370px;height:190px;z-index: 99999;">
+                	</div>
+                    
                     <!--内发光-->
                     <svg width=100% height="100%">
                         <filter id="inset-shadow" x="-50%" y="-50%" width="200%" height="200%">
@@ -296,17 +295,17 @@
                         <i class="b_r_line"></i>
                     </div>
 
-                    <div class="title" style="position:absolute;top:-20px;left:-90px;width:100%">
+					<div class="title" style="position:absolute;top:-20px;left:-90px;width:100%">
                         <svg height="35" width="100%">
                             <rect x=50% rx="20" ry="20" width="180" height="35" style="fill:rgb(44,88,166);" />
-                            <text x="50%" y="24" dx="90" style="stroke: white;font-size: 15px;text-anchor: middle">左中</text>
+                            <text x="50%" y="24" dx="90" style="stroke: white;font-size: 15px;text-anchor: middle">生产总值</text>
                         </svg>
                     </div>
 
 
-                    <div style="position:absolute; z-index: 99999;">
-
-                    </div>
+                    <div style="position:absolute; top: -15px; z-index: 99999;">
+						<div id="drawRiver"  width="370" height="200"></div>
+					</div>
 
                     <!--内发光-->
                     <svg width=100% height="100%">
@@ -346,15 +345,14 @@
                     <div class="title" style="position:absolute;top:-20px;left:-90px;width:100%">
                         <svg height="35" width="100%">
                             <rect x=50% rx="20" ry="20" width="180" height="35" style="fill:rgb(44,88,166);" />
-                            <text x="50%" y="24" dx="90" style="stroke: white;font-size: 15px;text-anchor: middle">左下</text>
+                            <text x="50%" y="24" dx="90" style="stroke: white;font-size: 15px;text-anchor: middle">国内贸易</text>
                         </svg>
                     </div>
 
-
-                    <div style="position:absolute; z-index: 99999;">
-
-                    </div>
-
+					<div style="position:absolute;top:6px;z-index:99999;">
+						<div id="nestpie" style="height:200px;width:370px;"></div>
+					</div>
+					
                     <!--内发光-->
                     <svg width=100% height="100%">
                         <filter id="inset-shadow" x="-50%" y="-50%" width="200%" height="200%">
@@ -392,14 +390,16 @@
                     <div class="title" style="position:absolute;top:-20px;left:-90px;width:100%">
                         <svg height="35" width="100%">
                             <rect x=50% rx="20" ry="20" width="180" height="35" style="fill:rgb(44,88,166);" />
-                            <text x="50%" y="24" dx="90" style="stroke: white;font-size: 15px;text-anchor: middle">右上</text>
+                            <text x="50%" y="24" dx="90" style="stroke: white;font-size: 15px;text-anchor: middle">工业产品</text>
                         </svg>
                     </div>
 
 
-                    <div style="position:absolute;z-index: 99999;">
-
-                    </div>
+                    <div style="position:absolute; z-index: 99999;">
+						<div style="position:absolute;top:0px;left:0px;z-index: 99999;">
+							<div id="drawTreemap" width="370" height="190"></div>
+						</div>
+					</div>
 
                     <!--内发光-->
                     <svg width=100% height="100%">
@@ -440,7 +440,7 @@
                     <div class="title" style="position:absolute;top:-20px;left:-90px;width:100%">
                         <svg height="35" width="100%">
                             <rect x=50% rx="20" ry="20" width="180" height="35" style="fill:rgb(44,88,166);" />
-                            <text x="50%" y="24" dx="90" style="stroke: white;font-size: 15px;text-anchor: middle">右中</text>
+                            <text x="50%" y="24" dx="90" style="stroke: white;font-size: 15px;text-anchor: middle">人民生活</text>
                         </svg>
                     </div>
 
@@ -487,13 +487,12 @@
                     <div class="title" style="position:absolute;top:-20px;left:-90px;width:100%">
                         <svg height="35" width="100%">
                             <rect x=50% rx="20" ry="20" width="180" height="35" style="fill:rgb(44,88,166);" />
-                            <text x="50%" y="24" dx="90" style="stroke: white;font-size: 15px;text-anchor: middle">右下</text>
+                            <text x="50%" y="24" dx="90" style="stroke: white;font-size: 15px;text-anchor: middle">消费指数</text>
                         </svg>
                     </div>
 
 
-                    <div style="position:absolute; z-index: 99999;">
-
+                    <div id="rank" style="position:absolute;top:-30px;left:0px;width:370px;height:260px;z-index: 99999;">
                     </div>
 
                     <!--内发光-->
@@ -532,11 +531,17 @@
 
 <script type="text/javascript">
     
-    covid_data={{covid|safe}};
+    /*covid_data={{covid|safe}};
     init();
     chinaMap(covid_data,modeflag);
 
-    console.log(covid_data);
+    console.log(covid_data);*/
+	
+	AreaStack("AreaStack");
+	River();
+	getTreemap();
+	getTradePie();
+	getRank();
 </script>
 
 </body>
