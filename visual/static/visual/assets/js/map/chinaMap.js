@@ -1,11 +1,22 @@
 var modeflag=0;
-var covid_data;
-var myChinaMap;
+var covid_data,patient_data,increase_data;
+var myChinaMap,CovidPie,CovidIncrease;
 var month=2;
 var day=1;
+var province='北京';
+var confirm,death,recover;
 
-function init(){
+
+function initMap(){
     myChinaMap = echarts.init(document.getElementById('ChinaMap'));
+}
+
+function initPie(){  
+    CovidPie = echarts.init(document.getElementById('CovidPie'));
+}
+
+function initIncrease(){  
+    CovidIncrease = echarts.init(document.getElementById('CovidIncrease'));
 }
 
 function chinaMap(data,flag){
@@ -56,65 +67,134 @@ function chinaMap(data,flag){
       else if(flag==2){
           tag='治愈人数';    
       }
+      var times=[];
+      var months=[];
+      var days=[];
+        for(var i=22;i<32;i++){
+            var t='Jan.'+i;
+            times.push(t);
+            months.push(1);
+            days.push(i);
+        }
+        for(var i=1;i<29;i++){
+            var t='Feb.'+i;
+            times.push(t);
+            months.push(2);
+            days.push(i);
+        }
+        for(var i=1;i<32;i++){
+            var t='Mar.'+i;
+            times.push(t);
+            months.push(3);
+            days.push(i);
+        }
+        for(var i=1;i<31;i++){
+            var t='Apr.'+i;
+            times.push(t);
+            months.push(4);
+            days.push(i);
+        }
+        for(var i=1;i<30;i++){
+            var t='May.'+i;
+            times.push(t);
+            months.push(5);
+            days.push(i);
+        }
       mapOption = {
-          tooltip: {
-                  formatter:function(params,ticket, callback){
-                      return params.seriesName+'<br />'+params.name+'：'+params.value
-                  }//数据格式化
-              },
-          visualMap: {
-              min: 0,
-              max: findmax(data),
-              left: 'left',
-              top: 'bottom',
-              text: ['高','低'],//取值范围的文字
-              itemWidth:20,
-              itemHeight:100,
-              textStyle:{
+        timeline:{
+            axisType: 'category',
+            autoPlay: true,
+            playInterval: 1000,
+            data:times,
+            symbol: 'none',
+            itemStyle:{
                 color:'#fff',
-              },
-              inRange: {
-                  color: ['#e0ffff', '#006edd']//取值范围的颜色
-              },
-              show:true//图注
-          },
-          geo: {
-              map: 'china',
-              roam: false,//不开启缩放和平移
-              zoom:1.23,//视角缩放比例
-              label: {
-                  normal: {
-                      show: true,
-                      fontSize:'10',
-                      color: 'rgba(0,0,0,0.7)'
-                  }
-              },
-              itemStyle: {
-                  normal:{
-                      borderColor: 'rgba(0, 0, 0, 0.2)'
-                  },
-                  emphasis:{
-                      areaColor: '#F3B329',//鼠标选择区域颜色
-                      shadowOffsetX: 0,
-                      shadowOffsetY: 0,
-                      shadowBlur: 20,
-                      borderWidth: 0,
-                      shadowColor: 'rgba(0, 0, 0, 0.5)'
-                  }
-              }
-          },
-          series : [
-              {
-                  name:tag,
-                  type: 'map',
-                  geoIndex: 0,
-                  data:dataList
-              }
-          ]
+            },
+        },
+        options:[{          
+            tooltip: {
+                formatter:function(params,ticket, callback){
+                    return params.seriesName+'<br />'+params.name+'：'+params.value
+                }//数据格式化
+            },
+            visualMap: {
+                min: 0,
+                max: findmax(data),
+                left: 'left',
+                top: 'bottom',
+                text: ['高','低'],//取值范围的文字
+                itemWidth:20,
+                itemHeight:100,
+                left:40,
+                textStyle:{
+                    color:'#fff',
+                },
+                inRange: {
+                    color: ['#e0ffff', '#006edd']//取值范围的颜色
+                },
+                show:true//图注
+            },
+            geo: {
+                map: 'china',
+                roam: false,//不开启缩放和平移
+                zoom:1.05,//视角缩放比例
+                label: {
+                    normal: {
+                        show: true,
+                        fontSize:'10',
+                        color: 'rgba(0,0,0,0.7)'
+                    }
+                },
+                itemStyle: {
+                    normal:{
+                        borderColor: 'rgba(0, 0, 0, 0.2)'
+                    },
+                    emphasis:{
+                        areaColor: '#F3B329',//鼠标选择区域颜色
+                        shadowOffsetX: 0,
+                        shadowOffsetY: 0,
+                        shadowBlur: 20,
+                        borderWidth: 0,
+                        shadowColor: 'rgba(0, 0, 0, 0.5)'
+                    }
+                },
+            },
+            series : [
+                {
+                    name:tag,
+                    type: 'map',
+                    geoIndex: 0,
+                    data:dataList
+                }
+            ]
+          }]
+          
       };
       myChinaMap.setOption(mapOption,true);
-      myChinaMap.on('click', function (params) {
-          alert(params.name);
+      myChinaMap.on('click', function (param) {
+        province=param.name;
+        if(param.dataIndex!=0){
+            $.ajax({
+                url:"getPatientData",
+                type:'GET',
+                data:{"month":month,"day":day,"province":param.dataIndex},
+                success:function(msg){
+                    patient_data=msg.patient;
+                    drawPie(patient_data);
+                }
+            });
+            $.ajax({
+                url:"getIncreaseData",
+                type:'GET',
+                data:{"province":param.name},
+                success:function(msg){
+                    confirm=msg.confirm;
+                    death=msg.death;
+                    recover=msg.recover;
+                    drawIncrease(confirm,death,recover);
+                }
+            });
+        }        
       });
 }
 
@@ -129,6 +209,170 @@ function findmax(array){
         
     }
     return max;
+}
+
+function drawPie(data){
+    var dataList=[
+        {name:"现存感染人数",value:data[0]-data[1]-data[2]},
+        {name:"死亡人数",value:data[1]},
+        {name:"治愈人数",value:data[2]}
+    ]
+    option = {
+        title: {
+            text: '确诊人数分布',
+            left: 'center',
+            top:'20px',
+            textStyle:{
+                color:'#c4ccd3',
+              },
+        },
+        tooltip: {
+            trigger: 'item',
+            formatter: '{a} <br/>{b} : {c} ({d}%)'
+        },
+        series: [
+            {
+                name: province+' '+month+'.'+day,
+                type: 'pie',
+                radius: '55%',
+                center: ['50%', '60%'],
+                data: dataList,
+                itemStyle: {
+                    emphasis: {
+                        shadowBlur: 10,
+                        shadowOffsetX: 0,
+                        shadowColor: 'rgba(0, 0, 0, 0.5)'
+                    },      
+                    normal:{
+                        color:function(param){
+                            var colorList=['#61a0a8', '#d48265', '#91c7ae'];
+                            return colorList[param.dataIndex];
+                        }
+                    }         
+                }
+                
+            }
+        ]
+    };
+    CovidPie.setOption(option,true);  
+}
+
+
+function drawIncrease(data1,data2,data3){
+    var tags=[];
+    for(var i=22;i<32;i++){
+        var tag='Jan.'+i;
+        tags.push(tag);
+    }
+    for(var i=1;i<29;i++){
+        var tag='Feb.'+i;
+        tags.push(tag);
+    }
+    for(var i=1;i<32;i++){
+        var tag='Mar.'+i;
+        tags.push(tag);
+    }
+    for(var i=1;i<31;i++){
+        var tag='Apr.'+i;
+        tags.push(tag);
+    }
+    for(var i=1;i<30;i++){
+        var tag='May.'+i;
+        tags.push(tag);
+    }
+    option = {
+        tooltip: {
+            trigger: 'axis'
+        },
+        legend: {
+            data: ['确诊人数','死亡人数','治愈人数'],
+            textStyle:{
+                color:'#c4ccd3',
+              },
+        },
+        xAxis: {
+            type: 'category',
+            data: tags,
+            axisLine:{
+				lineStyle:{
+					color:'#c4ccd3'
+				}
+			}
+        },
+        yAxis: {
+            type: 'value',
+            splitLine: {show: false},
+            axisLine:{
+				lineStyle:{
+					color:'#c4ccd3'
+				}
+            }
+        },
+        grid: {
+            left: '3%',
+            right: '4%',
+            bottom: '10%',
+            containLabel: true
+        },
+        series: [{
+            name:'确诊人数',
+            data: data1,
+            type: 'line',
+            smooth: true,
+            itemStyle: {
+				normal: {
+					color: '#61a0a8',
+					lineStyle: {
+						color: '#61a0a8'
+					}
+				}
+			},
+        },
+        {
+            name:'死亡人数',
+            data: data2,
+            type: 'line',
+            smooth: true,
+            itemStyle: {
+				normal: {
+					color: '#d48265',
+					lineStyle: {
+						color: '#d48265'
+					}
+				}
+			},
+        },
+        {
+            name:'治愈人数',
+            data: data3,
+            type: 'line',
+            smooth: true,
+            itemStyle: {
+				normal: {
+					color:  '#91c7ae',
+					lineStyle: {
+						color:  '#91c7ae'
+					}
+				}
+			},
+        }],
+        dataZoom: [
+            {
+                show: true,
+                xAxisIndex: 0,
+                filterMode: 'empty',
+                width: '80%',
+                height: 20,
+                showDataShadow: false,
+                left: '10%',
+                bottom:'2%',
+				textStyle:{
+					color: '#c4ccd3'
+				}
+            }
+        ]
+    };
+    CovidIncrease.setOption(option,true);
 }
 
 function selectmode(flag){

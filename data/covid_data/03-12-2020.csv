@@ -3,7 +3,6 @@ Tianjin,136,3,132
 Shanghai,344,3,321
 Chongqing,576,6,564
 Hebei,318,6,308
-Hebei,0,0,0
 Henan,1273,22,1249
 Yunnan,174,2,170
 Liaoning,125,1,112
@@ -18,7 +17,6 @@ Jiangxi,935,1,934
 Hubei,67781,3056,50318
 Guangxi,252,2,241
 Gansu,127,2,88
-Gansu,0,0,0
 Shanxi,133,0,132
 Inner Mongolia,75,1,71
 Shaanxi,245,2,232
@@ -31,5 +29,6 @@ Tibet,1,0,1
 Sichuan,539,3,498
 Ningxia,75,0,72
 Hainan,168,6,160
+Taiwan,49,1,20
 Hong Kong,129,3,67
 Macau,10,0,10
