@@ -164,7 +164,7 @@ function chinaMap(data,flag){
                     color:'#fff',
                 },
                 inRange: {
-                    color: ['#e0ffff', '#006edd']//取值范围的颜色
+                    color: ['#b1dee3','#ea3e00']//取值范围的颜色
                 },
                 show:true//图注
             },

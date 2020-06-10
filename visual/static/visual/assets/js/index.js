@@ -687,8 +687,9 @@ function drawRank(data){
 			axisLine:{
 				lineStyle:{
 					color:'#c4ccd3'
-				}
-			}
+				},
+			},
+            scale:true
 		},
 		yAxis: {
 			type: 'category',
@@ -707,7 +708,14 @@ function drawRank(data){
 					show: false,
 					position: 'insideRight'
 				},
-				data: values
+				data: values,
+                color:
+                    new echarts.graphic.LinearGradient(
+                        1, 0, 0, 0, [
+                            { offset: 0, color: '#A2BEE1'  },
+                            { offset: 1, color:'#5d93dc' }
+                        ]
+                    )
 			}
 		],
         dataZoom: [
@@ -743,6 +751,17 @@ function getBar(){
 }
 
 function drawProvinceLiving(dataset) {
+    var color0=new echarts.graphic.LinearGradient(
+        0, 0, 1, 1, [
+            { offset: 0, color: '#5d93dc'  },
+            { offset: 1, color: '#A2BEE1'  }
+        ]);
+    var color1=new echarts.graphic.LinearGradient(
+        1, 1, 0, 0, [
+            { offset: 0, color: '#f54545' },
+            { offset: 1, color: '#F78F8F' }
+        ]
+    );
     var myChart = echarts.init(document.getElementById("living"));
     option = {
         tooltip: {
@@ -778,13 +797,15 @@ function drawProvinceLiving(dataset) {
                 name: '居民人均可支配收入',
                 type: 'bar',
                 stack: 'all',
-                data: dataset[0]
+                data: dataset[0],
+            color:color0
             },
             {
                 name: '居民人均消费支出',
                 type: 'bar',
                 stack: 'all',
-                data: dataset[1].map(d => -d)
+                data: dataset[1].map(d => -d),
+                color:color1
             }
         ]
     };
@@ -902,7 +923,7 @@ function chinaMap(data,flag){
 				color:'#fff',
 			},
 			inRange: {
-				color: ['#e0ffff', '#006edd']//取值范围的颜色
+                color: ['#b1dee3','#ea3e00']//取值范围的颜色
 			},
 			show:true//图注
 		},
