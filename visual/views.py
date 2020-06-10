@@ -298,6 +298,64 @@ def getTradingData(request):
             b = request.GET.get("graph")
 
         return JsonResponse(json)
+
+live = {}
+def living(request):
+    if live=={}:
+        with open('data\Living\居民收支基本情况（分省12个季度）.csv','r',encoding='gbk')as fp:
+            json = {}
+            data_list = [i for i in csv.reader(fp)]
+            for index in range(1,len(data_list),6):
+                province = []
+                for i in range(index,index+6):
+                    ele = data_list[i]
+                    tlist = []
+                    for val in ele[2:]:
+                        if val!='0':
+                            tlist.append(float(val))
+                        else:
+                            tlist.append("NaN")
+                    province.append(tlist)
+                json[data_list[index][0]] = province
+            live["Province"] = json
+        with open('data\Living\居民收支基本情况（全国12个季度）.csv','r',encoding='gbk')as fp:
+            json = {}
+            json["城镇"] = {}
+            json["农村"] = {}
+            json["居民"] = {}
+            data_list = [i for i in csv.reader(fp)]
+            head = data_list[0][1:]
+            for ele in data_list[1:]:
+                if "增长" in ele[0] or '居民人均可支配收入_累计值' in ele[0] or '居民人均消费支出_累计值' in ele[0]:
+                    if '城镇' in ele[0]:
+                        json["城镇"][ele[0]] = list(map(float, ele[1:]))
+                    elif '农村' in ele[0]:
+                        json["农村"][ele[0]] = list(map(float, ele[1:]))
+                    else:
+                        json["居民"][ele[0]] = list(map(float, ele[1:]))
+                    continue
+                category = ele[0][0:2]
+                for i in range(len(head)):
+                    if head[i] not in json[category]:
+                        json[category][head[i]] = [[],[]]
+                    if "收入" in ele[0]:
+                        json[category][head[i]][0].append({"value":float(ele[i + 1]),"name":ele[0]})
+                    else:
+                        json[category][head[i]][1].append({"value":float(ele[i + 1]),"name":ele[0]})
+            #print(json["居民"]["居民人均可支配收入_累计增长"])
+            live["Country"] = json
+    return render(request,'visual/Living.html')
+
+def getLivingData(request):
+     if request.method=='GET':
+        graph = request.GET.get("graph")
+        if graph=='0':
+            name = request.GET.get("name")
+            print(live)
+            for key,value in live["Province"].items():
+                if name in key:
+                    return JsonResponse({"data":value,"country":live["Country"]})
+       
 def Covid(request):
     csv_path='data/covid_data/02-01-2020.csv'
     with open(csv_path,'r',encoding='gbk')as fp:
