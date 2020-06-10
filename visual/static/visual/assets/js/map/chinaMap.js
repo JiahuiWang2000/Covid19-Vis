@@ -291,27 +291,6 @@ function drawPie(data){
 
 
 function drawIncrease(data1,data2,data3){
-    var tags=[];
-    for(var i=22;i<32;i++){
-        var tag='Jan.'+i;
-        tags.push(tag);
-    }
-    for(var i=1;i<29;i++){
-        var tag='Feb.'+i;
-        tags.push(tag);
-    }
-    for(var i=1;i<32;i++){
-        var tag='Mar.'+i;
-        tags.push(tag);
-    }
-    for(var i=1;i<31;i++){
-        var tag='Apr.'+i;
-        tags.push(tag);
-    }
-    for(var i=1;i<30;i++){
-        var tag='May.'+i;
-        tags.push(tag);
-    }
     option = {
         tooltip: {
             trigger: 'axis'
@@ -324,7 +303,7 @@ function drawIncrease(data1,data2,data3){
         },
         xAxis: {
             type: 'category',
-            data: tags,
+            data: times,
             axisLine:{
 				lineStyle:{
 					color:'#c4ccd3'
