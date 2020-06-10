@@ -121,7 +121,6 @@ def getCovidData(request):
             csv_path=csv_path+'0'+day+'-'
         else:
             csv_path=csv_path+day+'-'
-
         csv_path=csv_path+'2020.csv'
         with open(csv_path,'r',encoding='gbk')as fp:
             data_list = [i for i in csv.reader(fp)]
