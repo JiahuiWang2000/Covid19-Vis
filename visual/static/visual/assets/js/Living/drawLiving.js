@@ -361,8 +361,8 @@ function drawChinamap(dom) {
             }
         },
         visualMap: {
-            min: 60,
-            max: 120,
+            min: 2,
+            max: 1700,
             left: 'left',
             top: 'bottom',
             text: ['高', '低'],
@@ -370,7 +370,7 @@ function drawChinamap(dom) {
                 color: '#fff',
             },
             inRange: {
-                color: ['#91c7ae', '#ca8622']
+                color: ['#b1dee3','#ea3e00']
             },
             show: false
         },

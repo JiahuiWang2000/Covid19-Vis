@@ -1,6 +1,9 @@
 function drawNestPie(dom, data, month) {
     var myChart = echarts.init(dom);
     option = null;
+    var color= [ '#16415b',
+            '#3a7ba5' ,'#2f6690',
+            '#ade8f4', '#48cae4'],
     option = {
         tooltip: {
             trigger: 'item',
@@ -14,6 +17,7 @@ function drawNestPie(dom, data, month) {
             textStyle: {  color: '#acacac' }
         },
         series: [{
+            color:color[0],
                 name: '总额',
                 type: 'pie',
                 // selectedMode: 'single',
@@ -31,6 +35,7 @@ function drawNestPie(dom, data, month) {
             },
             {
                 name: '城乡',
+                color:[color[1],color[2]],
                 type: 'pie',
                 // selectedMode: 'single',
                 radius: ['30%', '50%'],
@@ -48,6 +53,7 @@ function drawNestPie(dom, data, month) {
 
             {
                 name: '餐饮商品',
+                color:[color[3],color[4]],
                 type: 'pie',
                 radius: ['60%', '85%'],
                 label: {
@@ -87,12 +93,13 @@ function drawFunnel(dom, dataset) {
                 fontStyle: 'normal', //主标题文字字体风格，默认normal，有italic(斜体),oblique(斜体)
                 fontWeight: "lighter", //可选normal(正常)，bold(加粗)，bolder(加粗)，lighter(变细)，100|200|300|400|500...
                 fontFamily: "songti", //主题文字字体，默认微软雅黑
-                fontSize: 20, //主题文字字体大小，默认为18px
+                fontSize: 15, //主题文字字体大小，默认为18px
             },
             left: 'center',
-            bottom: '20px'
+            bottom: '30px'
 
         },
+        color: ['#bde9e8', '#62b6cb', '#1b4965', '#cae9ff', '#5fa8d3','#133c55', '#386fa4', '#59a5d8', '#84d2f6', '#91e5f6', '#68d8d6', '#3dccc7'],
         // legend: {
         //     data: dataset.name
         // },
@@ -112,6 +119,7 @@ function drawFunnel(dom, dataset) {
             maxSize: '100%',
             sort: 'ascending',
             gap: 2,
+
             label: {
                 show: false,
             },
@@ -124,11 +132,12 @@ function drawFunnel(dom, dataset) {
             },
             itemStyle: {
                 borderColor: '#fff',
-                borderWidth: 1
+                borderWidth: 1,
+
             },
             emphasis: {
                 label: {
-                    fontSize: 20
+                    fontSize: 10
                 }
             },
             data: dataset.data
