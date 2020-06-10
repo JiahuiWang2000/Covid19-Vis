@@ -19,7 +19,7 @@ function selectQuote(){
             rankdata=msg.rank;
             drawRank(rankflag,rankdata);
         }
-    })
+	})
 }
 
 function selectMonth(){
@@ -46,16 +46,9 @@ function drawRank(flag,data){
 	var keys = [], values = [];
 	for(var i = 0; i < data.length; ++i){
 		keys.push(data[i].key);
-		values.push(parseFloat(data[i].value));
+		values.push(parseFloat(data[i].value).toFixed(2));
 	}
 	rankOption = {
-		title: {
-			text: tag,
-			left: "center",
-			textStyle:{
-				color: '#c4ccd3'
-			}
-		},
 		tooltip: {
 			trigger: 'axis',
 			axisPointer: {
@@ -71,7 +64,8 @@ function drawRank(flag,data){
 				lineStyle:{
 					color:'#c4ccd3'
 				}
-			}
+			},
+			scale:true
 		},
 		yAxis: {
 			type: 'category',
@@ -80,6 +74,9 @@ function drawRank(flag,data){
 				lineStyle:{
 					color:'#c4ccd3'
 				}
+			},
+			axisLabel:{   
+				interval: 0
 			}
 		},
 		series: [
@@ -101,7 +98,7 @@ function drawRank(flag,data){
                 width: 20,
                 height: '80%',
                 showDataShadow: false,
-                left: '5%',
+                left: '95%',
 				textStyle:{
 					color: '#c4ccd3'
 				}
