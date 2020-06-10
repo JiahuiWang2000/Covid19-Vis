@@ -5,7 +5,7 @@ from django.shortcuts import get_object_or_404, render
 from django.http import HttpResponse,JsonResponse
 
 def index(request):
-    csv_path='data/covid_data/02-01-2020.csv'
+    csv_path='data/covid_data/01-22-2020.csv'
     with open(csv_path,'r',encoding='gbk')as fp:
         data_list = [i for i in csv.reader(fp)]
     data=[]

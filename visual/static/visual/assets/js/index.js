@@ -1,13 +1,27 @@
 var province = "湖北", time = "202004", mon = 24, product = "布";
 
+//时间轴
+function updateTime(data){
+	time = parseInt(data / 100).toString();
+	mon = parseInt(time[5]) + 20;
+	day = data % 100;
+	getTreemap();
+	getTradePie();
+	getRank();
+	getTreemap();
+	getRadar();
+	getBar();
+	selectmode(modeflag);
+}
+
 //财政金融
-function AreaStack(id){
+function AreaStack(){
 	var datasets=[[39104.0,53656.0,72651.0,89919.0,107846.0,125623.0,137061.0,150678.0,167704.0,178967.0,190382.0],
                 [33314.0,58629.0,75667.0,93023.0,123538.0,137963.0,153069.0,178612.0,190587.0,206463.0,238874.0],
                 [35232.0,45984.0,62133.0],
                 [32350.0,55284.0,73596.0]];
 
-    var dom = document.getElementById(id);
+    var dom = document.getElementById("AreaStack");
     var myChart = echarts.init(dom);
     var app = {};
 
@@ -347,14 +361,6 @@ function drawTreemap(data1){
 	document.getElementById("drawTreemap").style.height = "196px";
 	var treemapChart = echarts.init(document.getElementById("drawTreemap"));
 	treemapChart.setOption(treemapOption, true);
-	treemapChart.on('click', function(params){
-		if(params.treePathInfo.length == 3){
-			product = params.name;
-			getRank1(product, mon, time);
-			getRank2(product, mon, time);
-			getBar(province, product);
-		}
-	});
 }
 
 //房地产
@@ -366,7 +372,9 @@ function getRadar() {
         success: function(msg) {
             data = msg.estate;
 			console.data
-            drawRadar(data[0]);
+			if(24 - mon < 0)
+				drawRadar([])
+            else drawRadar(data[24 - mon]);
         }
     })
 }
@@ -499,7 +507,7 @@ function getTradePie() {
         data: { "graph": 0 },
         success: function(msg) {
             currentValue = msg.pie;
-            drawNestPie(document.querySelector("#nestpie"), currentValue, 0);
+            drawNestPie(document.querySelector("#nestpie"), currentValue, mon + 11);
         }
     })
 }
@@ -575,7 +583,7 @@ function getRank(){
     $.ajax({
         url:"getRankData",
         type:'GET',
-        data:{"flag":0,"time":201905},
+        data:{"flag":0,"time":parseInt(time)},
         success:function(msg){
             rankdata=msg.rank;
             drawRank(rankdata);
@@ -649,7 +657,7 @@ function drawRank(data){
 }
 
 //人民生活
-function getLivingData(){
+function getBar(){
 	$.ajax({
         url: "getLivingdata",
         type: 'GET',
@@ -709,13 +717,6 @@ function drawProvinceLiving(dataset) {
     };
     if (option && typeof option === "object") {
         myChart.setOption(option, true);
-        myChart.on('click', function(params) {
-            console.log(params);
-            var name = params.seriesName.substr(0, 2);
-            updateLeftDown(name);
-            updateRightUp(name);
-            updateRightDown(name);
-        });
     }
 }
 
@@ -723,8 +724,6 @@ function drawProvinceLiving(dataset) {
 var modeflag=0;
 var covid_data,patient_data,increase_data;
 var myChinaMap,CovidPie,CovidIncrease;
-var month=2;
-var day=1;
 var confirm,death,recover;
 
 function initMap(){
@@ -873,7 +872,7 @@ function chinaMap(data,flag){
         province=param.name;
 		getTreemap();
 		getRadar();
-		getLivingData();        
+		getBar();        
       });
 }
 
@@ -891,14 +890,13 @@ function findmax(array){
 }
 
 function selectmode(flag){
-    modeflag=flag;console.log(month)
+    modeflag=flag;
     $.ajax({
         url:"getCovidData",
         type:'GET',
-        data:{"month":month,"day":day,"mode":modeflag},
+        data:{"month":mon - 20,"day":day,"mode":modeflag},
         success:function(msg){
             covid_data=msg.covid;
-			console.log(covid_data)
             chinaMap(covid_data,modeflag);
         }
     })
