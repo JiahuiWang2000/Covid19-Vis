@@ -4,12 +4,14 @@ var province = "湖北", time = "202004", mon = 24, product = "布";
 function updateTime(data){
 	time = parseInt(data / 100).toString();
 	mon = parseInt(time[5]) + 20;
+	day = data % 100;
 	getTreemap();
 	getTradePie();
 	getRank();
 	getTreemap();
 	getRadar();
 	getBar();
+	selectmode(modeflag);
 }
 
 //财政金融
@@ -715,13 +717,6 @@ function drawProvinceLiving(dataset) {
     };
     if (option && typeof option === "object") {
         myChart.setOption(option, true);
-        myChart.on('click', function(params) {
-            console.log(params);
-            var name = params.seriesName.substr(0, 2);
-            updateLeftDown(name);
-            updateRightUp(name);
-            updateRightDown(name);
-        });
     }
 }
 
@@ -729,8 +724,6 @@ function drawProvinceLiving(dataset) {
 var modeflag=0;
 var covid_data,patient_data,increase_data;
 var myChinaMap,CovidPie,CovidIncrease;
-var month=2;
-var day=1;
 var confirm,death,recover;
 
 function initMap(){
@@ -879,7 +872,7 @@ function chinaMap(data,flag){
         province=param.name;
 		getTreemap();
 		getRadar();
-		getLivingData();        
+		getBar();        
       });
 }
 
@@ -897,14 +890,13 @@ function findmax(array){
 }
 
 function selectmode(flag){
-    modeflag=flag;console.log(month)
+    modeflag=flag;
     $.ajax({
         url:"getCovidData",
         type:'GET',
-        data:{"month":month,"day":day,"mode":modeflag},
+        data:{"month":mon - 20,"day":day,"mode":modeflag},
         success:function(msg){
             covid_data=msg.covid;
-			console.log(covid_data)
             chinaMap(covid_data,modeflag);
         }
     })
