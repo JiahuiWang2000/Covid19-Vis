@@ -56,7 +56,8 @@ function drawRank(flag,data){
 			}
 		},
 		grid:{
-			x: 120
+			x: 115,
+			y:30
 		},
 		xAxis: {
 			type: 'value',
@@ -87,7 +88,14 @@ function drawRank(flag,data){
 					show: true,
 					position: 'insideRight'
 				},
-				data: values
+				data: values,
+				color:
+					new echarts.graphic.LinearGradient(
+					1, 0, 0, 0, [
+						{ offset: 0, color: '#A2BEE1'  },
+						{ offset: 1, color:'#5d93dc' }
+					]
+				)
 			}
 		],
         dataZoom: [

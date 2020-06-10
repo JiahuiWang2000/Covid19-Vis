@@ -38,7 +38,8 @@ function drawRadar(data1,data2){
                 radius: 100,
                 name: {
                     textStyle: {
-                        color: '#F9713C'
+                        color: '#89A7AF'
+
                     }
                 }
             },
@@ -55,7 +56,8 @@ function drawRadar(data1,data2){
                     }
                 ],
                 itemStyle: {
-                    color: '#F9713C'
+                    color: '#62b6cb'
+
                 },
                 areaStyle: {
                     opacity: 0.5
@@ -83,7 +85,7 @@ function drawRadar(data1,data2){
             center: ['50%', '50%'],
             name: {
                 textStyle: {
-                    color: '#B3E4A1'
+                    color: '#89A7AF'
                 }
             }
         },
@@ -99,7 +101,7 @@ function drawRadar(data1,data2){
                 }
             ],
             itemStyle: {
-                color: '#B3E4A1'
+                color: '#07bdb8'
             },
             areaStyle: {
                 opacity: 0.5

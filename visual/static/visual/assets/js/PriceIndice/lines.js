@@ -7,14 +7,14 @@ function initLines(){
 
 function drawLines(data1,data2){
     option1 = {
-        visualMap:{
-            show: false,
-            type: 'continuous',
-            seriesIndex: 0,
-            dimension: 0,
-            min: 0,
-            max: data1.length - 1
-        },
+        // visualMap:{
+        //     show: false,
+        //     type: 'continuous',
+        //     seriesIndex: 0,
+        //     dimension: 0,
+        //     min: 0,
+        //     max: data1.length - 1
+        // },
         tooltip: {
             trigger: 'axis'
         },
@@ -44,7 +44,13 @@ function drawLines(data1,data2){
         series:{
             data: data1,
             type: 'line',
-            smooth: true
+            smooth: true,
+            color:new echarts.graphic.LinearGradient(
+                0, 0, 0, 1, [
+                    { offset: 0, color: '#ffff3f' },
+                    { offset: 1, color: '#007f5f' }
+                ]
+            )
         }
     };
     option2={
@@ -85,7 +91,13 @@ function drawLines(data1,data2){
         series:{
             data: data2,
             type: 'line',
-            smooth: true
+            smooth: true,
+            color:new echarts.graphic.LinearGradient(
+                0, 0, 0, 1, [
+                    { offset: 0, color: '#5d93dc' },
+                    { offset: 1, color:'#80ffdb' }
+                ]
+            )
         }
     };
     linesChart1.setOption(option1,true);

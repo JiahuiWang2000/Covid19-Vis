@@ -57,8 +57,8 @@ function drawLineBar(data_act, dombar) {
                     barBorderRadius: 5,
                     color: new echarts.graphic.LinearGradient(
                         0, 0, 0, 1, [
-                            { offset: 0, color: '#14c8d4' },
-                            { offset: 1, color: '#43eec6' }
+                            { offset: 0, color: '#14c8d4'   },
+                            { offset: 1, color: '#43eec6'  }
                         ]
                     )
                 }
@@ -146,8 +146,8 @@ function drawNegative(dom, dataset) {
                             if (params.dataIndex != 0 && params.dataIndex != 1 && params.dataIndex != 2 && params.dataIndex != 3)
                                 return new echarts.graphic.LinearGradient(
                                     0, 0, 1, 1, [
-                                        { offset: 0, color: '#5d93dc' },
-                                        { offset: 1, color: '#A2BEE1' }
+                                        { offset: 0, color: '#5d93dc'  },
+                                        { offset: 1, color: '#A2BEE1'  }
                                     ])
                             return new echarts.graphic.LinearGradient(
                                 1, 1, 0, 0, [
