@@ -11,9 +11,8 @@
     <link href={% static "visual/assets/css/fonts/fontawesome/all.min.css" %} rel="stylesheet">
     <link href={% static "visual/assets/css/fonts/beid.css" %} rel="stylesheet">
     <link href={% static "visual/assets/css/styles.css" %} rel="stylesheet">
-
-
-
+	<link href={% static "visual/assets/css/product/product.css" %} rel="stylesheet">
+	
     <!-- JQVMAP -->
     <link href={% static "visual/assets/plugins/jqvmap/jqvmap.min.css" %} rel="stylesheet">
 
@@ -77,10 +76,6 @@
         body {
             background-color: #010016;
         }
-
-
-
-
     </style>
 </head>
 
@@ -117,6 +112,10 @@
             <button style="position:absolute;top:420px;left:450px;width:70px;height:25px;" onclick="selectmode(0)">确诊人数</button>
             <button style="position:absolute;top:420px;left:540px;width:70px;height:25px;" onclick="selectmode(1)">死亡人数</button>
             <button style="position:absolute;top:420px;left:630px;width:70px;height:25px;" onclick="selectmode(2)">治愈人数</button>
+			<div id="timeBox" style="position:absolute;top:420px;left:720px;">
+				<input type="button" id="play" value="▶" onclick="playStart()"></input>
+				<input type="range" id="range" min="1" max="24" step="1" value="24" onclick="rangeChange()"></input>
+			</div>
             <div id="ChinaMap" style="z-index:99999;position:absolute;top:60px;left:515px;width:480px;height:360px;"></div>
                 
 
