@@ -17,10 +17,8 @@ function playStart() {
 }
 
 function timeChange() {
-    console.log(currentValue);
     const time = document.getElementById('time');
     let timeVal = parseFloat(time.value);
-    console.log(timeVal)
     var str = "20";
     if (timeVal < 8) {
         str += "17年";
