@@ -411,11 +411,16 @@ def Covid(request):
     with open(csv_path,'r',encoding='gbk')as fp:
         data_list = [i for i in csv.reader(fp)]
     dailyData=[]
+    addPatient=[]
     for i in range(len(data_list)):
         dailyData.append(int(data_list[i][1]))
+        addPatient.append({"key":i, "value":int(data_list[i][4])})
+    addPatient=sorted(addPatient, key=lambda i: i['value'])
     patientData=[]
     for i in range(len(data_list[0])-1):
         patientData.append(int(data_list[0][i+1]))
+    
+
     csv_path='data/covid_province_data/北京.csv'
     with open(csv_path,'r',encoding='gbk')as fp:
         data_list = [i for i in csv.reader(fp)]
@@ -426,7 +431,7 @@ def Covid(request):
         confirmData.append(data_list[0][i+1])
         deathData.append(data_list[1][i+1])
         recoverData.append(data_list[2][i+1])
-    return render(request, 'visual/Covid.html', {'covid':dailyData,'patient':patientData,'confirm':confirmData,'death':deathData,'recover':recoverData})
+    return render(request, 'visual/Covid.html', {'covid':dailyData,'patient':patientData,'confirm':confirmData,'death':deathData,'recover':recoverData,'add':addPatient})
 
 def getPatientData(request):
     if request.method=='GET':
