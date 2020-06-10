@@ -1,12 +1,33 @@
-var province = "湖北", time = "202003", mon = 23, currM = 23;
+var province = "湖北", time = "202003", mon = 23, currM = 23, day = 1;
 var values = [20200122,20200123,20200124,20200125,20200126,20200127,20200128,20200129,20200130,20200131,20200201,20200202,20200203,20200204,20200205,20200206,20200207,20200208,20200209,20200210,20200211,20200212,20200213,20200214,20200215,20200216,20200217,20200218,20200219,20200220,20200221,20200222,20200223,20200224,20200225,20200226,20200227,20200228,20200229,20200301,20200302,20200303,20200304,20200305,20200306,20200307,20200308,20200309,20200310,20200311,20200312,20200313,20200314,20200315,20200316,20200317,20200318,20200319,20200320,20200321,20200322,20200323,20200324,20200325,20200326,20200327,20200328,20200329,20200330,20200331,20200401,20200402,20200403,20200404,20200405,20200406,20200407,20200408,20200409,20200410,20200411,20200412,20200413,20200414,20200415,20200416,20200417,20200418,20200419,20200420,20200421,20200422,20200423,20200424,20200425,20200426,20200427,20200428,20200429,20200430,20200501,20200502,20200503,20200504,20200505,20200506,20200507,20200508,20200509,20200510,20200511,20200512,20200513,20200514,20200515,20200516,20200517,20200518,20200519,20200520,20200521,20200522,20200523,20200524,20200525,20200526,20200527,20200528,20200529];
+var times = [];
 var timer = [];
+for(var i=22;i<32;i++){
+    var t='Jan.'+i;
+    times.push(t);
+}
+for(var i=1;i<30;i++){
+    var t='Feb.'+i;
+    times.push(t);
+}
+for(var i=1;i<32;i++){
+    var t='Mar.'+i;
+    times.push(t);
+}
+for(var i=1;i<31;i++){
+    var t='Apr.'+i;
+    times.push(t);
+}
+for(var i=1;i<30;i++){
+    var t='May.'+i;
+    times.push(t);
+}
 
 //时间轴
 function updateTime(data){
-	time = parseInt(data / 100).toString();
+	time = parseInt(values[data] / 100).toString();
 	mon = parseInt(time[5]) + 20;
-	day = data % 100;
+	day = values[data] % 100;
 	if(currM != mon){
 		currM = mon;
 		getTreemap();
@@ -17,26 +38,31 @@ function updateTime(data){
 		getBar();
 	}
 	selectmode(modeflag);
+	document.getElementById("estatetitle").innerHTML = province + "-房地产(" + time + ")";
+	document.getElementById("producttitle").innerHTML = province + "-工业产品(" + time + ")";
+	document.getElementById("tradingtitle").innerHTML = "全国-国内贸易(" + time + ")";
+	document.getElementById("pricetitle").innerHTML = "全国-价格指数(" + time + ")";
 }
 
-function play(i, t) {
+function play(i,t) {
     timer.push(setTimeout(function() {
         $("#time").data("ionRangeSlider").update({ from: i });
-        updateTime($("#time").data("ionRangeSlider").options.values[i]);
-    }, 300 * t));
+		updateTime(i);
+    }, 500 * t));
 }
+
 
 function playStart() {
     var i = $("#time").data("ionRangeSlider").options.from;
     if (i == 128) i = 0;
-    for (var t = i; t < 129; t++) {
-        play(t, t - i);
+    for (var t = i; t < days.length; t++) {
+        play(t, t - i);     
     }
 }
 
 function pause() {
     timer.forEach(function(sto) { clearTimeout(sto) });
-	timer.splice(0, timer.length);
+    timer.splice(0,timer.length);
 }
 
 //财政金融
@@ -917,6 +943,11 @@ function chinaMap(data,flag){
       myChinaMap.setOption(mapOption,true);
       myChinaMap.on('click', function (param) {
         province=param.name;
+		document.getElementById("estatetitle").innerHTML = province + "-房地产(" + time + ")";
+		document.getElementById("producttitle").innerHTML = province + "-工业产品(" + time + ")";
+		document.getElementById("tradingtitle").innerHTML = "全国-国内贸易(" + time + ")";
+		document.getElementById("pricetitle").innerHTML = "全国-价格指数(" + time + ")";
+		document.getElementById("livingtitle").innerHTML = province + "-人民生活";
 		getTreemap();
 		getRadar();
 		getBar();        
@@ -944,6 +975,7 @@ function selectmode(flag){
         data:{"month":mon - 20,"day":day,"mode":modeflag},
         success:function(msg){
             covid_data=msg.covid;
+			console.log(covid_data)
             chinaMap(covid_data,modeflag);
         }
     })
