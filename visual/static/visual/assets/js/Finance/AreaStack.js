@@ -29,7 +29,6 @@ function AreaStack(id,datasets){
             [
                 {
                     show: true,
-					height: '2',
                 },
                 {
                     type: 'inside',
