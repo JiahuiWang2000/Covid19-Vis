@@ -4,7 +4,7 @@ var cData;
 var townVillage, curtime; //0:all,1:town,2:village
 var timer = []
 
-function play(i) {
+function play(i, t) {
 
     timer.push(setTimeout(function() {
         $("#time").data("ionRangeSlider").update({ from: i });
@@ -13,8 +13,10 @@ function play(i) {
 }
 
 function playStart() {
-    for (var i = 0; i < 12; i++) {
-        play(i);
+    var i = $("#time").data("ionRangeSlider").options.from;
+    if (i == 11) i = 0;
+    for (var t = i; t < 12; t++) {
+        play(t, t - i);
     }
 }
 
