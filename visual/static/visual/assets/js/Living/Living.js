@@ -1,4 +1,10 @@
+var curProvince;
+var pData;
+var cData;
+var townVillage; //0:all,1:town,2:village
+
 function updateProvince(province) {
+    curProvince = province
     console.log(province)
     document.querySelector("#FigTitle").innerHTML = province + "居民收支情况"
     $.ajax({
@@ -7,46 +13,46 @@ function updateProvince(province) {
         data: { "graph": 0, "name": province },
         success: function(msg) {
             console.log(msg);
-            bigGraph(msg.data)
-                //updateSubGraph("居民", province, msg.data)
-            if ($("#funnel").length) {
-                drawFunnel(document.querySelector("#funnel"), msg.country)
-            }
+            pData = msg.data;
+            cData = msg.country;
+            bigGraph(pData)
+            updateLeftDown("居民", province)
+            townVillage = 0;
+            updateRightUp("居民");
+            updateRightDown("居民");
         }
     })
 
 }
 
-function updateSubGraph(name, province, data) {
-    console.log(name);
-    name = name.substr(0, 2);
-    document.querySelector("#Fig2Title").innerHTML = province + name + "收支累计值"
+function updateLeftDown(name) {
+    document.querySelector("#Fig2Title").innerHTML = curProvince + name + "收支累计值"
+    if ($("#ProvinceStack").length) {
+        if (name == "居民") {
+            drawProvinceStack(document.querySelector("#ProvinceStack"), pData[0].reverse(), pData[1].reverse());
+        } else if (name == "城镇") {
+            drawProvinceStack(document.querySelector("#ProvinceStack"), pData[2].reverse(), pData[3].reverse());
+        } else if (name == "农村") {
+            drawProvinceStack(document.querySelector("#ProvinceStack"), pData[4].reverse(), pData[5].reverse());
+        }
+    }
+
+}
+
+function updateRightUp(name) {
     document.querySelector("#Fig3Title").innerHTML = "全国" + name + "收支情况"
-    if (name == "居民") {
-        subGraph([data[0], data[1]])
-    } else if (name == "城镇") {
-        subGraph([data[2], data[3]])
-    } else if (name == "农村") {
-        subGraph([data[4], data[5]])
+    if ($("#funnel").length) {
+        drawFunnel(document.querySelector("#funnel"), cData[name]["2020A"])
     }
 }
 
-function subGraph(left_down, right_up) {
-    if ($("#ProvinceStack").length) {
-        drawProvinceStack(document.querySelector("#ProvinceStack"), left_down[0].reverse(), left_down[1].reverse());
-    }
-    if ($("#funnel").length) {
-        var data = [];
-        data[0] = [4896, 1376, 741, 1548]
-        data[1] = [1708, 369, 1238, 283, 605, 350, 417, 112]
-        drawFunnel(document.querySelector("#funnel"), data)
-    }
-
+function updateRightDown(name) {
+    console.log(cData)
+    var title = name;
+    if (name != "居民")
+        name = name + "居民"
     if ($("#LivingChange").length) {
-        console.log("HI")
-        var data = [-3.9, 5.8, 6.146341463, 6.457925636, 6.777996071, 6.5, 6.6, 6.6, 6.6, 7.320338575, 7.487684729, 7.297830375]
-        datat = data.reverse()
-        drawChangeLine(document.querySelector("#LivingChange"), data);
+        drawChangeLine(document.querySelector("#LivingChange"), cData[title][name + "人均可支配收入_累计增长"].reverse(), cData[title][name + "人均消费支出_累计增长"].reverse(), cData[title][name + "人均可支配收入_累计值"].reverse(), cData[title][name + "人均可支配收入_累计值"].reverse())
     }
 }
 
@@ -64,7 +70,8 @@ function static() {
 /* [ charts ] */
 function Living() {
     static();
-    updateProvince("北京")
+    curProvince = "北京"
+    updateProvince(curProvince)
         //subGraph();
         /* Preloader */
     let preloader = document.getElementsByClassName('preloaderWrapper');

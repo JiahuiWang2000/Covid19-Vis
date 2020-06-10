@@ -309,7 +309,7 @@ def living(request):
                         json[category][head[i]][0].append({"value":float(ele[i + 1]),"name":ele[0]})
                     else:
                         json[category][head[i]][1].append({"value":float(ele[i + 1]),"name":ele[0]})
-            #print(json)
+            #print(json["居民"]["居民人均可支配收入_累计增长"])
             live["Country"] = json
     return render(request,'visual/Living.html')
 
@@ -321,5 +321,5 @@ def getLivingData(request):
             print(live)
             for key,value in live["Province"].items():
                 if name in key:
-                    return JsonResponse({"data":value,"country":live["Country"]["居民"]["2020A"]})
+                    return JsonResponse({"data":value,"country":live["Country"]})
        

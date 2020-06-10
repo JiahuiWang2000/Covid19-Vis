@@ -56,17 +56,24 @@ function drawFunnel(dom, dataset) { //dataset[2]，每一维的每个元素都�
 
     if (option && typeof option === "object") {
         myChart.setOption(option, true);
-        myChart.on('click', function(params) {
-            console.log(params);
-        });
     }
 }
 
 
-function drawChangeLine(dom, dataset) {
+function drawChangeLine(dom, data1, data2, data3, data4) {
+    console.log(data1, data2);
     var myChart = echarts.init(dom);
     option = null;
     option = {
+        title: { // 图表标题
+            text: '累计增长与累计值', // 标题文本内容
+            left: '5%', // 标题距容器左侧5%
+            top: '5%', // 标题距容器顶部5%
+            textStyle: { // 标题文本样式
+                color: '#acacac', // 字体颜色
+                fontSize: 20, // 字体大小
+            }
+        },
         chart: {
             id: "changeline"
         },
@@ -84,15 +91,40 @@ function drawChangeLine(dom, dataset) {
             },
             data: ['2020A', '2019D', '2019C', '2019B', '2019A', '2018D', '2018C', '2018B', '2018A', '2017D', '2017C', '2017B'].reverse()
         },
-        yAxis: {
+        yAxis: [{
             type: 'value',
             axisLabel: {
                 textStyle: {  color: '#acacac' }
             },
-        },
+        }, {
+            type: 'value',
+            axisLabel: {
+                textStyle: {  color: '#acacac' }
+            },
+        }],
         series: [{
-            data: dataset,
+            name: "人均可支配收入_累计增长",
+            data: data1,
             type: 'line',
+            yAxisIndex: 0,
+            areaStyle: {}
+        }, {
+            name: "人均消费支出_累计增长",
+            data: data2,
+            type: 'line',
+            yAxisIndex: 0,
+            areaStyle: {}
+        }, {
+            name: "人均可支配收入_累计值",
+            data: data3,
+            type: 'bar',
+            yAxisIndex: 1,
+            areaStyle: {}
+        }, {
+            name: "人均消费支出_累计值",
+            data: data4,
+            type: 'bar',
+            yAxisIndex: 1,
             areaStyle: {}
         }]
     };
@@ -185,7 +217,10 @@ function drawProvinceLiving(dom, dataset) {
         myChart.setOption(option, true);
         myChart.on('click', function(params) {
             console.log(params);
-            updateSubGraph(params.seriesName);
+            var name = params.seriesName.substr(0, 2);
+            updateLeftDown(name);
+            updateRightUp(name);
+            updateRightDown(name);
         });
     }
 
@@ -217,6 +252,9 @@ function drawProvinceStack(dom, income, disburse) {
         //         color: '#ccc'
         //     }
         // },
+        grid: {
+            left: "15%"
+        },
         xAxis: {
             data: category,
             axisLine: {
