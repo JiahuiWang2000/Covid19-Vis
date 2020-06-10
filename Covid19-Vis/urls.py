@@ -18,7 +18,13 @@ from django.urls import include, path
 from visual import views
 
 urlpatterns = [
+    path('visual/Covid.html', views.Covid),
     path('visual/getCovidData', views.getCovidData),
+    path('visual/getPatientData', views.getPatientData),
+    path('visual/getIncreaseData', views.getIncreaseData),
+    path('visual/Leaderboard.html', views.Leaderboard),
+    path('visual/getPriceData', views.getPriceData),
+    path('visual/getRankData', views.getRankData),
     path('visual/getdata', views.getEstatedata),
     path('visual/', include('visual.urls')),
     path('visual/Finance.html', views.Finance),

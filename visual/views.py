@@ -265,3 +265,155 @@ def getTradingData(request):
             b = request.GET.get("graph")
 
         return JsonResponse(json)
+def Covid(request):
+    csv_path='data/covid_data/02-01-2020.csv'
+    with open(csv_path,'r',encoding='gbk')as fp:
+        data_list = [i for i in csv.reader(fp)]
+    dailyData=[]
+    for i in range(len(data_list)):
+        dailyData.append(int(data_list[i][1]))
+    patientData=[]
+    for i in range(len(data_list[0])-1):
+        patientData.append(int(data_list[0][i+1]))
+    csv_path='data/covid_province_data/北京.csv'
+    with open(csv_path,'r',encoding='gbk')as fp:
+        data_list = [i for i in csv.reader(fp)]
+    confirmData=[]
+    deathData=[]
+    recoverData=[]
+    for i in range(len(data_list[0])-1):
+        confirmData.append(data_list[0][i+1])
+        deathData.append(data_list[1][i+1])
+        recoverData.append(data_list[2][i+1])
+    return render(request, 'visual/Covid.html', {'covid':dailyData,'patient':patientData,'confirm':confirmData,'death':deathData,'recover':recoverData})
+
+def getPatientData(request):
+    if request.method=='GET':
+        month=request.GET.get("month")
+        day=request.GET.get("day")
+        province=request.GET.get("province")
+        csv_path='data/covid_data/'
+        if len(month)==1:
+            csv_path=csv_path+'0'+month+'-'
+        else:
+            csv_path=csv_path+month+'-'
+        
+        if len(day)==1:
+            csv_path=csv_path+'0'+day+'-'
+        else:
+            csv_path=csv_path+day+'-'
+
+        csv_path=csv_path+'2020.csv'
+        with open(csv_path,'r',encoding='gbk')as fp:
+            data_list = [i for i in csv.reader(fp)]
+        patientData=[]
+        for i in range(len(data_list[int(province)-1])-1):
+            patientData.append(int(data_list[int(province)-1][i+1]))
+        return JsonResponse({'patient':patientData})
+
+def getIncreaseData(request):
+    if request.method=='GET':
+        province=request.GET.get("province")
+        csv_path='data/covid_province_data/'+province+'.csv'
+        with open(csv_path,'r',encoding='gbk')as fp:
+            data_list = [i for i in csv.reader(fp)]
+        confirmData=[]
+        deathData=[]
+        recoverData=[]
+        for i in range(len(data_list[0])-1):
+            confirmData.append(int(data_list[0][i+1]))
+            deathData.append(int(data_list[1][i+1]))
+            recoverData.append(int(data_list[2][i+1]))
+        return JsonResponse({'confirm':confirmData,'death':deathData,'recover':recoverData})
+    
+def Leaderboard(request):
+    csv_path='data\PriceIndice_data\goods_sold.csv'
+    with open(csv_path,'r',encoding='gbk')as fp:
+        data_list = [i for i in csv.reader(fp)]
+    rankdata=[]
+    for i in range(31):
+        rankdata.append({"key":data_list[i*17+1][0], "value":float(data_list[i*17+1][2])})
+    rankdata = sorted(rankdata, key=lambda i: i['value'])
+    goodsdata=[]
+    for i in range(16):
+        goodsdata.append(float(data_list[i+2][2]))
+    yearlygoodsdata=[]
+    for i in range(4):
+        yearlygoodsdata.append(float(data_list[1][5-i]))
+    csv_path='data\PriceIndice_data\custom_cost.csv'
+    with open(csv_path,'r',encoding='gbk')as fp:
+        data_list = [i for i in csv.reader(fp)]
+    customdata=[]
+    for i in range(8):
+        customdata.append(float(data_list[i+2][3]))
+    yearlycustomdata=[]
+    for i in range(23):
+        yearlycustomdata.append(float(data_list[1][25-i]))
+    return render(request, 'visual/Leaderboard.html', {'rank':rankdata,'goods':goodsdata,'yearlygoods':yearlygoodsdata,'custom':customdata,'yearlycustom':yearlycustomdata})
+
+def getPriceData(request):
+    if request.method=='GET':
+        province=request.GET.get("province")
+        time=request.GET.get("time")
+        csv_path='data\PriceIndice_data\goods_sold.csv'
+        with open(csv_path,'r',encoding='gbk')as fp:
+            data_list = [i for i in csv.reader(fp)]
+        for i in range(len(data_list[0])):
+            if(data_list[0][i]==time):
+                index=i
+                break
+        for i in range(len(data_list)):
+            if(data_list[i][0]==province):
+                proindex=i
+                break
+        goodsdata=[]
+        for i in range(16):
+            goodsdata.append(float(data_list[proindex+i+1][index]))
+        yearlygoodsdata=[]
+        for i in range(4):
+            yearlygoodsdata.append(float(data_list[proindex+1][5-i]))
+        
+        csv_path='data\PriceIndice_data\custom_cost.csv'
+        with open(csv_path,'r',encoding='gbk')as fp:
+            data_list = [i for i in csv.reader(fp)]
+        for i in range(len(data_list[0])):
+            if(data_list[0][i]==time):
+                index=i
+                break
+        for i in range(len(data_list)):
+            if(data_list[i][0]==province):
+                proindex=i
+                break
+        yearlycustomdata=[]
+        for i in range(23):
+            yearlycustomdata.append(float(data_list[proindex+1][25-i]))
+        return JsonResponse({'goods':goodsdata,'yearlygoods':yearlygoodsdata,'yearlycustom':yearlycustomdata})
+
+def getRankData(request):
+    if request.method=='GET':
+        flag=request.GET.get("flag")
+        time=request.GET.get("time")
+        if flag=='1':
+            csv_path='data\PriceIndice_data\goods_sold.csv'
+            with open(csv_path,'r',encoding='gbk')as fp:
+                data_list = [i for i in csv.reader(fp)]
+            rankdata=[]
+            for i in range(len(data_list[0])):
+                if(data_list[0][i]==time):
+                    index=i
+                    break
+            for i in range(31):
+                rankdata.append({"key":data_list[i*17+1][0], "value":float(data_list[i*17+1][index])})
+        else:
+            csv_path='data\PriceIndice_data\custom_cost.csv'
+            with open(csv_path,'r',encoding='gbk')as fp:
+                data_list = [i for i in csv.reader(fp)]
+            rankdata=[]
+            for i in range(len(data_list[0])):
+                if(data_list[0][i]==time):
+                    index=i
+                    break
+            for i in range(31):
+                rankdata.append({"key":data_list[i*9+1][0], "value":float(data_list[i*9+1][index])})
+        rankdata = sorted(rankdata, key=lambda i: i['value'])
+        return JsonResponse({'rank':rankdata})
