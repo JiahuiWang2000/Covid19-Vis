@@ -1,8 +1,26 @@
 "use strict";
 
+function play(i) {
+    setTimeout(function() {
+        //document.getElementById("time").value = i.toString();
+        $("#time").data("ionRangeSlider").update({ from: i });
+        timeChange();
+    }, 500 * i);
+}
+
+function playStart() {
+    for (var i = 0; i < 36; i++) {
+        if (currentValue.pie[0][35 - i].value == "NaN")
+            continue;
+        play(i);
+    }
+}
+
 function timeChange() {
+    console.log(currentValue);
     const time = document.getElementById('time');
     let timeVal = parseFloat(time.value);
+    console.log(timeVal)
     var str = "20";
     if (timeVal < 8) {
         str += "17年";
@@ -30,14 +48,12 @@ function timeChange() {
 }
 
 function updateLineBar(name) {
-    console.log(name);
     let titlename = name.substr(0, name.length - 4);
     $.ajax({
         url: "getTradingdata",
         type: 'GET',
         data: { "graph": 1, "name": titlename },
         success: function(msg) {
-            console.log(msg);
             subGraph(msg.left_up, msg.left_down, msg.right_up, msg.right_down);
         }
     })
@@ -50,13 +66,13 @@ function updateLineBar(name) {
 
 function bigGraph(month) { //画饼图和漏斗图，要有参数表示是哪一个月
     if ($("#nestpie").length) {
-        drawNestPie(document.querySelector("#nestpie"), currentValue.pie, month)
+        drawNestPie(document.querySelector("#nestpie"), currentValue.pie, 35 - month)
     }
 
     if ($("#funnel").length) {
         let data = {};
         data.name = ["粮油、食品、饮料、烟酒类商品零售类值_当期值", "粮油、食品类商品零售类值_当期值", "饮料类商品零售类值_当期值", "烟酒类商品 零售类值_当期值", "服装鞋帽、针、纺织品类商品零售类值_当期值", "服装类商品零售类值_当期值", "化妆品类商品零售类值_当期值", "金银珠宝类商品零售类值_当期值", "日用品类商品零售类值_当期值", "体育、娱乐用品类商品零售类值_当期值", "书报杂志类商品零售类值_当期值", "家用电器和音像器材类商品零售类值_当期值", "中西药品类商品零售类值_当期值", "文化办公用品类商品零售类值_当期值", "家具类商品零售类值_当期值", "通讯器材类商品零售类值_当期值", "石油及制品类商品零售类值_当期值", "建筑及装潢材料类商品零售类值_当期值", "汽车类商品零售类值_当期值", "其他商品零售类值_当期值", "粮油、食品、饮料、烟酒类商品零售类值_当期值", "粮油、食品类商品零售类值_当期值", "饮料类商品零售类值_当期值", "烟酒类商品零售类值_当期值", "服装鞋帽、针、纺织品类商品零售类值_ 当期值", "服装类商品零售类值_当期值", "化妆品类商品零售类值_当期值", "金银珠宝类商品零售类值_当期值", "日用品类商品零售类值_当期值", "体育、娱乐用品类商品零售类值_当期值", "书报杂志类商品零售类值_当期值", "家用电器和音像器材类商品零售类值_当期值", "中西药品类商品零售类值_当期值", "文化办公用品类商品零售类值_当期值", "家具类商品零售类值_当期值", "通讯器材类商品零售类值_当期值", "石油及制品类商品零售类值_当期值", "建筑及装潢材料类商品零售类值_当期值", "汽车类商品零售类值_当期值", "其他商品零 售类值_当期值", "粮油、食品、饮料、烟酒类商品零售类值_当期值", "粮油、食品类商品零售类值_当期值", "饮料类商品零售类值_当期 值", "烟酒类商品零售类值_当期值", "服装鞋帽、针、纺织品类商品零售类值_当期值", "服装类商品零售类值_当期值", "化妆品类商品零 售类值_当期值", "金银珠宝类商品零售类值_当期值", "日用品类商品零售类值_当期值", "体育、娱乐用品类商品零售类值_当期值", "书报杂志类商品零售类值_当期值", "家用电器和音像器材类商品零售类值_当期值", "中西药品类商品零售类值_当期值", "文化办公用品类商品零售类值_当期值", "家具类商品零售类值_当期值", "通讯器材类商品零售类值_当期值", "石油及制品类商品零售类值_当期值", "建筑及装潢材料类商品零售类值_当期值", "汽车类商品零售类值_当期值", "其他商品零售类值_当期值"]
-        data.data = currentValue.funnel.map(d => d[month]);
+        data.data = currentValue.funnel.map(d => d[35 - month]);
 
         drawFunnel(document.querySelector("#funnel"), data)
     }
@@ -92,8 +108,6 @@ function Trading() {
         data: { "graph": 0 },
         success: function(msg) {
             currentValue = msg;
-            console.log(1111);
-            console.log(msg);
             bigGraph(0);
             updateLineBar("社会消费品零售总额_当期值");
         }

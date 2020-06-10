@@ -147,7 +147,6 @@ function drawNegative(dom, dataset) {
 
 
 function drawStackLine(dom, dataset) { //dataset[0~4]表示12个月份的累计值，无数据则为NaN
-    console.log(dataset);
     var myChart = echarts.init(dom);
     option = null;
     option = {
