@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html>
 
 <head>
@@ -61,11 +61,9 @@
     <!-- Modules -->
     <!--    <script src="assets/js/modules.js"></script>-->
 
-
-    <script src={% static "visual/assets/js/Trading/LineBar.js" %}></script>
-    <script src={% static "visual/assets/js/Trading/overall.js" %}></script>
-    <script src={% static "visual/assets/js/Trading/Trading.js" %}></script>
-
+    <script src={% static "visual/assets/js/Estate/china.js" %}></script>
+    <script src={% static "visual/assets/js/Living/Living.js" %}></script>
+    <script src={% static "visual/assets/js/Living/drawLiving.js" %}></script>
 
 
     <style>
@@ -80,6 +78,7 @@
         ;
     </style>
 
+
 </head>
 
 <body>
@@ -87,16 +86,16 @@
 
 
 
-    <link href="http://fonts.googleapis.com/css?family=Maven+Pro:400" rel="stylesheet" type="text/css" />
+    <!-- <link href="http://fonts.googleapis.com/css?family=Maven+Pro:400" rel="stylesheet" type="text/css" />
     <link href="http://fonts.googleapis.com/css?family=News+Cycle" rel="stylesheet" type="text/css" />
     <link href="http://fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css" />
 
 
     <script src="https://d3js.org/d3.v4.js"></script>
 
-    <!-- Google fonts -->
+   
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,300" rel='stylesheet' type='text/css'>
-    <link href='https://fonts.googleapis.com/css?family=Raleway' rel='stylesheet' type='text/css'>
+    <link href='https://fonts.googleapis.com/css?family=Raleway' rel='stylesheet' type='text/css'> -->
 
     <div class="main-container">
         <div class="overflow-hidden">
@@ -105,7 +104,7 @@
                 <div class="d-flex align-items-center px-6 py-5">
                     <div class="text-light mr-auto" style="position:absolute;left:415px;top:12px;width:670px;height:200px">
                         <h1 style="font-size: 23px;color:white">
-                            <center>国内贸易可视化</center>
+                            <center>人民生活可视化</center>
                         </h1>
                     </div>
                 </div>
@@ -189,16 +188,14 @@
                         <div class="title" style="position:absolute;top:-20px;left:-90px;width:100%">
                             <svg height="35" width="100%">
                             <rect x=50% rx="20" ry="20" width="210" height="35" style="fill:rgb(44,88,166);" />
-                            <text id = "FigTitle" x="51%" y="20" dx="90" style="stroke: white;fill:white;text-anchor: middle">2017年5月国内贸易整体情况</text>
+                            <text id = "FigTitle" x="51%" y="20" dx="90" style="stroke: white;text-anchor: middle">xx省居民收支情况</text>
                           </svg>
                         </div>
 
                         <div style="position:absolute;z-index:99999;">
-                            <div id="nestpie" style="height:300px;width:670px;"></div>
-                            <div id="funnel" style="position:absolute;top:250px;height:335px;width:670px;"></div>
-                            <!-- <div id="timeBox" style="position:absolute;left:250px;width:600px;">
-                                <input type="range" id="time" value="0" min="0" max="35" step="1" onchange="timeChange()">
-                            </div> -->
+                            <div style="position:absolute;z-index:99999;">
+                                <div id="ProvinceLiving" style="position:absolute;height:585px;width:670px;"></div>
+                            </div>
                         </div>
 
 
@@ -239,14 +236,16 @@
                         <div class="title" style="position:absolute;top:-20px;left:-90px;width:100%">
                             <svg height="35" width="100%">
                             <rect x=50% rx="20" ry="20" width="180" height="35" style="fill:rgb(44,88,166);" />
-                            <text id="Fig1Title" x="50%" y="20" dx="90" style="stroke: white;fill:white;text-anchor: middle">社会消费品零售额当期值</text>
+                            <text id="Fig1Title" x="50%" y="20" dx="90" style="stroke: white;text-anchor: middle">选择省份</text>
                           </svg>
                         </div>
                         <div style="position:absolute;z-index:99999;">
-                            <div id="achart-bar" style="height:315px;width:370px;"></div>
+                            <!-- <div style="color:white;margin:10pt">点击大图会联动左下角和右图，显示总的/城镇的/农村的（还没做联动）。大图颜色太丑还要改。<br/> 漏斗图下方要加一个时间轴，因为漏斗图数据每个季度不一样。<br/> 漏斗图点击某一项数据，底下的折线图会变。
+                                <br/> 下方的折线图还要改，改成柱状图+折线图，柱状图表示累计值，折线图表示累计增长
+                            </div> -->
 
+                            <div id="ProvinceChoose" style="position:absolute;height:315px;width:350px;"></div>
                         </div>
-
 
 
                         <!--内发光-->
@@ -286,12 +285,12 @@
                         <div class="title" style="position:absolute;top:-20px;left:-90px;width:100%">
                             <svg height="35" width="100%">
                             <rect x=50% rx="20" ry="20" width="180" height="35" style="fill:rgb(44,88,166);" />
-                            <text id="Fig2Title" x="50%" y="20" dx="90" style="stroke: white;fill:white;text-anchor: middle">社会消费品零售额同比增长</text>
+                            <text id="Fig2Title" x="50%" y="20" dx="90" style="stroke: white;text-anchor: middle">细看农村/城镇/总变化</text>
                           </svg>
                         </div>
 
-                        <div style="position:absolute;">
-                            <div id="negative-bar" style="height:315px;width:370px;z-index: 99999;"></div>
+                        <div style="position:absolute;z-index:99999;">
+                            <div id="ProvinceStack" style="position:absolute;height:315px;width:370px;"></div>
                         </div>
 
 
@@ -314,7 +313,7 @@
                           <rect  width=100% height=100%  filter="url(#inset-shadow)" />
                         </svg>
                     </div>
-                    <div style="position:absolute;left:1115px;top:25px;height:315px;width:370px">
+                    <div style="position:absolute;left:1115px;top:25px;height:660px;width:370px">
 
                         <!--边框-->
                         <div class="t_line_box">
@@ -331,59 +330,14 @@
                         <div class="title" style="position:absolute;top:-20px;left:-90px;width:100%">
                             <svg height="35" width="100%">
                             <rect x=50% rx="20" ry="20" width="180" height="35" style="fill:rgb(44,88,166);" />
-                            <text id="Fig3Title" x="50%" y="20" dx="90" style="stroke: white;fill:white;text-anchor: middle">社会消费品零售额累计值</text>
+                            <text id="Fig3Title" x="50%" y="20" dx="90" style="stroke: white;text-anchor: middle">全国情况</text>
                           </svg>
                         </div>
-                        <div style="position:absolute">
-                            <div id="stack-line" style="height:315px;width:370px;z-index: 99999;"></div>
-
+                        <div style="position:absolute;z-index:99999;">
+                            <div id="funnel" style="position:absolute;top:10px;height:350px;width:370px;"></div>
+                            <div id="LivingChange" style="position:absolute;top:350px;height:330px;width:370px;"></div>
                         </div>
 
-
-
-                        <!--内发光-->
-                        <svg width=100% height="100%">
-                          <filter id="inset-shadow" x="-50%" y="-50%" width="200%" height="200%">
-                            <feComponentTransfer in=SourceAlpha>
-                              <feFuncA type="table" tableValues="1 0" />
-                            </feComponentTransfer>
-                            <feGaussianBlur stdDeviation="4"/>
-                            <feOffset dx="0" dy="1" result="offsetblur"/>
-                            <feFlood flood-color="#0d619d" result="color"/>
-                            <feComposite in2="offsetblur" operator="in"/>
-                            <feComposite in2="SourceAlpha" operator="in" />
-                            <feMerge>
-                              <feMergeNode in="SourceGraphic" />
-                              <feMergeNode />
-                            </feMerge>
-                          </filter>
-                          <rect  width=100% height=100%  filter="url(#inset-shadow)" />
-                        </svg>
-                    </div>
-                    <div style="position:absolute;left:1115px;top:370px;height:315px;width:370px">
-
-                        <!--边框-->
-                        <div class="t_line_box">
-                            <i class="t_l_line"></i>
-                            <i class="l_t_line"></i>
-                            <i class="t_r_line"></i>
-                            <i class="r_t_line"></i>
-                            <i class="l_b_line"></i>
-                            <i class="b_l_line"></i>
-                            <i class="r_b_line"></i>
-                            <i class="b_r_line"></i>
-                        </div>
-
-                        <div class="title" style="position:absolute;top:-20px;left:-90px;width:100%">
-                            <svg height="35" width="100%">
-                            <rect x=50% rx="20" ry="20" width="180" height="35" style="fill:rgb(44,88,166);" />
-                            <text id="Fig4Title" x="50%" y="20" dx="90" style="stroke: white;fill:white;text-anchor: middle">社会消费品零售额累计增长</text>
-                          </svg>
-                        </div>
-
-                        <div style="position:absolute">
-                            <div id="negative-bar-2" style="height:315px;width:370px;z-index: 99999;"></div>
-                        </div>
 
 
                         <!--内发光-->
@@ -410,6 +364,7 @@
                             <a style="color:white " href="index.html">返回</ a>
                       </h4>
                   </div>
+                  
                 </div>
 
             </div>

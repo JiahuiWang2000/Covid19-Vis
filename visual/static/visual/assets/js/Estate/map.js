@@ -50,9 +50,7 @@ function drawChinamap(){
 				color:'#fff',
 			},
 			inRange: {
-				color: ['#b1dee3'
-					,'#ea3e00'
-				]
+				color: ['#b1dee3','#ea3e00']
 			},
 			show: false
 		},

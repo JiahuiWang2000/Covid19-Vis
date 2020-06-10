@@ -41,8 +41,8 @@ function drawGDPmap(){
 			}
 		},
 		visualMap: {
-			min: 60,
-			max: 120,
+			min: 0,
+			max: 1700,
 			left: 'left',
 			top: 'bottom',
 			text: ['高','低'],
@@ -50,7 +50,7 @@ function drawGDPmap(){
 				color:'#fff',
 			},
 			inRange: {
-				color: ['#ca8622', '#91c7ae']
+				color: ['#b1dee3','#ea3e00']
 			},
 			show: false
 		},
@@ -172,15 +172,33 @@ function drawBar(data8, data9, province){
 			{
 				name: '地区生产总值_累计值',
 				type: 'bar',
-				color: '#d48265',
-				data: data8
+				data: data8,
+				itemStyle: {
+					//通常情况下：
+					normal:{
+						//每个柱子的颜色即为colorList数组里的每一项，如果柱子数目多于colorList的长度，则柱子颜色循环使用该数组
+						color: function (params){
+							if(params.dataIndex!=11)
+								return "#4cabce";
+							else return "#d62828";},
+						}
+					},
 			},
 			{
 				name: '地区生产总值指数(上年同期=100)_累计值',
 				type: 'line',
 				yAxisIndex: 1,
-				color: '#61a0a8',
-				data: data9
+				data: data9,
+				itemStyle: {
+					//通常情况下：
+					normal:{
+						//每个柱子的颜色即为colorList数组里的每一项，如果柱子数目多于colorList的长度，则柱子颜色循环使用该数组
+						color: function (params){
+							if(params.dataIndex!=11)
+								return '#61a0a8';
+							else return "#e76f51";},
+					}
+				},
 			}
 		]
 	};

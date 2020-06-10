@@ -74,7 +74,7 @@ function drawGDPriver() {
                     shadowColor: 'rgba(0, 0, 0, 0.8)'
                 }
             },
-			color: ['#61a0a8', '#d48265', '#91c7ae', '#749f83', '#ca8622', '#bda29a', '#6e7074', '#546570', '#c4ccd3', '#a8861b', '#c23531', '#2f4554'],
+			color: ['#bde9e8', '#62b6cb', '#1b4965', '#cae9ff', '#5fa8d3','#133c55', '#386fa4', '#59a5d8', '#84d2f6', '#91e5f6', '#68d8d6', '#3dccc7'],
 			data: data6,
 			label: {
 				show: false

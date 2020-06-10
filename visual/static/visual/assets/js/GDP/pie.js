@@ -57,7 +57,7 @@ function drawGDPpie() {
 			trigger: 'item',
 			formatter: '{a} <br/>{b}: {c} ({d}%)'
 		},
-		color: ['#61a0a8', '#d48265', '#91c7ae', '#749f83', '#ca8622', '#bda29a', '#6e7074', '#546570', '#c4ccd3', '#a8861b', '#c23531', '#2f4554'],
+		color: ['#bde9e8', '#62b6cb', '#1b4965', '#cae9ff', '#5fa8d3','#133c55', '#386fa4', '#59a5d8', '#84d2f6', '#91e5f6', '#68d8d6', '#d62828'],
 		series: [
 			{
 				name: 'GDP',
@@ -85,7 +85,10 @@ function drawGDPpie() {
 			trigger: 'item',
 			formatter: '{a} <br/>{b}: {c} ({d}%)'
 		},
-		color: ['#61a0a8', '#d48265', '#91c7ae'],
+		color: [
+			'#59a5d8',
+			'#386fa4',
+			'#133c55'],
 		series: [
 			{
 				name: '产业',
@@ -153,15 +156,15 @@ function drawGDPpie() {
 				symbol: 'none',
 				sampling: 'average',
 				itemStyle: {
-					color: 'rgb(255, 70, 131)'
+					color: 'rgb(61,204,199)'
 				},
 				areaStyle: {
 					color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [{
 						offset: 0,
-						color: 'rgb(255, 158, 68)'
+						color: 'rgb(132,210,246)'
 					}, {
 						offset: 1,
-						color: 'rgb(255, 70, 131)'
+						color: 'rgb(61,204,199)'
 					}])
 				},
 				data: data4
@@ -192,6 +195,16 @@ function drawGDPpie() {
 		series: [{
 			type: 'bar',
 			data: data5,
+			itemStyle: {
+				//通常情况下：
+				normal:{
+					//每个柱子的颜色即为colorList数组里的每一项，如果柱子数目多于colorList的长度，则柱子颜色循环使用该数组
+					color: function (params){
+						if(params.dataIndex!=11)
+							return "#4cabce";
+						else return "#e76f51";
+					}
+				}},
 			coordinateSystem: 'polar',
 			name: '全国产业情况'
 		}]
