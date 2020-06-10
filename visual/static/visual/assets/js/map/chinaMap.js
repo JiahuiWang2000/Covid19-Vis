@@ -67,61 +67,108 @@ function chinaMap(data,flag){
       else if(flag==2){
           tag='治愈人数';    
       }
+      var times=[];
+      var months=[];
+      var days=[];
+        for(var i=22;i<32;i++){
+            var t='Jan.'+i;
+            times.push(t);
+            months.push(1);
+            days.push(i);
+        }
+        for(var i=1;i<29;i++){
+            var t='Feb.'+i;
+            times.push(t);
+            months.push(2);
+            days.push(i);
+        }
+        for(var i=1;i<32;i++){
+            var t='Mar.'+i;
+            times.push(t);
+            months.push(3);
+            days.push(i);
+        }
+        for(var i=1;i<31;i++){
+            var t='Apr.'+i;
+            times.push(t);
+            months.push(4);
+            days.push(i);
+        }
+        for(var i=1;i<30;i++){
+            var t='May.'+i;
+            times.push(t);
+            months.push(5);
+            days.push(i);
+        }
       mapOption = {
-          tooltip: {
-                  formatter:function(params,ticket, callback){
-                      return params.seriesName+'<br />'+params.name+'：'+params.value
-                  }//数据格式化
-              },
-          visualMap: {
-              min: 0,
-              max: findmax(data),
-              left: 'left',
-              top: 'bottom',
-              text: ['高','低'],//取值范围的文字
-              itemWidth:20,
-              itemHeight:100,
-              textStyle:{
+        timeline:{
+            axisType: 'category',
+            autoPlay: true,
+            playInterval: 1000,
+            data:times,
+            symbol: 'none',
+            itemStyle:{
                 color:'#fff',
-              },
-              inRange: {
-                  color: ['#e0ffff', '#006edd']//取值范围的颜色
-              },
-              show:true//图注
-          },
-          geo: {
-              map: 'china',
-              roam: false,//不开启缩放和平移
-              zoom:1.23,//视角缩放比例
-              label: {
-                  normal: {
-                      show: true,
-                      fontSize:'10',
-                      color: 'rgba(0,0,0,0.7)'
-                  }
-              },
-              itemStyle: {
-                  normal:{
-                      borderColor: 'rgba(0, 0, 0, 0.2)'
-                  },
-                  emphasis:{
-                      areaColor: '#F3B329',//鼠标选择区域颜色
-                      shadowOffsetX: 0,
-                      shadowOffsetY: 0,
-                      shadowBlur: 20,
-                      borderWidth: 0,
-                      shadowColor: 'rgba(0, 0, 0, 0.5)'
-                  }
-              }
-          },
-          series : [
-              {
-                  name:tag,
-                  type: 'map',
-                  geoIndex: 0,
-                  data:dataList
-              }
-          ]
+            },
+        },
+        options:[{          
+            tooltip: {
+                formatter:function(params,ticket, callback){
+                    return params.seriesName+'<br />'+params.name+'：'+params.value
+                }//数据格式化
+            },
+            visualMap: {
+                min: 0,
+                max: findmax(data),
+                left: 'left',
+                top: 'bottom',
+                text: ['高','低'],//取值范围的文字
+                itemWidth:20,
+                itemHeight:100,
+                left:40,
+                textStyle:{
+                    color:'#fff',
+                },
+                inRange: {
+                    color: ['#e0ffff', '#006edd']//取值范围的颜色
+                },
+                show:true//图注
+            },
+            geo: {
+                map: 'china',
+                roam: false,//不开启缩放和平移
+                zoom:1.05,//视角缩放比例
+                label: {
+                    normal: {
+                        show: true,
+                        fontSize:'10',
+                        color: 'rgba(0,0,0,0.7)'
+                    }
+                },
+                itemStyle: {
+                    normal:{
+                        borderColor: 'rgba(0, 0, 0, 0.2)'
+                    },
+                    emphasis:{
+                        areaColor: '#F3B329',//鼠标选择区域颜色
+                        shadowOffsetX: 0,
+                        shadowOffsetY: 0,
+                        shadowBlur: 20,
+                        borderWidth: 0,
+                        shadowColor: 'rgba(0, 0, 0, 0.5)'
+                    }
+                },
+            },
+            series : [
+                {
+                    name:tag,
+                    type: 'map',
+                    geoIndex: 0,
+                    data:dataList
+                }
+            ]
+          }]
+          
       };
       myChinaMap.setOption(mapOption,true);
       myChinaMap.on('click', function (param) {
@@ -233,7 +280,6 @@ function drawIncrease(data1,data2,data3){
         var tag='May.'+i;
         tags.push(tag);
     }
-    console.log(tags)
     option = {
         tooltip: {
             trigger: 'axis'
