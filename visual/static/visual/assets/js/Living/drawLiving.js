@@ -103,7 +103,7 @@ function drawChangeLine(dom, data1, data2, data3, data4) {
     option = null;
     option = {
         title: { // 图表标题
-            text: '累计增长与累计值', // 标题文本内容
+            text: '累计增长与当期值', // 标题文本内容
             left: '5%', // 标题距容器左侧5%
             top: '5%', // 标题距容器顶部5%
             textStyle: { // 标题文本样式
@@ -119,9 +119,9 @@ function drawChangeLine(dom, data1, data2, data3, data4) {
         },
         tooltip: {
             trigger: 'axis',
-            position: function(pt) {
-                return [pt[0], '10%'];
-            }
+            // position: function(pt) {
+            //     return [pt[0], '10%'];
+            // }
         },
         xAxis: {
             type: 'category',
@@ -129,7 +129,7 @@ function drawChangeLine(dom, data1, data2, data3, data4) {
             axisLabel: {
                 textStyle: {  color: '#acacac' }
             },
-            data: ['2020A', '2019D', '2019C', '2019B', '2019A', '2018D', '2018C', '2018B', '2018A', '2017D', '2017C', '2017B'].reverse()
+            data: ['2020A', '2019D', '2019C', '2019B', '2019A', '2018D', '2018C', '2018B', '2018A', '2017D', '2017C'].reverse()
         },
         yAxis: [{
             type: 'value',
@@ -155,7 +155,7 @@ function drawChangeLine(dom, data1, data2, data3, data4) {
             color: linecolor[1],
             yAxisIndex: 0,
         }, {
-            name: "人均可支配收入_累计值",
+            name: "人均可支配收入_当期值",
             data: data3,
             itemStyle: {
                 //通常情况下：
@@ -163,7 +163,7 @@ function drawChangeLine(dom, data1, data2, data3, data4) {
                     barBorderRadius: 3,
                     //每个柱子的颜色即为colorList数组里的每一项，如果柱子数目多于colorList的长度，则柱子颜色循环使用该数组
                     color: function(params) {
-                        if (params.dataIndex != 11)
+                        if (params.dataIndex != 10)
                             return barcolor1;
                         else return highlight1;
                     }
@@ -174,7 +174,7 @@ function drawChangeLine(dom, data1, data2, data3, data4) {
             yAxisIndex: 1,
             areaStyle: {}
         }, {
-            name: "人均消费支出_累计值",
+            name: "人均消费支出_当期值",
             data: data4,
 
             itemStyle: {
@@ -183,7 +183,7 @@ function drawChangeLine(dom, data1, data2, data3, data4) {
                     barBorderRadius: 3,
                     //每个柱子的颜色即为colorList数组里的每一项，如果柱子数目多于colorList的长度，则柱子颜色循环使用该数组
                     color: function(params) {
-                        if (params.dataIndex != 11)
+                        if (params.dataIndex != 10)
                             return barcolor2;
                         else return highlight2;
                     }
@@ -240,7 +240,7 @@ function drawProvinceLiving(dom, dataset) {
             axisLabel: {
                 textStyle: {  color: '#acacac' }
             },
-            data: ['2020A', '2019D', '2019C', '2019B', '2019A', '2018D', '2018C', '2018B', '2018A', '2017D', '2017C', '2017B']
+            data: ['2020A', '2019D', '2019C', '2019B', '2019A', '2018D', '2018C', '2018B', '2018A', '2017D', '2017C']
         }],
         series: [{
                 name: '居民人均可支配收入',
@@ -331,7 +331,7 @@ function drawProvinceStack(dom, income, disburse) {
                     color: '#ccc'
                 }
             },
-            data: ['2017B', '2017C', '2017D', '2018A', '2018B', '2018C', '2018D', '2019A', '2019B', '2019C', '2019D', '2020A']
+            data: ['2017C', '2017D', '2018A', '2018B', '2018C', '2018D', '2019A', '2019B', '2019C', '2019D', '2020A']
         },
         yAxis: {
             splitLine: { show: true },
@@ -362,7 +362,7 @@ function drawProvinceStack(dom, income, disburse) {
                 symbol: 'emptyCircle',
                 symbolSize: 10,
                 data: income,
-                color: "#90e0ef"
+                color: "#40ffef"
             }, {
                 name: '人均消费支出',
                 type: 'bar',
@@ -371,7 +371,7 @@ function drawProvinceStack(dom, income, disburse) {
                     normal: {
                         barBorderRadius: 5,
                         color: function(params) {
-                            if (params.dataIndex != 11)
+                            if (params.dataIndex != 10)
                                 return new echarts.graphic.LinearGradient(
                                     0, 0, 0, 1, [
                                         { offset: 0, color: '#ade8f4' },

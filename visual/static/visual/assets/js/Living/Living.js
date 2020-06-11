@@ -16,8 +16,8 @@ function playStart() {
     if (timer.length)
         pause();
     var i = $("#time").data("ionRangeSlider").options.from;
-    if (i == 11) i = 0;
-    for (var t = i; t < 12; t++) {
+    if (i == 10) i = 0;
+    for (var t = i; t < 11; t++) {
         play(t, t - i);
     }
 }
@@ -45,8 +45,8 @@ function updateProvince(province) {
             bigGraph(pData)
             updateLeftDown("居民", province)
             townVillage = "居民";
-            curtime = "2017B";
-            updateRightUp(townVillage, curtime);
+            curtime = "2017C";
+            updateRightUp(townVillage);
             updateRightDown(townVillage);
         }
     })
@@ -55,23 +55,23 @@ function updateProvince(province) {
 
 function updateLeftDown(name) {
     townVillage = name;
-    document.querySelector("#Fig2Title").innerHTML = curProvince + name + "收支累计值"
+    document.querySelector("#Fig2Title").innerHTML = curProvince + name + "收支当期值"
     if ($("#ProvinceStack").length) {
         if (name == "居民") {
-            drawProvinceStack(document.querySelector("#ProvinceStack"), pData[0].reverse(), pData[1].reverse());
+            drawProvinceStack(document.querySelector("#ProvinceStack"), pData[0], pData[1]);
         } else if (name == "城镇") {
-            drawProvinceStack(document.querySelector("#ProvinceStack"), pData[2].reverse(), pData[3].reverse());
+            drawProvinceStack(document.querySelector("#ProvinceStack"), pData[2], pData[3]);
         } else if (name == "农村") {
-            drawProvinceStack(document.querySelector("#ProvinceStack"), pData[4].reverse(), pData[5].reverse());
+            drawProvinceStack(document.querySelector("#ProvinceStack"), pData[4], pData[5]);
         }
     }
 
 }
 
-function updateRightUp(name, time) {
+function updateRightUp(name) {
     document.querySelector("#Fig3Title").innerHTML = "全国" + name + "收支情况"
     if ($("#funnel").length) {
-        drawFunnel(document.querySelector("#funnel"), cData[name][time])
+        drawFunnel(document.querySelector("#funnel"), cData[name][curtime])
     }
 }
 
@@ -80,7 +80,7 @@ function updateRightDown(name) {
     if (name != "居民")
         name = name + "居民"
     if ($("#LivingChange").length) {
-        drawChangeLine(document.querySelector("#LivingChange"), cData[title][name + "人均可支配收入_累计增长"].reverse(), cData[title][name + "人均消费支出_累计增长"].reverse(), cData[title][name + "人均可支配收入_累计值"].reverse(), cData[title][name + "人均消费支出_累计值"].reverse())
+        drawChangeLine(document.querySelector("#LivingChange"), cData[title][name + "人均可支配收入_累计增长"], cData[title][name + "人均消费支出_累计增长"], cData[title][name + "人均可支配收入_当期值"], cData[title][name + "人均消费支出_当期值"])
     }
 }
 

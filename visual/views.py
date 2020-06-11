@@ -376,7 +376,7 @@ def living(request):
             data_list = [i for i in csv.reader(fp)]
             head = data_list[0][1:]
             for ele in data_list[1:]:
-                if "增长" in ele[0] or '居民人均可支配收入_累计值' in ele[0] or '居民人均消费支出_累计值' in ele[0]:
+                if "增长" in ele[0] or '居民人均可支配收入_当期值' in ele[0] or '居民人均消费支出_当期值' in ele[0]:
                     if '城镇' in ele[0]:
                         json["城镇"][ele[0]] = list(map(float, ele[1:]))
                     elif '农村' in ele[0]:
