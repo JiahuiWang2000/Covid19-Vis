@@ -73,7 +73,19 @@ function updateLineBar(name) {
     document.querySelector("#Fig2Title").innerHTML = titlename + "同比增长"
     document.querySelector("#Fig3Title").innerHTML = titlename + "累计值"
     document.querySelector("#Fig4Title").innerHTML = titlename + "累计增长"
-        //需要加参数表示画哪一个
+    if (titlename.length > 12) {
+        document.querySelector("#Fig1Title").style.fontSize = 12;
+        document.querySelector("#Fig2Title").style.fontSize = 12;
+        document.querySelector("#Fig3Title").style.fontSize = 12;
+        document.querySelector("#Fig4Title").style.fontSize = 12;
+
+    } else {
+        document.querySelector("#Fig1Title").style.fontSize = 16;
+        document.querySelector("#Fig2Title").style.fontSize = 16;
+        document.querySelector("#Fig3Title").style.fontSize = 16;
+        document.querySelector("#Fig4Title").style.fontSize = 16;
+    }
+    //需要加参数表示画哪一个
 }
 
 function bigGraph(month) { //画饼图和漏斗图，要有参数表示是哪一个月
