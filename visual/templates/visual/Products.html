@@ -160,22 +160,22 @@
 									<text x="50%" y="24" dx="90" style="stroke: white;fill: white;font-size: 15px;text-anchor: middle">产品产量</text>
 								</svg>
 							</div>
-							<div style="position:absolute; z-index: 99999;">
-								<div style="position:absolute;top:28px;left:20px;width:640px;z-index: 99999;">
-									<div id="drawTreemap" width="640" height="480"></div>
-								<div id="timeBox" style="position:absolute;top:440px;left:165px;width:280px">
-                                <div style="width:30px;height:30px">
-                                    <a href="javascript:void(0);" onclick="playStart()">
-                                        <img style="width:100%;height:100%" src="../../static/visual/assets/img/播放.png" />
-                                    </a>
-                                </div>
-                                <div style="position:absolute;left:50px;top:0px;width:30px;height:30px">
-                                    <a href="javascript:void(0);" onclick="pause()">
-                                        <img style="width:100%;height:100%" src="../../static/visual/assets/img/暂停.png" />
-                                    </a>
-                                </div>
-                                <input type="text" id="time">
-                            </div>
+							<div style="position:absolute;top:23px;left:20px;width:640px;z-index: 99999;">
+								<div id="drawTreemap" width="640" height="480"></div>
+								<div style="z-index:99999;position:absolute;top:500px;left:30px;width:100px;">
+									<div style="width:30px;height:30px">
+										<a href="javascript:void(0);" onclick="playStart()">
+											<img style="width:100%;height:100%" src="../../static/visual/assets/img/播放.png" />
+										</a>
+									</div>
+									<div style="position:absolute;left:50px;top:0px;width:30px;height:30px">
+										<a href="javascript:void(0);" onclick="pause()">
+											<img style="width:100%;height:100%" src="../../static/visual/assets/img/暂停.png" />
+										</a>
+									</div>
+								</div>
+								<div style="z-index:99999;position:absolute;top:475px;left:130px;width:450px;">
+									<input type="text" id="time" style="display:inline;">
 								</div>
 							</div>
 
