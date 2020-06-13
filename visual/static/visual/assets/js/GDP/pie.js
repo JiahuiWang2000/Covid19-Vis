@@ -236,8 +236,13 @@ function drawGDPpie() {
 		myChart2.setOption(option2, true);
 	});
 	myChart2.on('click', function(params){
-		data5 = [];
 		var num = params.dataIndex;
+		if(num == 0)idx="一";
+		else if(num == 1)idx="二";
+		else if(num == 2)idx="三";
+		t="第"+idx+"产业情况";
+		document.getElementById("titletitle").innerHTML=t;
+		data5 = [];
 		for(var i = 0; i < 12; ++i)
 			data5.push(data2[i * 3 + num]);
 		option4.series[0].data = data5;
