@@ -139,7 +139,12 @@ def getproducttreemap(request):
         data=[]
         for i in range(0, len(data_list), 2):
             if data_list[i][0]==province:
-                data.append({"name":data_list[i][1], "value":data_list[i][26-time]})
+                if data_list[i][1] == "布":
+                    data.append({"name":data_list[i][1], "value": float(data_list[i][26-time]) * 10000.0})
+                elif data_list[i][1] == "工业锅炉" or data_list[i][1] == "金属冶炼设备" or data_list[i][1] == "水泥专用设备" or data_list[i][1] == "包装专用设备" or data_list[i][1] == "大型拖拉机" or data_list[i][1] == "中型拖拉机" or data_list[i][1] == "大气污染防治设备" or data_list[i][1] == "铁路机车":
+                    data.append({"name":data_list[i][1], "value": float(data_list[i][26-time]) / 10000.0})
+                else:
+                    data.append({"name":data_list[i][1], "value": float(data_list[i][26-time])})
         return JsonResponse({"data":data})
 
 def getproductrank1(request):
@@ -152,7 +157,12 @@ def getproductrank1(request):
         data=[]
         for i in range(0, len(data_list), 2):
             if data_list[i][1]==product:
-                data.append({"key":data_list[i][0], "value":float(data_list[i][26-time])})
+                if product == "布":
+                    data.append({"key":data_list[i][0], "value":float(data_list[i][26-time]) * 10000.0})
+                elif product == "工业锅炉" or product == "金属冶炼设备" or product == "水泥专用设备" or product == "包装专用设备" or product == "大型拖拉机" or product == "中型拖拉机" or product == "大气污染防治设备" or product == "铁路机车":
+                    data.append({"key": data_list[i][0], "value": float(data_list[i][26 - time]) / 10000.0})
+                else:
+                    data.append({"key":data_list[i][0], "value":float(data_list[i][26-time])})
         data = sorted(data, key=lambda i: i['value'])
         return JsonResponse({"data":data})
 
@@ -166,7 +176,12 @@ def getproductrank2(request):
         data=[]
         for i in range(1, len(data_list), 2):
             if data_list[i][1]==product:
-                data.append({"key":data_list[i][0], "value":float(data_list[i][26-time])})
+                if product == "布":
+                    data.append({"key":data_list[i][0], "value":float(data_list[i][26-time]) * 10000.0})
+                elif product == "工业锅炉" or product == "金属冶炼设备" or product == "水泥专用设备" or product == "包装专用设备" or product == "大型拖拉机" or product == "中型拖拉机" or product == "大气污染防治设备" or product == "铁路机车":
+                    data.append({"key": data_list[i][0], "value": float(data_list[i][26 - time]) / 10000.0})
+                else:
+                    data.append({"key":data_list[i][0], "value":float(data_list[i][26-time])})
         data = sorted(data, key=lambda i: i['value'])
         return JsonResponse({"data":data})
 
@@ -180,8 +195,15 @@ def getproductbar(request):
         data=[]
         for i in range(0, len(data_list), 2):
             if data_list[i][0]==province and data_list[i][1]==product:
-                for j in range(1, 25):
-                    data.append(float(data_list[i][26-j]))
+                if product == "布":
+                    for j in range(1, 25):
+                        data.append(float(data_list[i][26-j])*10000.0)
+                elif product == "工业锅炉" or product == "金属冶炼设备" or product == "水泥专用设备" or product == "包装专用设备" or product == "大型拖拉机" or product == "中型拖拉机" or product == "大气污染防治设备" or product == "铁路机车":
+                    for j in range(1, 25):
+                        data.append(float(data_list[i][26-j])/10000.0)
+                else:
+                    for j in range(1, 25):
+                        data.append(float(data_list[i][26-j]))
         return JsonResponse({"data":data})
 
 def getgdpbar(request):
