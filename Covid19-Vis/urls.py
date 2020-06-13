@@ -22,6 +22,7 @@ urlpatterns = [
     path('visual/getCovidData', views.getCovidData),
     path('visual/getPatientData', views.getPatientData),
     path('visual/getIncreaseData', views.getIncreaseData),
+    path('visual/getAddData', views.getAddData),
     path('visual/Leaderboard.html', views.Leaderboard),
     path('visual/getPriceData', views.getPriceData),
     path('visual/getRankData', views.getRankData),
