@@ -66,7 +66,8 @@ function BarLabelRotation(id,datasets){
                         color: '#89A7AF'
                     }
                 },
-                data: label
+                data: label,
+                inverse: true,
             }
         ],
         yAxis: [
