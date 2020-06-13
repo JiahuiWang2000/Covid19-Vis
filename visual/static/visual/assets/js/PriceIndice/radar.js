@@ -7,6 +7,8 @@ function initRadar(){
 }
 
 function drawRadar(data1,data2){
+    document.querySelector("#radarTitle1").innerHTML = province+"-商品销售分类指数";
+    document.querySelector("#radarTitle2").innerHTML = province+"-居民消费分类指数";
     var max1=getmax(data1);
     var min1=getmin(data1);
     var max2=getmax(data2);

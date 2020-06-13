@@ -6,15 +6,9 @@ function initLines(){
 }
 
 function drawLines(data1,data2){
+    document.querySelector("#linesTitle1").innerHTML = province+"-商品销售增长情况";
+    document.querySelector("#linesTitle2").innerHTML = province+"-居民消费增长情况";
     option1 = {
-        // visualMap:{
-        //     show: false,
-        //     type: 'continuous',
-        //     seriesIndex: 0,
-        //     dimension: 0,
-        //     min: 0,
-        //     max: data1.length - 1
-        // },
         tooltip: {
             trigger: 'axis'
         },
