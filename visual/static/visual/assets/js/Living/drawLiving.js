@@ -331,7 +331,7 @@ function drawProvinceStack(dom, income, disburse) {
                     color: '#ccc'
                 }
             },
-            data: ['2017C', '2017D', '2018A', '2018B', '2018C', '2018D', '2019A', '2019B', '2019C', '2019D', '2020A']
+            data: ['2018C', '2018D', '2019A', '2019B', '2019C', '2019D', '2020A']
         },
         yAxis: {
             splitLine: { show: true },
@@ -355,7 +355,7 @@ function drawProvinceStack(dom, income, disburse) {
             }
         ],
         series: [{
-                name: '人均可支配收入',
+                name: '人均可支配收入同比增长',
                 type: 'line',
                 smooth: true,
                 showAllSymbol: true,
@@ -364,36 +364,40 @@ function drawProvinceStack(dom, income, disburse) {
                 data: income,
                 color: "#40ffef"
             }, {
-                name: '人均消费支出',
-                type: 'bar',
-                barWidth: 10,
-                itemStyle: {
-                    normal: {
-                        barBorderRadius: 5,
-                        color: function(params) {
-                            if (params.dataIndex != 10)
-                                return new echarts.graphic.LinearGradient(
-                                    0, 0, 0, 1, [
-                                        { offset: 0, color: '#ade8f4' },
-                                        { offset: 1, color: '#00b4d8' }
-                                    ]
-                                );
-                            else return new echarts.graphic.LinearGradient(
-                                0, 0, 0, 1, [{
-                                        offset: 0,
-                                        color: '#ffb600'
-                                    },
-                                    {
-                                        offset: 1,
-                                        color: '#ff4800'
-                                    }
-                                ]
-                            );
-                        },
+                name: '人均消费支出同比增长',
+                type: 'line',
+                smooth: true,
+                showAllSymbol: true,
+                symbol: 'emptyCircle',
+                symbolSize: 10,
+                color: "#00b4d8",
+                //    itemStyle: {
+                //         normal: {
+                //             barBorderRadius: 5,
+                //             color: function(params) {
+                //                 if (params.dataIndex != 10)
+                //                     return new echarts.graphic.LinearGradient(
+                //                         0, 0, 0, 1, [
+                //                             { offset: 0, color: '#ade8f4' },
+                //                             { offset: 1, color: '#00b4d8' }
+                //                         ]
+                //                     );
+                //                 else return new echarts.graphic.LinearGradient(
+                //                     0, 0, 0, 1, [{
+                //                             offset: 0,
+                //                             color: '#ffb600'
+                //                         },
+                //                         {
+                //                             offset: 1,
+                //                             color: '#ff4800'
+                //                         }
+                //                     ]
+                //                 );
+                //             },
 
 
-                    }
-                },
+                //         }
+                //     },
                 data: disburse
             },
 

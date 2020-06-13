@@ -368,6 +368,22 @@ def living(request):
                     province.append(tlist)
                 json[data_list[index][0]] = province
             live["Province"] = json
+        with open('data\Living\居民收支基本情况（分省12个季度）（增长）.csv','r',encoding='gbk')as fp:
+            json = {}
+            data_list = [i for i in csv.reader(fp)]
+            for index in range(1,len(data_list),6):
+                province = []
+                for i in range(index,index+6):
+                    ele = data_list[i]
+                    tlist = []
+                    for val in ele[2:]:
+                        if val!='0':
+                            tlist.append(float(val))
+                        else:
+                            tlist.append("NaN")
+                    province.append(tlist)
+                json[data_list[index][0]] = province
+            live["Increase"] = json
         with open('data\Living\居民收支基本情况（全国12个季度）.csv','r',encoding='gbk')as fp:
             json = {}
             json["城镇"] = {}
@@ -403,7 +419,7 @@ def getLivingData(request):
             name = request.GET.get("name")
             for key,value in live["Province"].items():
                 if name in key:
-                    return JsonResponse({"data":value,"country":live["Country"]})
+                    return JsonResponse({"data":value,"country":live["Country"],"increase":live["Increase"][key]})
        
 def Covid(request):
     csv_path='data/covid_data/02-01-2020.csv'

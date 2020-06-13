@@ -1,6 +1,7 @@
 var curProvince;
 var pData;
 var cData;
+var iData;
 var townVillage, curtime; //0:all,1:town,2:village
 var timer = []
 
@@ -42,6 +43,8 @@ function updateProvince(province) {
         success: function(msg) {
             pData = msg.data;
             cData = msg.country;
+            iData = msg.increase;
+            console.log(iData);
             bigGraph(pData)
             updateLeftDown("居民", province)
             townVillage = "居民";
@@ -55,14 +58,14 @@ function updateProvince(province) {
 
 function updateLeftDown(name) {
     townVillage = name;
-    document.querySelector("#Fig2Title").innerHTML = curProvince + name + "收支当期值"
+    document.querySelector("#Fig2Title").innerHTML = curProvince + name + "收支同比增长"
     if ($("#ProvinceStack").length) {
         if (name == "居民") {
-            drawProvinceStack(document.querySelector("#ProvinceStack"), pData[0], pData[1]);
+            drawProvinceStack(document.querySelector("#ProvinceStack"), iData[0], iData[1]);
         } else if (name == "城镇") {
-            drawProvinceStack(document.querySelector("#ProvinceStack"), pData[2], pData[3]);
+            drawProvinceStack(document.querySelector("#ProvinceStack"), iData[2], iData[3]);
         } else if (name == "农村") {
-            drawProvinceStack(document.querySelector("#ProvinceStack"), pData[4], pData[5]);
+            drawProvinceStack(document.querySelector("#ProvinceStack"), iData[4], iData[5]);
         }
     }
 
