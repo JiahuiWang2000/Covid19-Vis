@@ -78,7 +78,7 @@ function drawGDPmap(){
 		},
 		series : [
 			{
-				name:"2020A地区生产总值指数_累计值(上年同期=100)",
+				name:"2020A地区经济核算指数_累计值(上年同期=100)",
 				type: 'map',
 				geoIndex: 0,
 				data:data7
@@ -144,7 +144,7 @@ function drawBar(data8, data9, province){
 		yAxis: [
 			{
 				type: 'value',
-				name: '生产总值',
+				name: '经济核算',
 				min: 0,
 				max: d3.max(data8),
 				axisLabel: null,
@@ -156,7 +156,7 @@ function drawBar(data8, data9, province){
 			},
 			{
 				type: 'value',
-				name: '生产总值指数',
+				name: '经济核算指数',
 				min: 0,
 				max: d3.max(data9),
             	position: 'right',
@@ -170,7 +170,7 @@ function drawBar(data8, data9, province){
 		],
 		series: [
 			{
-				name: '地区生产总值_累计值',
+				name: '地区经济核算_累计值',
 				type: 'bar',
 				data: data8,
 				itemStyle: {
@@ -185,7 +185,7 @@ function drawBar(data8, data9, province){
 					},
 			},
 			{
-				name: '地区生产总值指数(上年同期=100)_累计值',
+				name: '地区经济核算指数(上年同期=100)_累计值',
 				type: 'line',
 				yAxisIndex: 1,
 				data: data9,
