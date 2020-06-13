@@ -14,7 +14,6 @@ function drawNestPie(dom, data, month) {
         //     '#3a7ba5', '#2f6690',
         //     '#ade8f4', '#48cae4'
         // ]
-    console.log(color)
     option = {
         tooltip: {
             trigger: 'item',

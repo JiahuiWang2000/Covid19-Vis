@@ -212,7 +212,7 @@
                                     </a>
                                 </div>
                                 <div style="position:absolute;left:60px;top:25px;width:300px;height:30px">
-                                    <input type="text" id="time" onchange="timeChange()">
+                                    <input type="text" id="time">
                                 </div>
 
                             </div>
@@ -453,7 +453,13 @@
     skin: "big",
     min: 0,
     max: 35,
-    from:0
+    from:0,
+    values: [202004, 202003, 202002, 202001, 201912, 201911, 201910, 201909, 201908, 201907, 201906, 201905, 201904, 201903, 201902, 201901, 201812, 201811, 201810, 201809, 201808, 201807, 201806, 201805, 201804, 201803, 201802, 201801, 201712, 201711, 201710, 201709, 201708, 201707, 201706, 201705].reverse(),
+    onChange:function(data){
+      console.log(data);
+    timeChange(data.from);
+    }
+            
   });
 </script>
 </html>

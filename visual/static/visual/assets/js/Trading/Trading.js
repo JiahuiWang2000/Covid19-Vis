@@ -2,11 +2,10 @@
 var timer = []
 
 function play(i, t) {
-    console.log(t)
     timer.push(setTimeout(function() {
         //document.getElementById("time").value = i.toString();
         $("#time").data("ionRangeSlider").update({ from: i });
-        timeChange();
+        timeChange(i);
     }, 500 * t));
 }
 
@@ -30,9 +29,9 @@ function pause() {
     timer.splice(0, timer.length);
 }
 
-function timeChange() {
-    const time = document.getElementById('time');
-    let timeVal = parseFloat(time.value);
+function timeChange(value) {
+    //const time = document.getElementById('time');
+    let timeVal = parseFloat(value);
     var str = "20";
     if (timeVal < 8) {
         str += "17年";
@@ -53,10 +52,6 @@ function timeChange() {
     }
     document.querySelector("#FigTitle").innerHTML = str + "国内贸易整体情况"
     bigGraph(timeVal);
-
-    const timePercent = parseFloat((timeVal / 36), 2) * 100
-
-    time.style.background = `linear-gradient(to right, #ffa200, white ${timePercent}%, white`
 }
 
 function updateLineBar(name) {
