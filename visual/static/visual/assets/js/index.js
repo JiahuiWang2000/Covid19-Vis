@@ -683,7 +683,7 @@ function drawRank(data){
 			}
 		},
 		grid:{
-			x: 120
+			x: 90
 		},
 		xAxis: {
 			type: 'value',
