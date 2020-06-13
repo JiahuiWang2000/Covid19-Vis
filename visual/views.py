@@ -472,6 +472,30 @@ def getPatientData(request):
             patientData.append(int(data_list[int(province)-1][i+1]))
         return JsonResponse({'patient':patientData})
 
+def getAddData(request):
+    if request.method=='GET':
+        month=request.GET.get("month")
+        day=request.GET.get("day")
+        csv_path='data/covid_data/'
+        if len(month)==1:
+            csv_path=csv_path+'0'+month+'-'
+        else:
+            csv_path=csv_path+month+'-'
+        
+        if len(day)==1:
+            csv_path=csv_path+'0'+day+'-'
+        else:
+            csv_path=csv_path+day+'-'
+
+        csv_path=csv_path+'2020.csv'
+        with open(csv_path,'r',encoding='gbk')as fp:
+            data_list = [i for i in csv.reader(fp)]
+        addPatient=[]
+        for i in range(len(data_list)):
+            addPatient.append({"key":i, "value":int(data_list[i][4])})
+        addPatient=sorted(addPatient, key=lambda i: i['value'])
+        return JsonResponse({'add':addPatient})
+
 
 def getIncreaseData(request):
     if request.method=='GET':

@@ -4,6 +4,7 @@ var myChinaMap,CovidPie,CovidIncrease,addPatient;
 var month=2;
 var day=1;
 var province='北京';
+var prov_index=1;
 var confirm,death,recover;
 var names=[ '北京', '天津', '上海','重庆','河北','河南','云南','辽宁','黑龙江','湖南','安徽','山东','新疆','江苏','浙江','江西','湖北', '广西','甘肃','山西', '内蒙古','陕西','吉林','福建','贵州','广东','青海','西藏', '四川','宁夏','海南','台湾', '香港', '澳门']
 var times=[];
@@ -92,7 +93,24 @@ function animateMap(index) {
             chinaMap(covid_data,modeflag);
         }
     });
-    
+    $.ajax({
+        url:"getAddData",
+        type:'GET',
+        data:{"month":month,"day":day},
+        success:function(msg){
+            add_data=msg.add;
+            drawAdd(add_data);
+        }
+    });
+    $.ajax({
+        url:"getPatientData",
+        type:'GET',
+        data:{"month":month,"day":day,"province":prov_index},
+        success:function(msg){
+            patient_data=msg.patient;
+            drawPie(patient_data);
+        }
+    });
 }
 
 
@@ -205,6 +223,7 @@ function chinaMap(data,flag){
       myChinaMap.setOption(mapOption,true);
       myChinaMap.on('click', function (param) {
         province=param.name;
+        prov_index=param.dataIndex;
         if(param.dataIndex!=0){
             $.ajax({
                 url:"getPatientData",
@@ -226,6 +245,15 @@ function chinaMap(data,flag){
                     drawIncrease(confirm,death,recover);
                 }
             });
+            $.ajax({
+                url:"getAddData",
+                type:'GET',
+                data:{"month":month,"day":day},
+                success:function(msg){
+                    add_data=msg.add;
+                    drawAdd(add_data);
+                }
+            });
         }        
       });
 }
@@ -244,20 +272,13 @@ function findmax(array){
 }
 
 function drawPie(data){
+    document.querySelector("#PieTitle").innerHTML = province + "-" + month+"."+day+"-确诊人数分布";
     var dataList=[
         {name:"现存感染人数",value:data[0]-data[1]-data[2]},
         {name:"死亡人数",value:data[1]},
         {name:"治愈人数",value:data[2]}
     ]
     option = {
-        title: {
-            text: '确诊人数分布',
-            left: 'center',
-            top:'20px',
-            textStyle:{
-                color:'#c4ccd3',
-              },
-        },
         tooltip: {
             trigger: 'item',
             formatter: '{a} <br/>{b} : {c} ({d}%)'
@@ -267,7 +288,7 @@ function drawPie(data){
                 name: province+' '+month+'.'+day,
                 type: 'pie',
                 radius: '55%',
-                center: ['50%', '60%'],
+                center: ['50%', '50%'],
                 data: dataList,
                 itemStyle: {
                     emphasis: {
@@ -291,6 +312,7 @@ function drawPie(data){
 
 
 function drawIncrease(data1,data2,data3){
+    document.querySelector("#IncreaseTitle").innerHTML = province + "-增长情况"
     option = {
         tooltip: {
             trigger: 'axis'
@@ -387,20 +409,13 @@ function drawIncrease(data1,data2,data3){
 }
 
 function drawAdd(data){
+    document.querySelector("#AddTitle").innerHTML = month+"."+day+"-新增确诊排行";
     var keys = [], values = [];
     for(var i = data.length-1; i >=0; i--){
 		keys.push(names[data[i].key]);
 		values.push(parseFloat(data[i].value));
 	}
 	option = {
-		title: {
-			text: month+'.'+day,
-            left: "center",
-            top: 25,
-			textStyle:{
-				color: '#c4ccd3'
-			}
-		},
 		tooltip: {
 			trigger: 'axis',
 			axisPointer: {
@@ -454,7 +469,7 @@ function drawAdd(data){
             }
         ]
     };
-    addPatient.setOption(option);
+    addPatient.setOption(option,true);
 }
 
 function selectmode(flag){
