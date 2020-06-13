@@ -2,11 +2,10 @@
 var timer = []
 
 function play(i, t) {
-    console.log(t)
     timer.push(setTimeout(function() {
         //document.getElementById("time").value = i.toString();
         $("#time").data("ionRangeSlider").update({ from: i });
-        timeChange();
+        timeChange(i);
     }, 500 * t));
 }
 
@@ -30,9 +29,9 @@ function pause() {
     timer.splice(0, timer.length);
 }
 
-function timeChange() {
-    const time = document.getElementById('time');
-    let timeVal = parseFloat(time.value);
+function timeChange(value) {
+    //const time = document.getElementById('time');
+    let timeVal = parseFloat(value);
     var str = "20";
     if (timeVal < 8) {
         str += "17年";
@@ -53,10 +52,6 @@ function timeChange() {
     }
     document.querySelector("#FigTitle").innerHTML = str + "国内贸易整体情况"
     bigGraph(timeVal);
-
-    const timePercent = parseFloat((timeVal / 36), 2) * 100
-
-    time.style.background = `linear-gradient(to right, #ffa200, white ${timePercent}%, white`
 }
 
 function updateLineBar(name) {
@@ -73,7 +68,19 @@ function updateLineBar(name) {
     document.querySelector("#Fig2Title").innerHTML = titlename + "同比增长"
     document.querySelector("#Fig3Title").innerHTML = titlename + "累计值"
     document.querySelector("#Fig4Title").innerHTML = titlename + "累计增长"
-        //需要加参数表示画哪一个
+    if (titlename.length > 12) {
+        document.querySelector("#Fig1Title").style.fontSize = 12;
+        document.querySelector("#Fig2Title").style.fontSize = 12;
+        document.querySelector("#Fig3Title").style.fontSize = 12;
+        document.querySelector("#Fig4Title").style.fontSize = 12;
+
+    } else {
+        document.querySelector("#Fig1Title").style.fontSize = 16;
+        document.querySelector("#Fig2Title").style.fontSize = 16;
+        document.querySelector("#Fig3Title").style.fontSize = 16;
+        document.querySelector("#Fig4Title").style.fontSize = 16;
+    }
+    //需要加参数表示画哪一个
 }
 
 function bigGraph(month) { //画饼图和漏斗图，要有参数表示是哪一个月

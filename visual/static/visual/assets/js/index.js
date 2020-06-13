@@ -753,13 +753,35 @@ function getBar(){
 function drawProvinceLiving(dataset) {
     var color0=new echarts.graphic.LinearGradient(
         0, 0, 1, 1, [
-            { offset: 0, color: '#5d93dc'  },
-            { offset: 1, color: '#A2BEE1'  }
+            { offset: 0, color: '#0CC0DE'  },
+            { offset: 1, color: '#5CE0F6'  }
         ]);
     var color1=new echarts.graphic.LinearGradient(
         1, 1, 0, 0, [
-            { offset: 0, color: '#f54545' },
-            { offset: 1, color: '#F78F8F' }
+            { offset: 0, color: '#4cd3c2' },
+            { offset: 1, color: '#A5E9E1' }
+        ]
+    );
+    var color2=new echarts.graphic.LinearGradient(
+        0, 0, 1, 1, [
+            { offset: 0, color: '#FF8B57'  },
+            { offset: 1, color: '#FFBD9F'  }
+        ]);
+    var color3=new echarts.graphic.LinearGradient(
+        1, 1, 0, 0, [
+            { offset: 0, color: '#FCDB88' },
+            { offset: 1, color: '#FDE5A9' }
+        ]
+    );
+    var color0=new echarts.graphic.LinearGradient(
+        0, 0, 1, 1, [
+            { offset: 0, color: '#0CC0DE'  },
+            { offset: 1, color: '#5CE0F6'  }
+        ]);
+    var color1=new echarts.graphic.LinearGradient(
+        1, 1, 0, 0, [
+            { offset: 0, color: '#4cd3c2' },
+            { offset: 1, color: '#A5E9E1' }
         ]
     );
     var myChart = echarts.init(document.getElementById("living"));
@@ -798,14 +820,32 @@ function drawProvinceLiving(dataset) {
                 type: 'bar',
                 stack: 'all',
                 data: dataset[0],
-            color:color0
-            },
+				itemStyle: {
+					//通常情况下：
+					normal:{
+						//每个柱子的颜色即为colorList数组里的每一项，如果柱子数目多于colorList的长度，则柱子颜色循环使用该数组
+							color: function (params){
+								if(params.dataIndex!=0)
+									return color0;
+								else return color2;},
+						}
+					},
+				},
             {
                 name: '居民人均消费支出',
                 type: 'bar',
                 stack: 'all',
                 data: dataset[1].map(d => -d),
-                color:color1
+				itemStyle: {
+					//通常情况下：
+					normal:{
+						//每个柱子的颜色即为colorList数组里的每一项，如果柱子数目多于colorList的长度，则柱子颜色循环使用该数组
+							color: function (params){console.log(params)
+								if(params.dataIndex!=0)
+									return color1;
+								else return color3;},
+						}
+					},
             }
         ]
     };

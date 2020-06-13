@@ -195,8 +195,16 @@ function drawBar(data8, data9, province){
 						//每个柱子的颜色即为colorList数组里的每一项，如果柱子数目多于colorList的长度，则柱子颜色循环使用该数组
 						color: function (params){
 							if(params.dataIndex!=11)
-								return '#61a0a8';
+								return '#097DAB';
 							else return "#e76f51";},
+					}
+				},
+				lineStyle: {
+					//通常情况下：
+					normal:{
+						//每个柱子的颜色即为colorList数组里的每一项，如果柱子数目多于colorList的长度，则柱子颜色循环使用该数组
+						color: '#097DAB',
+						width: 2,
 					}
 				},
 			}
