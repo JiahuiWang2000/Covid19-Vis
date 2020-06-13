@@ -361,7 +361,8 @@ function getMap(){
 		{name: '宁夏', value: 75},
 		{name: '海南', value: 169},
 		{name: '香港', value: 1079},
-		{name: '澳门', value: 45}
+		{name: '澳门', value: 45},
+		{name: '台湾', value: 442}
 	]
 	/*$.ajax({
 		url:"getproductrank2",
@@ -419,7 +420,7 @@ function drawMap(data4){
 		},
 		series : [
 			{
-				name:"疫情",
+				name:"5.29确诊人数",
 				type: 'map',
 				geoIndex: 0,
 				data: data4

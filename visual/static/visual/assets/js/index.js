@@ -651,12 +651,15 @@ function drawNestPie(data) {
     }
 }
 
-//消费指数
+//价格指数
 function getRank(){
+	var tmptime = time;
+	if(time == "202005")
+		tmptime = "202004";
     $.ajax({
         url:"getRankData",
         type:'GET',
-        data:{"flag":0,"time":parseInt(time)},
+        data:{"flag":0,"time":parseInt(tmptime)},
         success:function(msg){
             rankdata=msg.rank;
             drawRank(rankdata);
