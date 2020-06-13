@@ -32,7 +32,8 @@ function drawChinamap(){
 		{name: '宁夏', value: 75},
 		{name: '海南', value: 169},
 		{name: '香港', value: 1079},
-		{name: '澳门', value: 45}
+		{name: '澳门', value: 45},
+		{name:'台湾',value:442}
 	]
 	option = {
 		tooltip: {
