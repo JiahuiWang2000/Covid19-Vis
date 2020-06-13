@@ -32,7 +32,8 @@ function drawGDPmap(){
 		{name: '宁夏', value: 75},
 		{name: '海南', value: 169},
 		{name: '香港', value: 1079},
-		{name: '澳门', value: 45}
+		{name: '澳门', value: 45},
+		{name: '台湾', value: 442}
 	]
 	option6 = {
 		tooltip: {
@@ -78,7 +79,7 @@ function drawGDPmap(){
 		},
 		series : [
 			{
-				name:"2020A地区经济核算指数_累计值(上年同期=100)",
+				name:"5.29确诊人数",
 				type: 'map',
 				geoIndex: 0,
 				data:data7
