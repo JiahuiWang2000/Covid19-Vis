@@ -24,7 +24,8 @@ function selectQuote(){
 
 function selectMonth(){
     var sel=document.getElementById("monthSelecter");
-    time=sel.options[sel.selectedIndex].innerHTML;
+	time=sel.options[sel.selectedIndex].innerHTML;
+	console.log(time);
     $.ajax({
         url:"getRankData",
         type:'GET',
@@ -127,7 +128,8 @@ function drawRank(flag,data){
 				console.log(yearlygoodsdata);
 				drawLines(yearlygoodsdata,yearlycustomdata);
 				goodsdata=msg.goods;
-				drawRadar(goodsdata,goodsdata);				
+				customdata=msg.custom;
+				drawRadar(goodsdata,customdata);				
             }
         })
     });

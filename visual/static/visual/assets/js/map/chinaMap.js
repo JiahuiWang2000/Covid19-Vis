@@ -450,7 +450,7 @@ function drawAdd(data){
 					show: true,
 					position: 'insideRight'
 				},
-				data: values
+                data: values
 			}
 		],
         dataZoom: [
