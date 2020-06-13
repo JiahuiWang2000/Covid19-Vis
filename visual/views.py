@@ -592,10 +592,14 @@ def getPriceData(request):
             if(data_list[i][0]==province):
                 proindex=i
                 break
+        customdata=[]
+        for i in range(8):
+            customdata.append(float(data_list[i+proindex+1][index]))
         yearlycustomdata=[]
         for i in range(23):
             yearlycustomdata.append(float(data_list[proindex+1][25-i]))
-        return JsonResponse({'goods':goodsdata,'yearlygoods':yearlygoodsdata,'yearlycustom':yearlycustomdata})
+        print(goodsdata)
+        return JsonResponse({'goods':goodsdata,'custom':customdata,'yearlygoods':yearlygoodsdata,'yearlycustom':yearlycustomdata})
 
 def getRankData(request):
     if request.method=='GET':
