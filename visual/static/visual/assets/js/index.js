@@ -48,7 +48,7 @@ function play(i,t) {
     timer.push(setTimeout(function() {
         $("#time").data("ionRangeSlider").update({ from: i });
 		updateTime(i);
-    }, 500 * t));
+    }, 200 * t));
 }
 
 
