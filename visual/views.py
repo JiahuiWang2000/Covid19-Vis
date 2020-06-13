@@ -368,7 +368,7 @@ def living(request):
                     province.append(tlist)
                 json[data_list[index][0]] = province
             live["Province"] = json
-        with open('data\Living\居民收支基本情况（分省12个季度）（增长）.csv','r',encoding='gbk')as fp:
+        with open('data\Living\居民收支基本情况（分省12个季度增长）.csv','r',encoding='gbk')as fp:
             json = {}
             data_list = [i for i in csv.reader(fp)]
             for index in range(1,len(data_list),6):
