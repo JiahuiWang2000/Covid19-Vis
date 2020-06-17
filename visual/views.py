@@ -47,6 +47,22 @@ def index(request):
                     province.append(tlist)
                 json[data_list[index][0]] = province
             live["Province"] = json
+        with open('data\Living\居民收支基本情况（分省12个季度增长）.csv','r',encoding='gbk')as fp:
+            json = {}
+            data_list = [i for i in csv.reader(fp)]
+            for index in range(1,len(data_list),6):
+                province = []
+                for i in range(index,index+6):
+                    ele = data_list[i]
+                    tlist = []
+                    for val in ele[2:]:
+                        if val!='0':
+                            tlist.append(float(val))
+                        else:
+                            tlist.append("NaN")
+                    province.append(tlist)
+                json[data_list[index][0]] = province
+            live["Increase"] = json
         with open('data\Living\居民收支基本情况（全国12个季度）.csv','r',encoding='gbk')as fp:
             json = {}
             json["城镇"] = {}
@@ -432,6 +448,7 @@ def living(request):
                         json[category][head[i]][1].append({"value":float(ele[i + 1]),"name":ele[0]})
             #print(json["居民"]["居民人均可支配收入_累计增长"])
             live["Country"] = json
+            print(live.keys())
     return render(request,'visual/Living.html')
 
 def getLivingData(request):
