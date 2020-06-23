@@ -1,7 +1,10 @@
-# Covid19-Vis
+# 新冠疫情次生灾害可视化分析系统
 
-在运行前请确保你的python安装了Django
+本项目是一个新冠疫情次生灾害可视化分析系统，通过分析疫情期间的经济走势，利用可视化技术，关联多源数据，评估新冠疫情对中国国民经济、工业生产、国内外贸易、人民生活水平等方面产生的影响，为后续的复工复产与各地政策制定提供帮助。
 
-在manage.py所在文件夹内运行python manage.py runserver
+### 运行步骤
+- 在运行前请确保你的python安装了Django
 
-在浏览器打开localhost:8000/visual/index.html
+- 在manage.py所在文件夹内运行python manage.py runserver
+
+- 在浏览器打开localhost:8000/visual/index.html
