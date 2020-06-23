@@ -47,6 +47,22 @@ def index(request):
                     province.append(tlist)
                 json[data_list[index][0]] = province
             live["Province"] = json
+        with open('data\Living\居民收支基本情况（分省12个季度增长）.csv','r',encoding='gbk')as fp:
+            json = {}
+            data_list = [i for i in csv.reader(fp)]
+            for index in range(1,len(data_list),6):
+                province = []
+                for i in range(index,index+6):
+                    ele = data_list[i]
+                    tlist = []
+                    for val in ele[2:]:
+                        if val!='0':
+                            tlist.append(float(val))
+                        else:
+                            tlist.append("NaN")
+                    province.append(tlist)
+                json[data_list[index][0]] = province
+            live["Increase"] = json
         with open('data\Living\居民收支基本情况（全国12个季度）.csv','r',encoding='gbk')as fp:
             json = {}
             json["城镇"] = {}
@@ -73,6 +89,9 @@ def index(request):
                         json[category][head[i]][1].append({"value":float(ele[i + 1]),"name":ele[0]})
             #print(json["居民"]["居民人均可支配收入_累计增长"])
             live["Country"] = json
+    if productData=={}:
+        with open('data\Product_data\product.csv', 'r', encoding='gbk')as fp:
+            productData["f"] = [i for i in csv.reader(fp)]
 
     return render(request, 'visual/index.html', {'covid':data})
 
@@ -128,41 +147,36 @@ def getCovidData(request):
         for i in range(len(data_list)):
             data.append(int(data_list[i][int(mode)+1]))
         return JsonResponse({"covid":data})
-        
+
+productData={}
 def getproducttreemap(request):
     if request.method=='GET':
         province=request.GET.get("province")
         time=int(request.GET.get("time"))
-        csv_path='data\Product_data\product.csv'
-        with open(csv_path,'r',encoding='gbk')as fp:
-            data_list = [i for i in csv.reader(fp)]
         data=[]
-        for i in range(0, len(data_list), 2):
-            if data_list[i][0]==province:
-                if data_list[i][1] == "布":
-                    data.append({"name":data_list[i][1], "value": float(data_list[i][26-time]) * 10000.0})
-                elif data_list[i][1] == "工业锅炉" or data_list[i][1] == "金属冶炼设备" or data_list[i][1] == "水泥专用设备" or data_list[i][1] == "包装专用设备" or data_list[i][1] == "大型拖拉机" or data_list[i][1] == "中型拖拉机" or data_list[i][1] == "大气污染防治设备" or data_list[i][1] == "铁路机车":
-                    data.append({"name":data_list[i][1], "value": float(data_list[i][26-time]) / 10000.0})
+        for i in range(0, len(productData["f"]), 2):
+            if productData["f"][i][0]==province:
+                if productData["f"][i][1] == "布":
+                    data.append({"name":productData["f"][i][1], "value": float(productData["f"][i][26-time]) * 10000})
+                elif productData["f"][i][1] == "工业锅炉" or productData["f"][i][1] == "金属冶炼设备" or productData["f"][i][1] == "水泥专用设备" or productData["f"][i][1] == "包装专用设备" or productData["f"][i][1] == "大型拖拉机" or productData["f"][i][1] == "中型拖拉机" or productData["f"][i][1] == "大气污染防治设备" or productData["f"][i][1] == "铁路机车":
+                    data.append({"name":productData["f"][i][1], "value": float(productData["f"][i][26-time]) / 10000})
                 else:
-                    data.append({"name":data_list[i][1], "value": float(data_list[i][26-time])})
+                    data.append({"name":productData["f"][i][1], "value": float(productData["f"][i][26-time])})
         return JsonResponse({"data":data})
 
 def getproductrank1(request):
     if request.method=='GET':
         product=request.GET.get("product")
         time=int(request.GET.get("time"))
-        csv_path='data\Product_data\product.csv'
-        with open(csv_path,'r',encoding='gbk')as fp:
-            data_list = [i for i in csv.reader(fp)]
         data=[]
-        for i in range(0, len(data_list), 2):
-            if data_list[i][1]==product:
+        for i in range(0, len(productData["f"]), 2):
+            if productData["f"][i][1]==product:
                 if product == "布":
-                    data.append({"key":data_list[i][0], "value":float(data_list[i][26-time]) * 10000.0})
+                    data.append({"key":productData["f"][i][0], "value":float(productData["f"][i][26-time]) * 10000})
                 elif product == "工业锅炉" or product == "金属冶炼设备" or product == "水泥专用设备" or product == "包装专用设备" or product == "大型拖拉机" or product == "中型拖拉机" or product == "大气污染防治设备" or product == "铁路机车":
-                    data.append({"key": data_list[i][0], "value": float(data_list[i][26 - time]) / 10000.0})
+                    data.append({"key": productData["f"][i][0], "value": float(productData["f"][i][26 - time]) / 10000})
                 else:
-                    data.append({"key":data_list[i][0], "value":float(data_list[i][26-time])})
+                    data.append({"key":productData["f"][i][0], "value":float(productData["f"][i][26-time])})
         data = sorted(data, key=lambda i: i['value'])
         return JsonResponse({"data":data})
 
@@ -170,18 +184,15 @@ def getproductrank2(request):
     if request.method=='GET':
         product=request.GET.get("product")
         time=int(request.GET.get("time"))
-        csv_path='data\Product_data\product.csv'
-        with open(csv_path,'r',encoding='gbk')as fp:
-            data_list = [i for i in csv.reader(fp)]
         data=[]
-        for i in range(1, len(data_list), 2):
-            if data_list[i][1]==product:
+        for i in range(1, len(productData["f"]), 2):
+            if productData["f"][i][1]==product:
                 if product == "布":
-                    data.append({"key":data_list[i][0], "value":float(data_list[i][26-time]) * 10000.0})
+                    data.append({"key":productData["f"][i][0], "value":float(productData["f"][i][26-time]) * 10000})
                 elif product == "工业锅炉" or product == "金属冶炼设备" or product == "水泥专用设备" or product == "包装专用设备" or product == "大型拖拉机" or product == "中型拖拉机" or product == "大气污染防治设备" or product == "铁路机车":
-                    data.append({"key": data_list[i][0], "value": float(data_list[i][26 - time]) / 10000.0})
+                    data.append({"key": productData["f"][i][0], "value": float(productData["f"][i][26 - time]) / 10000})
                 else:
-                    data.append({"key":data_list[i][0], "value":float(data_list[i][26-time])})
+                    data.append({"key":productData["f"][i][0], "value":float(productData["f"][i][26-time])})
         data = sorted(data, key=lambda i: i['value'])
         return JsonResponse({"data":data})
 
@@ -189,21 +200,18 @@ def getproductbar(request):
     if request.method=='GET':
         province=request.GET.get("province")
         product=request.GET.get("product")
-        csv_path='data\Product_data\product.csv'
-        with open(csv_path,'r',encoding='gbk')as fp:
-            data_list = [i for i in csv.reader(fp)]
         data=[]
-        for i in range(0, len(data_list), 2):
-            if data_list[i][0]==province and data_list[i][1]==product:
+        for i in range(0, len(productData["f"]), 2):
+            if productData["f"][i][0]==province and productData["f"][i][1]==product:
                 if product == "布":
                     for j in range(1, 25):
-                        data.append(float(data_list[i][26-j])*10000.0)
+                        data.append(float(productData["f"][i][26-j])*10000)
                 elif product == "工业锅炉" or product == "金属冶炼设备" or product == "水泥专用设备" or product == "包装专用设备" or product == "大型拖拉机" or product == "中型拖拉机" or product == "大气污染防治设备" or product == "铁路机车":
                     for j in range(1, 25):
-                        data.append(float(data_list[i][26-j])/10000.0)
+                        data.append(float(productData["f"][i][26-j])/10000)
                 else:
                     for j in range(1, 25):
-                        data.append(float(data_list[i][26-j]))
+                        data.append(float(productData["f"][i][26-j]))
         return JsonResponse({"data":data})
 
 def getgdpbar(request):
@@ -432,6 +440,7 @@ def living(request):
                         json[category][head[i]][1].append({"value":float(ele[i + 1]),"name":ele[0]})
             #print(json["居民"]["居民人均可支配收入_累计增长"])
             live["Country"] = json
+            print(live.keys())
     return render(request,'visual/Living.html')
 
 def getLivingData(request):
